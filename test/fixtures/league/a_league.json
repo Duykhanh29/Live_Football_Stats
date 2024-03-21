@@ -1,0 +1,9 @@
+{
+    "id": 297,
+    "name": "La Liga",
+    "is_cup": false,
+    "country": {
+        "id": 60,
+        "name": "spain"
+    }
+}

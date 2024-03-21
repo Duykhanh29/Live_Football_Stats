@@ -1,0 +1,32 @@
+{
+    "count": 3,
+    "results": [
+        {
+            "id": 297,
+            "name": "La Liga",
+            "is_cup": false,
+            "country": {
+                "id": 60,
+                "name": "spain"
+            }
+        },
+        {
+            "id": 298,
+            "name": "Segunda Division",
+            "is_cup": false,
+            "country": {
+                "id": 60,
+                "name": "spain"
+            }
+        },
+        {
+            "id": 299,
+            "name": "Copa del Rey",
+            "is_cup": false,
+            "country": {
+                "id": 60,
+                "name": "spain"
+            }
+        }
+    ]
+}

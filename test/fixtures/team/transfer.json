@@ -1,0 +1,850 @@
+{
+    "id": 4137,
+    "name": "Manchester United",
+    "transfers": {
+        "transfers_in": [
+            {
+                "player_id": 37464,
+                "player_name": "J. Butland",
+                "from_team": {
+                    "id": 4140,
+                    "name": "Crystal Palace"
+                },
+                "transfer_date": "06-01-2023",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 43279,
+                "player_name": "W. Weghorst",
+                "from_team": {
+                    "id": 3104,
+                    "name": "Burnley"
+                },
+                "transfer_date": "13-01-2023",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 45268,
+                "player_name": "M. Sabitzer",
+                "from_team": {
+                    "id": 4270,
+                    "name": "Bayern Munich"
+                },
+                "transfer_date": "31-01-2023",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 63482,
+                "player_name": "E. Galbraith",
+                "from_team": {
+                    "id": 4195,
+                    "name": "Salford City"
+                },
+                "transfer_date": "01-06-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61850,
+                "player_name": "A. Diallo",
+                "from_team": {
+                    "id": 3073,
+                    "name": "Sunderland"
+                },
+                "transfer_date": "01-06-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61860,
+                "player_name": "J. Hugill",
+                "from_team": {
+                    "id": 6104,
+                    "name": "Altrincham"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61856,
+                "player_name": "S. Shoretire",
+                "from_team": {
+                    "id": 4156,
+                    "name": "Bolton Wanderers"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61748,
+                "player_name": "D. Henderson",
+                "from_team": {
+                    "id": 4149,
+                    "name": "Nottingham Forest"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61810,
+                "player_name": "W. Fish",
+                "from_team": {
+                    "id": 3782,
+                    "name": "Hibernian"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61737,
+                "player_name": "M. Kovář",
+                "from_team": {
+                    "id": 2962,
+                    "name": "Sparta Prague"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61840,
+                "player_name": "H. Mejbri",
+                "from_team": {
+                    "id": 3063,
+                    "name": "Birmingham City"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61804,
+                "player_name": "E. Bailly",
+                "from_team": {
+                    "id": 3769,
+                    "name": "Marseille"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61807,
+                "player_name": "Álvaro Fernández",
+                "from_team": {
+                    "id": 4154,
+                    "name": "Preston North End"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61818,
+                "player_name": "M. Mount",
+                "from_team": {
+                    "id": 2916,
+                    "name": "Chelsea"
+                },
+                "transfer_date": "05-07-2023",
+                "transfer_type": "transfer-fee",
+                "transfer_amount": 64200000,
+                "transfer_currency": "eur"
+            },
+            {
+                "player_id": 26064,
+                "player_name": "J. Evans",
+                "from_team": {
+                    "id": 3768,
+                    "name": "Leicester City"
+                },
+                "transfer_date": "18-07-2023",
+                "transfer_type": "free",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61728,
+                "player_name": "A. Onana",
+                "from_team": {
+                    "id": 3296,
+                    "name": "Inter Milan"
+                },
+                "transfer_date": "20-07-2023",
+                "transfer_type": "transfer-fee",
+                "transfer_amount": 52500000,
+                "transfer_currency": "eur"
+            },
+            {
+                "player_id": 39878,
+                "player_name": "R. Højlund",
+                "from_team": {
+                    "id": 2950,
+                    "name": "Atalanta"
+                },
+                "transfer_date": "05-08-2023",
+                "transfer_type": "transfer-fee",
+                "transfer_amount": 74000000,
+                "transfer_currency": "eur"
+            },
+            {
+                "player_id": 27065,
+                "player_name": "Reguilon",
+                "from_team": {
+                    "id": 2909,
+                    "name": "Tottenham Hotspur"
+                },
+                "transfer_date": "01-09-2023",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 31337,
+                "player_name": "S. Amrabat",
+                "from_team": {
+                    "id": 2969,
+                    "name": "Fiorentina"
+                },
+                "transfer_date": "01-09-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 26617,
+                "player_name": "A. Bayindir",
+                "from_team": {
+                    "id": 3494,
+                    "name": "Fenerbahce"
+                },
+                "transfer_date": "01-09-2023",
+                "transfer_type": "transfer-fee",
+                "transfer_amount": 5000000,
+                "transfer_currency": "eur"
+            },
+            {
+                "player_id": 27065,
+                "player_name": "Reguilon",
+                "from_team": {
+                    "id": 4148,
+                    "name": "Brentford"
+                },
+                "transfer_date": "01-06-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61807,
+                "player_name": "Álvaro Fernández",
+                "from_team": {
+                    "id": 3369,
+                    "name": "Granada"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61864,
+                "player_name": "M. Greenwood",
+                "from_team": {
+                    "id": 4891,
+                    "name": "Getafe"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61810,
+                "player_name": "W. Fish",
+                "from_team": {
+                    "id": 3782,
+                    "name": "Hibernian"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61836,
+                "player_name": "D. van de Beek",
+                "from_team": {
+                    "id": 2998,
+                    "name": "Eintracht Frankfurt"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61854,
+                "player_name": "J. Sancho",
+                "from_team": {
+                    "id": 3204,
+                    "name": "Borussia Dortmund"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61860,
+                "player_name": "J. Hugill",
+                "from_team": {
+                    "id": 3305,
+                    "name": "Burton Albion"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61840,
+                "player_name": "H. Mejbri",
+                "from_team": {
+                    "id": 3019,
+                    "name": "Sevilla"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61807,
+                "player_name": "Álvaro Fernández",
+                "from_team": {
+                    "id": 3217,
+                    "name": "Benfica"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61798,
+                "player_name": "R. Bennett",
+                "from_team": {
+                    "id": 4200,
+                    "name": "Stockport County"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61834,
+                "player_name": "F. Pellistri",
+                "from_team": {
+                    "id": 3369,
+                    "name": "Granada"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61845,
+                "player_name": "D. Gore",
+                "from_team": {
+                    "id": 4184,
+                    "name": "Port Vale"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61757,
+                "player_name": "R. Vítek",
+                "from_team": {
+                    "id": 4170,
+                    "name": "Accrington Stanley"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            }
+        ],
+        "transfers_out": [
+            {
+                "player_id": 42546,
+                "player_name": "M. Dúbravka",
+                "to_team": {
+                    "id": 3071,
+                    "name": "Newcastle United"
+                },
+                "transfer_date": "01-01-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61856,
+                "player_name": "S. Shoretire",
+                "to_team": {
+                    "id": 4156,
+                    "name": "Bolton Wanderers"
+                },
+                "transfer_date": "19-01-2023",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 100348,
+                "player_name": "A. Tuanzebe",
+                "to_team": {
+                    "id": 4143,
+                    "name": "Stoke City"
+                },
+                "transfer_date": "31-01-2023",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61860,
+                "player_name": "J. Hugill",
+                "to_team": {
+                    "id": 6104,
+                    "name": "Altrincham"
+                },
+                "transfer_date": "31-01-2023",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61866,
+                "player_name": "C. McNeill",
+                "to_team": {
+                    "id": 3065,
+                    "name": "Newport County"
+                },
+                "transfer_date": "31-01-2023",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 74702,
+                "player_name": "Zidane Iqbal",
+                "to_team": {
+                    "id": 4599,
+                    "name": "Utrecht"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "transfer-fee",
+                "transfer_amount": 1000000,
+                "transfer_currency": "eur"
+            },
+            {
+                "player_id": 42344,
+                "player_name": "E. Laird",
+                "to_team": {
+                    "id": 3063,
+                    "name": "Birmingham City"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "transfer-fee",
+                "transfer_amount": 875000,
+                "transfer_currency": "eur"
+            },
+            {
+                "player_id": 43279,
+                "player_name": "W. Weghorst",
+                "to_team": {
+                    "id": 3104,
+                    "name": "Burnley"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 63482,
+                "player_name": "E. Galbraith",
+                "to_team": {
+                    "id": 4196,
+                    "name": "Leyton Orient"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "free",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 45268,
+                "player_name": "M. Sabitzer",
+                "to_team": {
+                    "id": 4270,
+                    "name": "Bayern Munich"
+                },
+                "transfer_date": "01-07-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 99592,
+                "player_name": "C. Savage",
+                "to_team": {
+                    "id": 3430,
+                    "name": "Reading"
+                },
+                "transfer_date": "22-07-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 79611,
+                "player_name": "Alex Telles",
+                "to_team": {
+                    "id": 4788,
+                    "name": "Al Nassr"
+                },
+                "transfer_date": "23-07-2023",
+                "transfer_type": "transfer-fee",
+                "transfer_amount": 7000000,
+                "transfer_currency": "eur"
+            },
+            {
+                "player_id": 62204,
+                "player_name": "A. Elanga",
+                "to_team": {
+                    "id": 4149,
+                    "name": "Nottingham Forest"
+                },
+                "transfer_date": "25-07-2023",
+                "transfer_type": "transfer-fee",
+                "transfer_amount": 17500000,
+                "transfer_currency": "eur"
+            },
+            {
+                "player_id": 61810,
+                "player_name": "W. Fish",
+                "to_team": {
+                    "id": 3782,
+                    "name": "Hibernian"
+                },
+                "transfer_date": "27-07-2023",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61732,
+                "player_name": "N. Bishop",
+                "to_team": {
+                    "id": 3073,
+                    "name": "Sunderland"
+                },
+                "transfer_date": "02-08-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61827,
+                "player_name": "Fred",
+                "to_team": {
+                    "id": 3494,
+                    "name": "Fenerbahce"
+                },
+                "transfer_date": "12-08-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61737,
+                "player_name": "M. Kovář",
+                "to_team": {
+                    "id": 4271,
+                    "name": "Bayer Leverkusen"
+                },
+                "transfer_date": "15-08-2023",
+                "transfer_type": "transfer-fee",
+                "transfer_amount": 5000000,
+                "transfer_currency": "eur"
+            },
+            {
+                "player_id": 61789,
+                "player_name": "B. Williams",
+                "to_team": {
+                    "id": 4157,
+                    "name": "Ipswich Town"
+                },
+                "transfer_date": "24-08-2023",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61862,
+                "player_name": "N. Emeran",
+                "to_team": {
+                    "id": 4601,
+                    "name": "Groningen"
+                },
+                "transfer_date": "24-08-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61792,
+                "player_name": "T. Mengi",
+                "to_team": {
+                    "id": 4158,
+                    "name": "Luton Town"
+                },
+                "transfer_date": "31-08-2023",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61748,
+                "player_name": "D. Henderson",
+                "to_team": {
+                    "id": 4140,
+                    "name": "Crystal Palace"
+                },
+                "transfer_date": "31-08-2023",
+                "transfer_type": "transfer-fee",
+                "transfer_amount": 17500000,
+                "transfer_currency": "eur"
+            },
+            {
+                "player_id": 61807,
+                "player_name": "Álvaro Fernández",
+                "to_team": {
+                    "id": 3369,
+                    "name": "Granada"
+                },
+                "transfer_date": "01-09-2023",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61864,
+                "player_name": "M. Greenwood",
+                "to_team": {
+                    "id": 4891,
+                    "name": "Getafe"
+                },
+                "transfer_date": "01-09-2023",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61804,
+                "player_name": "E. Bailly",
+                "to_team": {
+                    "id": 3069,
+                    "name": "Besiktas"
+                },
+                "transfer_date": "04-09-2023",
+                "transfer_type": "free",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61836,
+                "player_name": "D. van de Beek",
+                "to_team": {
+                    "id": 2998,
+                    "name": "Eintracht Frankfurt"
+                },
+                "transfer_date": "01-01-2024",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 27065,
+                "player_name": "Reguilon",
+                "to_team": {
+                    "id": 2909,
+                    "name": "Tottenham Hotspur"
+                },
+                "transfer_date": "04-01-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61854,
+                "player_name": "J. Sancho",
+                "to_team": {
+                    "id": 3204,
+                    "name": "Borussia Dortmund"
+                },
+                "transfer_date": "11-01-2024",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61860,
+                "player_name": "J. Hugill",
+                "to_team": {
+                    "id": 3305,
+                    "name": "Burton Albion"
+                },
+                "transfer_date": "12-01-2024",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61840,
+                "player_name": "H. Mejbri",
+                "to_team": {
+                    "id": 3019,
+                    "name": "Sevilla"
+                },
+                "transfer_date": "15-01-2024",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61807,
+                "player_name": "Álvaro Fernández",
+                "to_team": {
+                    "id": 3217,
+                    "name": "Benfica"
+                },
+                "transfer_date": "16-01-2024",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 27065,
+                "player_name": "Reguilon",
+                "to_team": {
+                    "id": 4148,
+                    "name": "Brentford"
+                },
+                "transfer_date": "17-01-2024",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61798,
+                "player_name": "R. Bennett",
+                "to_team": {
+                    "id": 4200,
+                    "name": "Stockport County"
+                },
+                "transfer_date": "19-01-2024",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61845,
+                "player_name": "D. Gore",
+                "to_team": {
+                    "id": 4184,
+                    "name": "Port Vale"
+                },
+                "transfer_date": "23-01-2024",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61834,
+                "player_name": "F. Pellistri",
+                "to_team": {
+                    "id": 3369,
+                    "name": "Granada"
+                },
+                "transfer_date": "31-01-2024",
+                "transfer_type": "loan",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 61846,
+                "player_name": "I. Hansen-Aarøen",
+                "to_team": {
+                    "id": 4273,
+                    "name": "Werder Bremen"
+                },
+                "transfer_date": "01-02-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 31337,
+                "player_name": "S. Amrabat",
+                "to_team": {
+                    "id": 2969,
+                    "name": "Fiorentina"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            },
+            {
+                "player_id": 27065,
+                "player_name": "Reguilon",
+                "to_team": {
+                    "id": 2909,
+                    "name": "Tottenham Hotspur"
+                },
+                "transfer_date": "01-07-2024",
+                "transfer_type": "n/a",
+                "transfer_amount": 0,
+                "transfer_currency": "usd"
+            }
+        ]
+    }
+}

@@ -1,0 +1,719 @@
+{
+    "league_id": 206,
+    "league_name": "Liga Profesional",
+    "country": {
+        "id": 68,
+        "name": "argentina"
+    },
+    "is_cup": false,
+    "stage": [
+        {
+            "stage_id": 13177,
+            "stage_name": "1st Phase",
+            "matches": [
+                {
+                    "id": 914641,
+                    "date": "09/03/2024",
+                    "time": "20:00",
+                    "teams": {
+                        "home": {
+                            "id": 3843,
+                            "name": "Gimnasia La Plata"
+                        },
+                        "away": {
+                            "id": 3841,
+                            "name": "Barracas Central"
+                        }
+                    },
+                    "stadium": {
+                        "id": 1892,
+                        "name": "Estadio Juan Carmelo Zerillo",
+                        "city": "La Plata, Provincia de Buenos Aires"
+                    },
+                    "status": "pre-match",
+                    "minute": -1,
+                    "winner": "tbd",
+                    "has_extra_time": false,
+                    "has_penalties": false,
+                    "goals": {
+                        "home_ht_goals": 0,
+                        "away_ht_goals": 0,
+                        "home_ft_goals": 0,
+                        "away_ft_goals": 0,
+                        "home_et_goals": -1,
+                        "away_et_goals": -1,
+                        "home_pen_goals": -1,
+                        "away_pen_goals": -1
+                    },
+                    "events": [],
+                    "odds": {
+                        "match_winner": {
+                            "home": 2.31,
+                            "draw": 3.11,
+                            "away": 3.2
+                        },
+                        "over_under": {
+                            "total": 2.25,
+                            "over": 2.07,
+                            "under": 1.8
+                        },
+                        "handicap": {
+                            "market": -0.25,
+                            "home": 1.97,
+                            "away": 1.84
+                        },
+                        "last_modified_timestamp": 1709974920
+                    },
+                    "lineups": {
+                        "lineup_type": "projected",
+                        "lineups": {
+                            "home": [
+                                {
+                                    "player": {
+                                        "id": 53629,
+                                        "name": "N. Insfrán"
+                                    },
+                                    "position": "Goalkeeper"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53539,
+                                        "name": "Y. Cabral"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 54329,
+                                        "name": "G. Canto"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53643,
+                                        "name": "L. Morales"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53663,
+                                        "name": "F. Sánchez"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 84921,
+                                        "name": "R. Saravia"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 83031,
+                                        "name": "P. De Blasis"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 85142,
+                                        "name": "J. Pintado"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 85174,
+                                        "name": "M. Abaldo"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53698,
+                                        "name": "B. Domínguez"
+                                    },
+                                    "position": "Attacker"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53708,
+                                        "name": "I. Mammini"
+                                    },
+                                    "position": "Attacker"
+                                }
+                            ],
+                            "away": [
+                                {
+                                    "player": {
+                                        "id": 54337,
+                                        "name": "S. Moyano"
+                                    },
+                                    "position": "Goalkeeper"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53559,
+                                        "name": "N. Capraro"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53574,
+                                        "name": "R. Herrera"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 54311,
+                                        "name": "G. Goñi"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 102348,
+                                        "name": "N. Demartini"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53604,
+                                        "name": "R. Insúa"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53899,
+                                        "name": "S. Rosané"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53632,
+                                        "name": "F. Mater"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 54024,
+                                        "name": "M. Duarte"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53648,
+                                        "name": "A. Domínguez"
+                                    },
+                                    "position": "Attacker"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53606,
+                                        "name": "L. Brochero"
+                                    },
+                                    "position": "Attacker"
+                                }
+                            ]
+                        },
+                        "bench": {
+                            "home": [],
+                            "away": []
+                        },
+                        "sidelined": {
+                            "home": [],
+                            "away": []
+                        },
+                        "formation": {
+                            "home": "None",
+                            "away": "None"
+                        }
+                    },
+                    "match_preview": {
+                        "has_preview": true,
+                        "word_count": 605,
+                        "excitement_rating": 8.89
+                    }
+                },
+                {
+                    "id": 914648,
+                    "date": "09/03/2024",
+                    "time": "20:00",
+                    "teams": {
+                        "home": {
+                            "id": 3860,
+                            "name": "Sarmiento"
+                        },
+                        "away": {
+                            "id": 3852,
+                            "name": "Estudiantes"
+                        }
+                    },
+                    "stadium": {
+                        "id": 1902,
+                        "name": "Estadio Eva Peron de Junin",
+                        "city": "Junin, Provincia de Buenos Aires"
+                    },
+                    "status": "pre-match",
+                    "minute": -1,
+                    "winner": "tbd",
+                    "has_extra_time": false,
+                    "has_penalties": false,
+                    "goals": {
+                        "home_ht_goals": 0,
+                        "away_ht_goals": 0,
+                        "home_ft_goals": 0,
+                        "away_ft_goals": 0,
+                        "home_et_goals": -1,
+                        "away_et_goals": -1,
+                        "home_pen_goals": -1,
+                        "away_pen_goals": -1
+                    },
+                    "events": [],
+                    "odds": {
+                        "match_winner": {
+                            "home": 2.95,
+                            "draw": 3.05,
+                            "away": 2.51
+                        },
+                        "over_under": {
+                            "total": 2.0,
+                            "over": 2.03,
+                            "under": 1.83
+                        },
+                        "handicap": {
+                            "market": "+0.0",
+                            "home": 2.09,
+                            "away": 1.8
+                        },
+                        "last_modified_timestamp": 1709974920
+                    },
+                    "lineups": {
+                        "lineup_type": "projected",
+                        "lineups": {
+                            "home": [
+                                {
+                                    "player": {
+                                        "id": 102468,
+                                        "name": "F. Monetti"
+                                    },
+                                    "position": "Goalkeeper"
+                                },
+                                {
+                                    "player": {
+                                        "id": 54326,
+                                        "name": "J. Insaurralde"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 85311,
+                                        "name": "F. Paredes"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53933,
+                                        "name": "J. Guasone"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53884,
+                                        "name": "D. Calcaterra"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 54363,
+                                        "name": "J. Mauri"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 54391,
+                                        "name": "G. Díaz"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53718,
+                                        "name": "F. Godoy"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 54375,
+                                        "name": "J. Gho"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 54410,
+                                        "name": "S. Quiroga"
+                                    },
+                                    "position": "Attacker"
+                                },
+                                {
+                                    "player": {
+                                        "id": 107659,
+                                        "name": "I. Morales"
+                                    },
+                                    "position": "Attacker"
+                                }
+                            ],
+                            "away": [
+                                {
+                                    "player": {
+                                        "id": 54296,
+                                        "name": "M. Mansilla"
+                                    },
+                                    "position": "Goalkeeper"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53919,
+                                        "name": "Z. Romero"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 48788,
+                                        "name": "F. Fernández"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53926,
+                                        "name": "G. Benedetti"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53929,
+                                        "name": "E. Mancuso"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53976,
+                                        "name": "S. Ascacíbar"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 58113,
+                                        "name": "J. Altamirano"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53825,
+                                        "name": "E. Pérez"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53979,
+                                        "name": "J. Sosa"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 73577,
+                                        "name": "J. Correa"
+                                    },
+                                    "position": "Attacker"
+                                },
+                                {
+                                    "player": {
+                                        "id": 54043,
+                                        "name": "M. Méndez"
+                                    },
+                                    "position": "Attacker"
+                                }
+                            ]
+                        },
+                        "bench": {
+                            "home": [],
+                            "away": []
+                        },
+                        "sidelined": {
+                            "home": [],
+                            "away": []
+                        },
+                        "formation": {
+                            "home": "None",
+                            "away": "None"
+                        }
+                    },
+                    "match_preview": {
+                        "has_preview": true,
+                        "word_count": 550,
+                        "excitement_rating": 8.73
+                    }
+                },
+                {
+                    "id": 914640,
+                    "date": "09/03/2024",
+                    "time": "22:15",
+                    "teams": {
+                        "home": {
+                            "id": 3845,
+                            "name": "Independiente"
+                        },
+                        "away": {
+                            "id": 3847,
+                            "name": "River Plate"
+                        }
+                    },
+                    "stadium": {
+                        "id": 1893,
+                        "name": "Estadio Libertadores de America",
+                        "city": "Avellaneda, Provincia de Buenos Aires"
+                    },
+                    "status": "pre-match",
+                    "minute": -1,
+                    "winner": "tbd",
+                    "has_extra_time": false,
+                    "has_penalties": false,
+                    "goals": {
+                        "home_ht_goals": 0,
+                        "away_ht_goals": 0,
+                        "home_ft_goals": 0,
+                        "away_ft_goals": 0,
+                        "home_et_goals": -1,
+                        "away_et_goals": -1,
+                        "home_pen_goals": -1,
+                        "away_pen_goals": -1
+                    },
+                    "events": [],
+                    "odds": {
+                        "match_winner": {
+                            "home": 3.45,
+                            "draw": 3.2,
+                            "away": 2.15
+                        },
+                        "over_under": {
+                            "total": 2.0,
+                            "over": 1.82,
+                            "under": 2.03
+                        },
+                        "handicap": {
+                            "market": "+0.25",
+                            "home": 1.98,
+                            "away": 1.86
+                        },
+                        "last_modified_timestamp": 1709974920
+                    },
+                    "lineups": {
+                        "lineup_type": "projected",
+                        "lineups": {
+                            "home": [
+                                {
+                                    "player": {
+                                        "id": 53741,
+                                        "name": "R. Rey"
+                                    },
+                                    "position": "Goalkeeper"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53747,
+                                        "name": "J. Laso"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 105725,
+                                        "name": "M. Isla"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 36908,
+                                        "name": "F. Aguilar"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53770,
+                                        "name": "A. Costa"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53785,
+                                        "name": "I. Marcone"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 42505,
+                                        "name": "G. Neves"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 73458,
+                                        "name": "F. Mancuello"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 73557,
+                                        "name": "L. González"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53549,
+                                        "name": "G. Ávalos"
+                                    },
+                                    "position": "Attacker"
+                                },
+                                {
+                                    "player": {
+                                        "id": 73473,
+                                        "name": "A. Canelo"
+                                    },
+                                    "position": "Attacker"
+                                }
+                            ],
+                            "away": [
+                                {
+                                    "player": {
+                                        "id": 53753,
+                                        "name": "F. Armani"
+                                    },
+                                    "position": "Goalkeeper"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53774,
+                                        "name": "E. Díaz"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53777,
+                                        "name": "L. González"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53783,
+                                        "name": "P. Díaz"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53780,
+                                        "name": "M. Herrera"
+                                    },
+                                    "position": "Defender"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53821,
+                                        "name": "E. Barco"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53813,
+                                        "name": "I. Fernández"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53829,
+                                        "name": "R. Aliendro"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 85131,
+                                        "name": "N. Fonseca"
+                                    },
+                                    "position": "Midfielder"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53840,
+                                        "name": "M. Borja"
+                                    },
+                                    "position": "Attacker"
+                                },
+                                {
+                                    "player": {
+                                        "id": 53844,
+                                        "name": "F. Colidio"
+                                    },
+                                    "position": "Attacker"
+                                }
+                            ]
+                        },
+                        "bench": {
+                            "home": [],
+                            "away": []
+                        },
+                        "sidelined": {
+                            "home": [],
+                            "away": []
+                        },
+                        "formation": {
+                            "home": "None",
+                            "away": "None"
+                        }
+                    },
+                    "match_preview": {
+                        "has_preview": true,
+                        "word_count": 629,
+                        "excitement_rating": 9.02
+                    }
+                }
+            ]
+        }
+    ]
+}

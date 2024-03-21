@@ -1,0 +1,569 @@
+{
+    "id": 878395,
+    "date": "12/08/2023",
+    "time": "19:30",
+    "country": {
+        "id": 60,
+        "name": "spain"
+    },
+    "league": {
+        "id": 297,
+        "name": "La Liga"
+    },
+    "stage": {
+        "id": 11273,
+        "name": "Primera Division",
+        "is_active": true
+    },
+    "teams": {
+        "home": {
+            "id": 4887,
+            "name": "Athletic Bilbao"
+        },
+        "away": {
+            "id": 4883,
+            "name": "Real Madrid"
+        }
+    },
+    "stadium": {
+        "id": 1188,
+        "name": "San Mames Barria",
+        "city": "Bilbao"
+    },
+    "status": "finished",
+    "minute": -1,
+    "winner": "away",
+    "has_extra_time": false,
+    "has_penalties": false,
+    "goals": {
+        "home_ht_goals": 0,
+        "away_ht_goals": 2,
+        "home_ft_goals": 0,
+        "away_ft_goals": 2,
+        "home_et_goals": -1,
+        "away_et_goals": -1,
+        "home_pen_goals": -1,
+        "away_pen_goals": -1
+    },
+    "events": [
+        {
+            "event_type": "goal",
+            "event_minute": "28",
+            "team": "away",
+            "player": {
+                "id": 82260,
+                "name": "Rodrygo"
+            },
+            "assist_player": {
+                "id": 82210,
+                "name": "Dani Carvajal"
+            }
+        },
+        {
+            "event_type": "goal",
+            "event_minute": "36",
+            "team": "away",
+            "player": {
+                "id": 82225,
+                "name": "J. Bellingham"
+            },
+            "assist_player": {
+                "id": 82217,
+                "name": "D. Alaba"
+            }
+        },
+        {
+            "event_type": "yellow_card",
+            "event_minute": "67",
+            "team": "home",
+            "player": {
+                "id": 82293,
+                "name": "Dani Vivian"
+            }
+        },
+        {
+            "event_type": "yellow_card",
+            "event_minute": "4",
+            "team": "home",
+            "player": {
+                "id": 82312,
+                "name": "Muniain"
+            }
+        },
+        {
+            "event_type": "yellow_card",
+            "event_minute": "87",
+            "team": "home",
+            "player": {
+                "id": 82310,
+                "name": "I. Williams"
+            }
+        },
+        {
+            "event_type": "yellow_card",
+            "event_minute": "76",
+            "team": "away",
+            "player": {
+                "id": 82217,
+                "name": "D. Alaba"
+            }
+        },
+        {
+            "event_type": "substitution",
+            "event_minute": "46",
+            "team": "home",
+            "player_in": {
+                "id": 82316,
+                "name": "Gorka Guruzeta"
+            },
+            "player_out": {
+                "id": 82312,
+                "name": "Muniain"
+            }
+        },
+        {
+            "event_type": "substitution",
+            "event_minute": "46",
+            "team": "home",
+            "player_in": {
+                "id": 82301,
+                "name": "Oihan Sancet"
+            },
+            "player_out": {
+                "id": 82305,
+                "name": "Unai Gómez"
+            }
+        },
+        {
+            "event_type": "substitution",
+            "event_minute": "46",
+            "team": "home",
+            "player_in": {
+                "id": 82308,
+                "name": "Álex Berenguer"
+            },
+            "player_out": {
+                "id": 82314,
+                "name": "Nico Williams"
+            }
+        },
+        {
+            "event_type": "substitution",
+            "event_minute": "64",
+            "team": "home",
+            "player_in": {
+                "id": 35425,
+                "name": "Ander Herrera"
+            },
+            "player_out": {
+                "id": 82300,
+                "name": "Mikel Vesga"
+            }
+        },
+        {
+            "event_type": "substitution",
+            "event_minute": "71",
+            "team": "home",
+            "player_in": {
+                "id": 144152,
+                "name": "Imanol García de Albéniz"
+            },
+            "player_out": {
+                "id": 82295,
+                "name": "Lekue"
+            }
+        },
+        {
+            "event_type": "substitution",
+            "event_minute": "50",
+            "team": "away",
+            "player_in": {
+                "id": 82219,
+                "name": "A. Rüdiger"
+            },
+            "player_out": {
+                "id": 82214,
+                "name": "Éder Militão"
+            }
+        },
+        {
+            "event_type": "substitution",
+            "event_minute": "71",
+            "team": "away",
+            "player_in": {
+                "id": 82236,
+                "name": "T. Kroos"
+            },
+            "player_out": {
+                "id": 82230,
+                "name": "E. Camavinga"
+            }
+        },
+        {
+            "event_type": "substitution",
+            "event_minute": "80",
+            "team": "away",
+            "player_in": {
+                "id": 82257,
+                "name": "Joselu"
+            },
+            "player_out": {
+                "id": 82260,
+                "name": "Rodrygo"
+            }
+        },
+        {
+            "event_type": "substitution",
+            "event_minute": "80",
+            "team": "away",
+            "player_in": {
+                "id": 82239,
+                "name": "L. Modrić"
+            },
+            "player_out": {
+                "id": 82254,
+                "name": "Vinícius Júnior"
+            }
+        }
+    ],
+    "odds": {
+        "match_winner": {},
+        "over_under": {},
+        "handicap": {}
+    },
+    "lineups": {
+        "lineup_type": "live",
+        "lineups": {
+            "home": [
+                {
+                    "player": {
+                        "id": 82291,
+                        "name": "Unai Simón"
+                    },
+                    "position": "Goalkeeper"
+                },
+                {
+                    "player": {
+                        "id": 82293,
+                        "name": "Dani Vivian"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 82295,
+                        "name": "Lekue"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 82297,
+                        "name": "De Marcos"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 82298,
+                        "name": "Aitor Paredes"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 82300,
+                        "name": "Mikel Vesga"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82305,
+                        "name": "Unai Gómez"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82306,
+                        "name": "Ruíz de Galarreta"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82310,
+                        "name": "I. Williams"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82312,
+                        "name": "Muniain"
+                    },
+                    "position": "Attacker"
+                },
+                {
+                    "player": {
+                        "id": 82314,
+                        "name": "Nico Williams"
+                    },
+                    "position": "Attacker"
+                }
+            ],
+            "away": [
+                {
+                    "player": {
+                        "id": 82208,
+                        "name": "A. Lunin"
+                    },
+                    "position": "Goalkeeper"
+                },
+                {
+                    "player": {
+                        "id": 82230,
+                        "name": "E. Camavinga"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 82210,
+                        "name": "Dani Carvajal"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 82212,
+                        "name": "Fran García"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 82214,
+                        "name": "Éder Militão"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 82217,
+                        "name": "D. Alaba"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 82225,
+                        "name": "J. Bellingham"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82245,
+                        "name": "A. Tchouaméni"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82248,
+                        "name": "F. Valverde"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82254,
+                        "name": "Vinícius Júnior"
+                    },
+                    "position": "Attacker"
+                },
+                {
+                    "player": {
+                        "id": 82260,
+                        "name": "Rodrygo"
+                    },
+                    "position": "Attacker"
+                }
+            ]
+        },
+        "bench": {
+            "home": [
+                {
+                    "player": {
+                        "id": 82292,
+                        "name": "Julen Agirrezabala"
+                    },
+                    "position": "Goalkeeper"
+                },
+                {
+                    "player": {
+                        "id": 82299,
+                        "name": "Peru Nolaskoain"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 144306,
+                        "name": "Beñat Prados"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 144152,
+                        "name": "Imanol García de Albéniz"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 35425,
+                        "name": "Ander Herrera"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82301,
+                        "name": "Oihan Sancet"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82304,
+                        "name": "Raúl García"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82318,
+                        "name": "Asier Villalibre"
+                    },
+                    "position": "Attacker"
+                },
+                {
+                    "player": {
+                        "id": 82320,
+                        "name": "Malcom Adu"
+                    },
+                    "position": "Attacker"
+                },
+                {
+                    "player": {
+                        "id": 82322,
+                        "name": "Javi Martón"
+                    },
+                    "position": "Attacker"
+                },
+                {
+                    "player": {
+                        "id": 82316,
+                        "name": "Gorka Guruzeta"
+                    },
+                    "position": "Attacker"
+                },
+                {
+                    "player": {
+                        "id": 82308,
+                        "name": "Álex Berenguer"
+                    },
+                    "position": "Attacker"
+                }
+            ],
+            "away": [
+                {
+                    "player": {
+                        "id": 82207,
+                        "name": "Fran González"
+                    },
+                    "position": "Goalkeeper"
+                },
+                {
+                    "player": {
+                        "id": 167480,
+                        "name": "Lucas Cañizares"
+                    },
+                    "position": "Goalkeeper"
+                },
+                {
+                    "player": {
+                        "id": 82215,
+                        "name": "Odriozola"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 82219,
+                        "name": "A. Rüdiger"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 82211,
+                        "name": "Nacho"
+                    },
+                    "position": "Defender"
+                },
+                {
+                    "player": {
+                        "id": 82236,
+                        "name": "T. Kroos"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82239,
+                        "name": "L. Modrić"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82251,
+                        "name": "Lucas Vázquez"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82222,
+                        "name": "Brahim Díaz"
+                    },
+                    "position": "Midfielder"
+                },
+                {
+                    "player": {
+                        "id": 82257,
+                        "name": "Joselu"
+                    },
+                    "position": "Attacker"
+                }
+            ]
+        },
+        "sidelined": {
+            "home": [],
+            "away": []
+        },
+        "formation": {
+            "home": "None",
+            "away": "None"
+        }
+    },
+    "match_preview": {
+        "has_preview": false,
+        "word_count": -1
+    }
+}

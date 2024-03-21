@@ -1,0 +1,14 @@
+{
+    "id": 4883,
+    "name": "Real Madrid",
+    "country": {
+        "id": 60,
+        "name": "spain"
+    },
+    "stadium": {
+        "id": 1179,
+        "name": "Estadio Santiago Bernabeu",
+        "city": "Madrid"
+    },
+    "is_nation": false
+}

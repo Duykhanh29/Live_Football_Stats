@@ -1,0 +1,3 @@
+class ImageData {
+  ImageData._();
+}
