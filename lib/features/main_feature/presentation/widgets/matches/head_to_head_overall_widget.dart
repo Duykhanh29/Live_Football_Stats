@@ -34,11 +34,13 @@ class HeadToHeadWidget extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Overall",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          const Center(
+            child: Text(
+              "Overall",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
           ),
           Text(
             "Total games: $totalGames",
@@ -80,7 +82,7 @@ class HeadToHeadWidget extends StatelessWidget {
   }
 
   Widget buildBar(BuildContext context, Color color, int value, int total) {
-    double width = (value / total) * MediaQuery.of(context).size.width * 0.9;
+    double width = (value / total) * MediaQuery.of(context).size.width * 0.85;
     return Container(
       width: width,
       height: 10,

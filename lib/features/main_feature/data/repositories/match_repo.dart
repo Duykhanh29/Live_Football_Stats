@@ -2,8 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:live_football_stats/core/error/failures.dart';
 import 'package:live_football_stats/core/platform/network_info.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/matches_remote_data_source.dart';
+import 'package:live_football_stats/features/main_feature/data/models/head_to_head_model.dart';
 import 'package:live_football_stats/features/main_feature/data/models/league_matches_model.dart';
 import 'package:live_football_stats/features/main_feature/data/models/match_model.dart';
+import 'package:live_football_stats/features/main_feature/domain/entities/head_to_head.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league_matches.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/upcoming_match.dart'
     as upcoming;
@@ -90,6 +92,26 @@ class MatchRepoImpl implements MatchRepositories {
           final upcoming.UpcomingMatches match =
               upcomingMatchesModel.toEntity();
           return Right(match);
+        }
+        return null;
+      } catch (e) {
+        return Left(ServerFailure(message: e.toString()));
+      }
+    } else {
+      return Left(NetworkFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, HeadToHead>?> getHeadtoHead(
+      int team1ID, int team2ID) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final HeadToHeadModel? headToHeadModel =
+            await matchRemoteDataSource.getHeadToHead(team1ID, team2ID);
+        if (headToHeadModel != null) {
+          final HeadToHead headToHead = headToHeadModel.toEntity();
+          return Right(headToHead);
         }
         return null;
       } catch (e) {

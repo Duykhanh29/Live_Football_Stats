@@ -25,6 +25,7 @@ import 'package:live_football_stats/features/main_feature/domain/usecases/live_s
 import 'package:live_football_stats/features/main_feature/domain/usecases/live_score/get_list_stage_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/live_score/get_live_match_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/live_score/get_live_score_uc.dart';
+import 'package:live_football_stats/features/main_feature/domain/usecases/macthes/get_head_to_head_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/macthes/get_match_preview_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/macthes/get_match_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/macthes/get_matches_of_league_uc.dart';
@@ -39,6 +40,7 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/lea
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/live_score/live_score_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/a_match/match_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/match/head_to_head/head_to_head_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches/matches_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/a_team/team_bloc.dart';
@@ -105,6 +107,8 @@ Future<void> initDependencies() async {
       () => GetMatchesOfLeagueUseCase(matchRepositories: sl()));
   sl.registerLazySingleton<GetUpcomingMatchesUseCase>(
       () => GetUpcomingMatchesUseCase(matchRepositories: sl()));
+  sl.registerLazySingleton<GetHeadToHeadUseCase>(
+      () => GetHeadToHeadUseCase(matchRepositories: sl()));
 
   sl.registerLazySingleton<GetTableOfALeagueUseCase>(
       () => GetTableOfALeagueUseCase(tableRepositories: sl()));
@@ -134,4 +138,6 @@ Future<void> initDependencies() async {
   sl.registerFactory<CountryBloc>(
       () => CountryBloc(allCountryUseCase: sl(), countryUseCase: sl()));
   sl.registerFactory<TransferBloc>(() => TransferBloc(transferUseCase: sl()));
+  sl.registerFactory<HeadToHeadBloc>(
+      () => HeadToHeadBloc(headToHeadUseCase: sl()));
 }

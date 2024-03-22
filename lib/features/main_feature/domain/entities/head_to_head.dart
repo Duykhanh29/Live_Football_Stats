@@ -6,10 +6,11 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:live_football_stats/features/main_feature/data/models/team_model_response.dart';
+import 'package:live_football_stats/features/main_feature/domain/entities/team_response.dart';
 
 class HeadToHead extends Equatable {
-  TeamModelResponse? team1;
-  TeamModelResponse? team2;
+  TeamResponse? team1;
+  TeamResponse? team2;
   Stats? stats;
 
   HeadToHead({

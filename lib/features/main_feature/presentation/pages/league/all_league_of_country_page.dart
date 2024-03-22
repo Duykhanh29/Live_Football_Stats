@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_state.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/leagues/a_league_card.dart';
 
@@ -15,6 +16,14 @@ class AllLeagueOfCountryPage extends StatefulWidget {
 }
 
 class _AllLeagueOfCountryPageState extends State<AllLeagueOfCountryPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BlocProvider.of<LeaguesBloc>(context)
+        .add(LeaguesOfACountryFetched(widget.country.id!));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

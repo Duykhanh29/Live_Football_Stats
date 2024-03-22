@@ -8,11 +8,14 @@ import 'package:live_football_stats/features/main_feature/data/models/match_mode
 import 'package:live_football_stats/features/main_feature/data/models/preview_match.dart';
 import 'package:live_football_stats/features/main_feature/data/models/upcoming_matches_of_a_league.dart';
 
+import '../../models/head_to_head_model.dart';
+
 abstract class MatchRemoteDataSource {
   Future<LeagueMatchesModel?> getListMacthesByLeagueID(int id);
   Future<MatchModel?> getMatchByID(int id);
   Future<UpcomingMatchesModel?> getListUpcomingMacthes();
   Future<PreviewMatchModel?> getMacthPreview(int id);
+  Future<HeadToHeadModel?> getHeadToHead(int team1ID, int team2ID);
 }
 
 class MatchRemoteDataSourceImpl implements MatchRemoteDataSource {
@@ -77,6 +80,21 @@ class MatchRemoteDataSourceImpl implements MatchRemoteDataSource {
         final data = response.data;
         MatchModel matchModel = MatchModel.fromJson(data);
         return matchModel;
+      }
+    } catch (e) {
+      throw ServerFailure(message: e.toString());
+    }
+  }
+
+  @override
+  Future<HeadToHeadModel?> getHeadToHead(int team1ID, int team2ID) async {
+    try {
+      final response = await dio.get(
+          "${AppConfig.baseUrl}${ApiEndPoint.headToHeadUrl}${AppConfig.authUrlPath}&${ApiParams.team1ID}=$team1ID&${ApiParams.team2ID}=$team2ID");
+      if (response.statusCode == 200) {
+        final data = response.data;
+        HeadToHeadModel headToHeadModel = HeadToHeadModel.fromJson(data);
+        return headToHeadModel;
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());

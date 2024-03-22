@@ -35,43 +35,47 @@ class HeadToHeadScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          HeadToHeadWidget(
-              draw: headToHead.stats!.overall!.overallDraws!,
-              name: "Overall",
-              team1Wins: headToHead.stats!.overall!.overallTeam1Wins!,
-              team2Wins: headToHead.stats!.overall!.overallTeam2Wins!,
-              team1Scored: headToHead.stats!.overall!.overallTeam1Scored!,
-              team2Scored: headToHead.stats!.overall!.overallTeam2Scored!,
-              totalGames: headToHead.stats!.overall!.overallGamesPlayed!,
-              team1: headToHead.team1!,
-              team2: headToHead.team2!),
-          HeadToHeadWidget(
-              draw: headToHead.stats!.team1AtHome!.team1DrawsAtHome!,
-              name: "${headToHead.team1!.name} at home",
-              team1Wins: headToHead.stats!.team1AtHome!.team1WinsAtHome!,
-              team2Wins: headToHead.stats!.team1AtHome!.team1LossesAtHome!,
-              team1Scored: headToHead.stats!.team1AtHome!.team1ScoredAtHome!,
-              team2Scored: headToHead.stats!.team1AtHome!.team1ConcededAtHome!,
-              totalGames:
-                  headToHead.stats!.team1AtHome!.team1GamesPlayedAtHome!,
-              team1: headToHead.team1!,
-              team2: headToHead.team2!),
-          HeadToHeadWidget(
-              draw: headToHead.stats!.team1AtHome!.team1DrawsAtHome!,
-              name: "${headToHead.team2!.name} at home",
-              team1Wins: headToHead.stats!.team2AtHome!.team2WinsAtHome!,
-              team2Wins: headToHead.stats!.team2AtHome!.team2LossesAtHome!,
-              team1Scored: headToHead.stats!.team2AtHome!.team2ScoredAtHome!,
-              team2Scored: headToHead.stats!.team2AtHome!.team2ConcededAtHome!,
-              totalGames:
-                  headToHead.stats!.team2AtHome!.team2GamesPlayedAtHome!,
-              team1: headToHead.team1!,
-              team2: headToHead.team2!),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            HeadToHeadWidget(
+                draw: headToHead.stats!.overall!.overallDraws!,
+                name: "Overall",
+                team1Wins: headToHead.stats!.overall!.overallTeam1Wins!,
+                team2Wins: headToHead.stats!.overall!.overallTeam2Wins!,
+                team1Scored: headToHead.stats!.overall!.overallTeam1Scored!,
+                team2Scored: headToHead.stats!.overall!.overallTeam2Scored!,
+                totalGames: headToHead.stats!.overall!.overallGamesPlayed!,
+                team1: headToHead.team1!,
+                team2: headToHead.team2!),
+            HeadToHeadWidget(
+                draw: headToHead.stats!.team1AtHome!.team1DrawsAtHome!,
+                name: "${headToHead.team1!.name} at home",
+                team1Wins: headToHead.stats!.team1AtHome!.team1WinsAtHome!,
+                team2Wins: headToHead.stats!.team1AtHome!.team1LossesAtHome!,
+                team1Scored: headToHead.stats!.team1AtHome!.team1ScoredAtHome!,
+                team2Scored:
+                    headToHead.stats!.team1AtHome!.team1ConcededAtHome!,
+                totalGames:
+                    headToHead.stats!.team1AtHome!.team1GamesPlayedAtHome!,
+                team1: headToHead.team1!,
+                team2: headToHead.team2!),
+            HeadToHeadWidget(
+                draw: headToHead.stats!.team1AtHome!.team1DrawsAtHome!,
+                name: "${headToHead.team2!.name} at home",
+                team1Wins: headToHead.stats!.team2AtHome!.team2WinsAtHome!,
+                team2Wins: headToHead.stats!.team2AtHome!.team2LossesAtHome!,
+                team1Scored: headToHead.stats!.team2AtHome!.team2ScoredAtHome!,
+                team2Scored:
+                    headToHead.stats!.team2AtHome!.team2ConcededAtHome!,
+                totalGames:
+                    headToHead.stats!.team2AtHome!.team2GamesPlayedAtHome!,
+                team1: headToHead.team1!,
+                team2: headToHead.team2!),
+          ],
+        ),
       ),
     );
   }

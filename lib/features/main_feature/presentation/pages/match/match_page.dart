@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:live_football_stats/core/constants/image_data.dart';
 import 'package:live_football_stats/core/enums/enum_values.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league_response.dart';
@@ -224,8 +225,8 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                     bottomLeft: Radius.circular(20.0),
                     bottomRight: Radius.circular(20.0),
                   ),
-                  child: Image.network(
-                    'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQCD1JTfnXsJQq9hCpfnJ-5TfubGjSWhsfJNkW0Mea7x7yw8XF5',
+                  child: Image.asset(
+                    ImageData.footballImage,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -267,8 +268,8 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                     stage: match.stage,
                   ),
                   PreviewMatchScreen(),
-                  const KeyEventsScreen(),
-                  const LineupScreen(),
+                  KeyEventsScreen(),
+                  LineupScreen(),
                   TableOfLeagueScreen(
                     leagueId: match.league!.id,
                   ),

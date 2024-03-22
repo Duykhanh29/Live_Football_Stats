@@ -61,17 +61,20 @@ class TopLeaguesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: SliverGrid(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) => TopLeagueCard(
-          league: topLeagues[index],
+        child: SliverPadding(
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 30, bottom: 10),
+      sliver: SliverGrid(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) => TopLeagueCard(
+            league: topLeagues[index],
+          ),
+          childCount: topLeagues.length,
         ),
-        childCount: topLeagues.length,
-      ),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 5,
-        crossAxisSpacing: 5,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 15,
+          crossAxisSpacing: 15,
+        ),
       ),
     ));
   }

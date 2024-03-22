@@ -33,7 +33,7 @@ class TopLeagueCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.35,
+                  width: MediaQuery.of(context).size.width * 0.3,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
                   child: Text(
@@ -46,7 +46,7 @@ class TopLeagueCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.35,
+                  width: MediaQuery.of(context).size.width * 0.3,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
                   child: Text(
