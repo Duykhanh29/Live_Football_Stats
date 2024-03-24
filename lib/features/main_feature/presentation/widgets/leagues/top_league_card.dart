@@ -25,9 +25,9 @@ class TopLeagueCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         height: MediaQuery.of(context).size.height * 0.25,
         width: MediaQuery.of(context).size.width * 0.3,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -35,7 +35,7 @@ class TopLeagueCard extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.3,
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+                      const EdgeInsets.symmetric(horizontal: 1, vertical: 2),
                   child: Text(
                     league.name,
                     textAlign: TextAlign.center,
@@ -48,7 +48,7 @@ class TopLeagueCard extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.3,
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+                      const EdgeInsets.symmetric(horizontal: 1, vertical: 2),
                   child: Text(
                     league.country.name!,
                     textAlign: TextAlign.center,

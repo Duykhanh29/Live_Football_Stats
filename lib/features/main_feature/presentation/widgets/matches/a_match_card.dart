@@ -14,7 +14,7 @@ class AMatchCard extends StatelessWidget {
       builder: (context, state) {
         if (state is MatchLoading) {
           return const SizedBox();
-        } else if (state is MatchPreviewFetchSuccess) {
+        } else if (state is MatchFetchSuccess) {
           return Container(
             height: 70,
             padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),

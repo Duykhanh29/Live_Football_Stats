@@ -29,11 +29,14 @@ class MatchEventCard extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                    // first is time
                     Text(
                       matchEvent.eventMinute!,
                       style: const TextStyle(
                           fontSize: 14, fontWeight: FontWeight.w500),
                     ),
+
+                    // second
                     if (matchEvent.eventType! != EventType.SUBSTITUTION)
                       Text(
                         matchEvent.player!.name!,
@@ -46,8 +49,10 @@ class MatchEventCard extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w800),
                       ),
+
+                    // third
                     if (matchEvent.eventType! != EventType.SUBSTITUTION &&
-                        matchEvent.eventType! != EventType.GOAL &&
+                        matchEvent.eventType! == EventType.GOAL &&
                         matchEvent.assistPlayer != null)
                       Text(
                         matchEvent.assistPlayer!.name!,
@@ -55,7 +60,7 @@ class MatchEventCard extends StatelessWidget {
                             fontSize: 15, fontWeight: FontWeight.w500),
                       ),
                     if (matchEvent.eventType! != EventType.SUBSTITUTION &&
-                        matchEvent.eventType! != EventType.PENALTY_GOAL)
+                        matchEvent.eventType! == EventType.PENALTY_GOAL)
                       const Text(
                         "PEN",
                         style: TextStyle(
@@ -77,33 +82,33 @@ class MatchEventCard extends StatelessWidget {
             flex: 1,
             child: SizedBox(
               child: Center(
-                  child: matchEvent.eventType! != EventType.SUBSTITUTION
+                  child: matchEvent.eventType! == EventType.SUBSTITUTION
                       ? Image.asset(
                           ImageData.substitutionImage,
                           height: 20,
                           width: 20,
                         )
-                      : matchEvent.eventType! != EventType.GOAL ||
-                              matchEvent.eventType! != EventType.PENALTY_GOAL
+                      : matchEvent.eventType! == EventType.GOAL ||
+                              matchEvent.eventType! == EventType.PENALTY_GOAL
                           ? Image.asset(
                               ImageData.goalImage,
                               height: 20,
                               width: 20,
                             )
-                          : matchEvent.eventType! != EventType.OWN_GOAL
+                          : matchEvent.eventType! == EventType.OWN_GOAL
                               ? Image.asset(
                                   ImageData.substitutionImage,
                                   height: 20,
                                   width: 20,
                                   color: Colors.red,
                                 )
-                              : matchEvent.eventType! != EventType.YELLOW_CARD
+                              : matchEvent.eventType! == EventType.YELLOW_CARD
                                   ? Image.asset(
                                       ImageData.yellowCardImage,
                                       height: 20,
                                       width: 20,
                                     )
-                                  : matchEvent.eventType! != EventType.RED_CARD
+                                  : matchEvent.eventType! == EventType.RED_CARD
                                       ? Image.asset(
                                           ImageData.yellowCardImage,
                                           height: 20,
@@ -142,7 +147,7 @@ class MatchEventCard extends StatelessWidget {
                           fontSize: 16, fontWeight: FontWeight.w800),
                     ),
                   if (matchEvent.eventType! != EventType.SUBSTITUTION &&
-                      matchEvent.eventType! != EventType.GOAL &&
+                      matchEvent.eventType! == EventType.GOAL &&
                       matchEvent.assistPlayer != null)
                     Text(
                       matchEvent.assistPlayer!.name!,
@@ -150,7 +155,7 @@ class MatchEventCard extends StatelessWidget {
                           fontSize: 15, fontWeight: FontWeight.w500),
                     ),
                   if (matchEvent.eventType! != EventType.SUBSTITUTION &&
-                      matchEvent.eventType! != EventType.PENALTY_GOAL)
+                      matchEvent.eventType! == EventType.PENALTY_GOAL)
                     const Text(
                       "PEN",
                       style:

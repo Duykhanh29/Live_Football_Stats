@@ -42,6 +42,7 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/liv
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/a_match/match_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/head_to_head/head_to_head_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches/matches_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/match/preview_match/preview_match_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/a_team/team_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/player/player_bloc.dart';
@@ -130,6 +131,8 @@ Future<void> initDependencies() async {
       MatchesBloc(matchesOfLeagueUseCase: sl(), upcomingMatchesUseCase: sl()));
   sl.registerFactory<MatchBloc>(
       () => MatchBloc(matchPreviewUseCase: sl(), matchUseCase: sl()));
+  sl.registerFactory<PreviewMatchBloc>(
+      () => PreviewMatchBloc(matchPreviewUseCase: sl(), matchUseCase: sl()));
   sl.registerFactory<TableBloc>(() => TableBloc(tableOfALeagueUseCase: sl()));
   sl.registerFactory<LiveScoreBloc>(
       () => LiveScoreBloc(liveMatchUseCase: sl(), liveScoreUseCase: sl()));

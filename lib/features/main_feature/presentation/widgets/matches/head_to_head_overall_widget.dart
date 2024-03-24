@@ -82,7 +82,7 @@ class HeadToHeadWidget extends StatelessWidget {
   }
 
   Widget buildBar(BuildContext context, Color color, int value, int total) {
-    double width = (value / total) * MediaQuery.of(context).size.width * 0.85;
+    double width = (value / total) * MediaQuery.of(context).size.width * 0.82;
     return Container(
       width: width,
       height: 10,

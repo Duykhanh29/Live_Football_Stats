@@ -7,7 +7,8 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/tea
 import 'package:live_football_stats/features/main_feature/presentation/widgets/matches/match_event_card.dart';
 
 class KeyEventsScreen extends StatelessWidget {
-  KeyEventsScreen({super.key});
+  KeyEventsScreen({super.key, required this.listEvent});
+  List<MatchEvent> listEvent;
   List<MatchEvent> list = [
     MatchEvent(
         eventType: EventType.GOAL,
@@ -75,16 +76,20 @@ class KeyEventsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return MatchEventCard(
-              matchEvent: list[index],
-              color: index % 2 == 0
-                  ? Colors.green.shade200
-                  : Colors.cyan.shade200);
-        },
-        itemCount: list.length,
-      ),
+      child: listEvent.isEmpty
+          ? const Center(
+              child: Text("No event"),
+            )
+          : ListView.builder(
+              itemBuilder: (context, index) {
+                return MatchEventCard(
+                    matchEvent: listEvent[index],
+                    color: index % 2 == 0
+                        ? Colors.green.shade200
+                        : Colors.cyan.shade200);
+              },
+              itemCount: listEvent.length,
+            ),
     );
   }
 }

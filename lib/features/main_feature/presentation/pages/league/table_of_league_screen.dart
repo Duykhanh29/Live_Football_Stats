@@ -25,12 +25,12 @@ class _TableOfLeagueScreenState extends State<TableOfLeagueScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
             child: BlocBuilder<TableBloc, TableState>(
               builder: (context, state) {
@@ -38,14 +38,18 @@ class _TableOfLeagueScreenState extends State<TableOfLeagueScreen> {
                   return DataTableWidget(
                       standings: state.standingEntities.stage[0].standings);
                 } else if (state is TableFetchFail) {
-                  return Center(
+                  return const Center(
                     child: Text("Something went wrong"),
                   );
                 } else {
-                  return Center(
-                    child: LoadingAnimationWidget.discreteCircle(
-                      color: Colors.black,
-                      size: 30,
+                  return Container(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: LoadingAnimationWidget.discreteCircle(
+                        color: Colors.black,
+                        size: 30,
+                      ),
                     ),
                   );
                 }

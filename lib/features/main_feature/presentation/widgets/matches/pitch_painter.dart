@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:live_football_stats/features/main_feature/domain/entities/match.dart';
+
 class PitchPainter extends CustomPainter {
+  // Formation formation;
+  // List<BenchAway> players;
+  // PitchPainter({required this.formation, required this.players});
   double _degreeToRadians(num degree) {
     return (degree * math.pi) / 180.0;
   }
@@ -65,13 +70,29 @@ class PitchPainter extends CustomPainter {
     final radius = 5.0; // Bán kính của điểm chấm, được đặt nhỏ để tạo điểm chấm
     canvas.drawCircle(centerPointOffset, radius, paintPoint);
 
-    // // corners
-    // double radiusCorner = size.width * 0.06;
+    // corners
+    double radiusCorner = size.width * 0.06;
 
-    // var cornerBottomLeft = Rect.fromCircle(
-    //     center: Offset(size.width * 0.03, size.height * 0.97),
-    //     radius: size.width * 0.08);
-
+    Rect cornerBottomLeft = Rect.fromCircle(
+        center: Offset(size.width * 0.03, size.height * 0.97),
+        radius: radiusCorner);
+    Rect cornerBottomRight = Rect.fromCircle(
+        center: Offset(size.width * 0.97, size.height * 0.97),
+        radius: radiusCorner);
+    Rect cornerTopLeft = Rect.fromCircle(
+        center: Offset(size.width * 0.03, size.height * 0.03),
+        radius: radiusCorner);
+    Rect cornerTopRight = Rect.fromCircle(
+        center: Offset(size.width * 0.97, size.height * 0.03),
+        radius: radiusCorner);
+    canvas.drawArc(
+        cornerBottomLeft, -math.pi / 2, math.pi / 2, false, paintCenterCircle);
+    canvas.drawArc(cornerBottomRight, -math.pi / 2, -math.pi / 2, false,
+        paintCenterCircle);
+    canvas.drawArc(
+        cornerTopLeft, math.pi / 2, -math.pi / 2, false, paintCenterCircle);
+    canvas.drawArc(
+        cornerTopRight, math.pi / 2, math.pi / 2, false, paintCenterCircle);
     //
     Paint paintGoal = Paint()
       ..color = Colors.white
@@ -94,7 +115,7 @@ class PitchPainter extends CustomPainter {
         Offset(size.width / 2 - size.width * 0.14, size.height * 0.03),
         Offset(size.width / 2 + size.width * 0.14, size.height * 0.09));
     canvas.drawRect(homeGoal1, paintGoal);
-    canvas.drawRect(homeGoal1, paintGoal);
+    canvas.drawRect(awayGoal1, paintGoal);
 
     // pen points
     double penRadius = 3;

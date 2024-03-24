@@ -5,22 +5,22 @@ import 'package:live_football_stats/features/main_feature/domain/entities/match_
     as preview;
 
 @immutable
-class MatchState extends Equatable {
+class PreviewMatchState extends Equatable {
   @override
   // TODO: implement props
   List<Object?> get props => [];
 }
 
-class InitialMatch extends MatchState {}
+class InitialPreviewMatch extends PreviewMatchState {}
 
-class MatchFetchSuccess extends MatchState {
-  final Match? match;
-  MatchFetchSuccess(this.match);
+class MatchPreviewFetchSuccess extends PreviewMatchState {
+  final preview.MatchPreview? match;
+  MatchPreviewFetchSuccess(this.match);
   @override
   // TODO: implement props
   List<Object?> get props => [match];
 }
 
-class MatchLoading extends MatchState {}
+class PreviewMatchLoading extends PreviewMatchState {}
 
-class MatchFetchFail extends MatchState {}
+class PreviewMatchFetchFail extends PreviewMatchState {}

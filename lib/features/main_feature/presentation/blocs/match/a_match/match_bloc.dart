@@ -15,7 +15,6 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
   MatchBloc({this.matchUseCase, this.matchPreviewUseCase})
       : super(InitialMatch()) {
     on<MatchFetched>(onMatchFetchedEvent);
-    on<MatchPriviewFetched>(onMatchPriviewFetchedEvent);
   }
   Future onMatchFetchedEvent(
       MatchFetched event, Emitter<MatchState> emit) async {
@@ -25,22 +24,6 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
       if (result != null) {
         result.fold(
             (l) => emit(MatchFetchFail()), (r) => emit(MatchFetchSuccess(r)));
-      } else {
-        emit(MatchFetchFail());
-      }
-    } catch (e) {
-      emit(MatchFetchFail());
-    }
-  }
-
-  Future onMatchPriviewFetchedEvent(
-      MatchPriviewFetched event, Emitter<MatchState> emit) async {
-    try {
-      emit(MatchLoading());
-      final result = await matchPreviewUseCase!.call(event.matchId);
-      if (result != null) {
-        result.fold((l) => emit(MatchFetchFail()),
-            (r) => emit(MatchPreviewFetchSuccess(r)));
       } else {
         emit(MatchFetchFail());
       }

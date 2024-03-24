@@ -13,6 +13,7 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/liv
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/a_match/match_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/head_to_head/head_to_head_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches/matches_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/match/preview_match/preview_match_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_bar_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_league_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_bloc.dart';
@@ -66,6 +67,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => sl.get<MatchBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl.get<PreviewMatchBloc>(),
           ),
           BlocProvider(
             create: (context) => sl.get<HeadToHeadBloc>(),

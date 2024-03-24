@@ -16,9 +16,9 @@ class MainView extends StatelessWidget {
   final List<Widget> screens = [
     LeagueMainView(),
     LiveScoreMainView(),
-    MatchPage(),
+    // MatchPage(),
     TeamMainView(),
-    // FavouritePage(),
+    FavouritePage(),
     AccountPage(),
   ];
   final List<PersistentBottomNavBarItem> _navBarsItems = [

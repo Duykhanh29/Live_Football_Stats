@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
-class MatchEvent extends Equatable {
+class PreviewMatchEvent extends Equatable {
   @override
   // TODO: implement props
   List<Object?> get props => [];
 }
 
-class MatchFetched extends MatchEvent {
+class PreviewMatchFetched extends PreviewMatchEvent {
   final int matchId;
-  MatchFetched(this.matchId);
+  PreviewMatchFetched(this.matchId);
   @override
   // TODO: implement props
   List<Object?> get props => [matchId];
