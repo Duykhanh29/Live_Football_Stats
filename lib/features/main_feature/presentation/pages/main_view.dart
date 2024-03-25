@@ -17,7 +17,7 @@ class MainView extends StatelessWidget {
     LeagueMainView(),
     LiveScoreMainView(),
     // MatchPage(),
-    TeamMainView(),
+    FavouritePage(),
     FavouritePage(),
     AccountPage(),
   ];

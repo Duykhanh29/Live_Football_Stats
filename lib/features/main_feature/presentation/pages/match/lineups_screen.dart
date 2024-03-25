@@ -93,10 +93,14 @@ class _LineupScreenState extends State<LineupScreen>
                 PitchWidget(
                   formation: widget.lineups.formation!.home!,
                   players: widget.lineups.lineups!.home,
+                  benchPlayers: widget.lineups.bench!.home,
+                  sidelinedPlayers: widget.lineups.sidelined?.home,
                 ),
                 PitchWidget(
                   formation: widget.lineups.formation!.away!,
                   players: widget.lineups.lineups!.away,
+                  benchPlayers: widget.lineups.bench!.away,
+                  sidelinedPlayers: widget.lineups.sidelined?.away,
                 ),
                 // Text("data1"),
                 // Text("data")

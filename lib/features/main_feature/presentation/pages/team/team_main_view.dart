@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/team.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/team/a_team/team_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/team/a_team/team_event.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/team/a_team/team_state.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/team/team_overview_screen.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/team/team_transfers_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TeamMainView extends StatefulWidget {
-  TeamMainView({super.key});
-
+  TeamMainView({super.key, required this.teamID});
+  int teamID;
   @override
   State<TeamMainView> createState() => _TeamMainViewState();
 }
@@ -18,7 +24,9 @@ class _TeamMainViewState extends State<TeamMainView>
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller = TabController(length: 5, vsync: this);
+    controller = TabController(length: 2, vsync: this);
+    // sl.get<TeamBloc>().add(TeamFetched(teamID: widget.teamID));
+    context.read<TeamBloc>().add(TeamFetched(teamID: widget.teamID));
   }
 
   Team team = Team(
@@ -34,17 +42,51 @@ class _TeamMainViewState extends State<TeamMainView>
       appBar: buildAppBar(context),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-        child: TabBarView(
-          controller: controller,
-          children: [
-            TeamOverviewScreen(),
-            TeamOverviewScreen(),
-            TeamOverviewScreen(),
-            TeamOverviewScreen(),
-            TeamTransferScreen(
-              teamID: team.id!,
-            ),
-          ],
+        child: BlocConsumer<TeamBloc, TeamState>(
+          builder: (context, state) {
+            if (state is TeamFetchSuccess) {
+              print("HEY: ${state.team.id!}");
+              return TabBarView(
+                controller: controller,
+                children: [
+                  TeamOverviewScreen(),
+                  // TeamOverviewScreen(),
+                  // TeamOverviewScreen(),
+                  // TeamOverviewScreen(),
+                  TeamTransferScreen(
+                    teamID: state.team.id!,
+                  ),
+                ],
+              );
+            } else if (state is TeamFetchFail) {
+              return const Center(
+                child: Text("Something went wrong"),
+              );
+            } else {
+              return TabBarView(
+                controller: controller,
+                children: const [
+                  SizedBox(),
+                  SizedBox(),
+                  // SizedBox(),
+                  // SizedBox(),
+                  // SizedBox(),
+                ],
+              );
+            }
+          },
+          listener: (context, state) async {
+            if (state is TeamFetchFail) {
+              EasyLoading.dismiss();
+              EasyLoading.showError("Error");
+              await Future.delayed(const Duration(seconds: 2));
+              EasyLoading.dismiss();
+            } else if (state is TeamLoading) {
+              EasyLoading.show();
+            } else {
+              EasyLoading.dismiss();
+            }
+          },
         ),
       ),
     );
@@ -69,28 +111,43 @@ class _TeamMainViewState extends State<TeamMainView>
           ),
         ),
         elevation: 3,
-        flexibleSpace: Container(
-          height: 90,
-          child: Center(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                team.name!,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              // const SizedBox(
-              //   height: 15,
-              // ),
-              Text(
-                team.country!.name!,
-                style:
-                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-              ),
-            ],
-          )),
+        flexibleSpace: BlocBuilder<TeamBloc, TeamState>(
+          builder: (context, state) {
+            if (state is TeamFetchSuccess) {
+              return Container(
+                height: 90,
+                child: Center(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      state.team.name!,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    // const SizedBox(
+                    //   height: 15,
+                    // ),
+                    Text(
+                      state.team.country!.name!,
+                      style: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                )),
+              );
+            } else if (state is TeamFetchFail) {
+              return const SizedBox(
+                height: 90,
+                child: Center(
+                  child: Text(""),
+                ),
+              );
+            } else {
+              return const SizedBox();
+            }
+          },
         ),
         actions: [
           InkWell(
@@ -113,15 +170,15 @@ class _TeamMainViewState extends State<TeamMainView>
             Tab(
               text: "Overview",
             ),
-            Tab(
-              text: "Matches",
-            ),
-            Tab(
-              text: "Table",
-            ),
-            Tab(
-              text: "Squad",
-            ),
+            // Tab(
+            //   text: "Matches",
+            // ),
+            // Tab(
+            //   text: "Table",
+            // ),
+            // Tab(
+            //   text: "Squad",
+            // ),
             Tab(
               text: "Transfers",
             ),

@@ -57,8 +57,9 @@ class TeamRemoteDataSourceImpl implements TeamRemoteDataSource {
   @override
   Future<TeamModel?> getTeamByID(int id) async {
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.teamUrl}${AppConfig.authUrlPath}&=${ApiParams.teamID}=$id");
+      final url =
+          "${AppConfig.baseUrl}${ApiEndPoint.teamUrl}${AppConfig.authUrlPath}&${ApiParams.teamID}=$id";
+      final response = await dio.get(url);
       if (response.statusCode == 200) {
         final data = response.data;
         TeamModel teamModel = TeamModel.fromJson(data);

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/standing.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_state.dart';
+import 'package:live_football_stats/features/main_feature/presentation/pages/team/team_main_view.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class TableOfLeagueScreen extends StatefulWidget {
@@ -144,7 +146,7 @@ class DataTableWidget extends StatelessWidget {
       // sortAscending: isAscending,
       // sortColumnIndex: sortColumnIndex,
       columns: getColumns(columns),
-      rows: getRows(standings),
+      rows: getRows(standings, context),
     );
   }
 
@@ -154,7 +156,7 @@ class DataTableWidget extends StatelessWidget {
             // onSort: onSort,
           ))
       .toList();
-  List<DataRow> getRows(List<Standing> standings) =>
+  List<DataRow> getRows(List<Standing> standings, BuildContext context) =>
       standings.map((Standing standing) {
         final cells = [
           standing.position,
@@ -169,8 +171,19 @@ class DataTableWidget extends StatelessWidget {
           standing.points
         ];
 
-        return DataRow(cells: getCells(cells));
+        return DataRow(
+          cells: getCells(cells),
+          // onSelectChanged: (value) {
+          //   Navigator.of(context).push(MaterialPageRoute(
+          //     builder: (context) {
+          //       return TeamMainView(teamID: standing.teamId);
+          //     },
+          //   ));
+          // },
+        );
       }).toList();
-  List<DataCell> getCells(List<dynamic> cells) =>
-      cells.map((data) => DataCell(Text('$data'))).toList();
+  List<DataCell> getCells(List<dynamic> cells) => cells
+      .map((data) =>
+          DataCell(GestureDetector(onTap: () {}, child: Text('$data'))))
+      .toList();
 }

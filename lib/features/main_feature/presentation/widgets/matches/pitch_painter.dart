@@ -16,10 +16,12 @@ class PitchPainter extends CustomPainter {
     var paintOutline = Paint();
     paintOutline.color = Colors.green;
     paintOutline.style = PaintingStyle.fill;
-    canvas.drawPaint(paintOutline);
+    // canvas.drawPaint(paintOutline);
     var paint = Paint()
       ..color = Colors.white
       ..strokeWidth = 2;
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paintOutline);
 
     // frame of pitch
     // Offset centerPitch = Offset(size.width / 2, size.width / 2);

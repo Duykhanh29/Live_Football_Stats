@@ -22,6 +22,7 @@ import 'package:live_football_stats/features/main_feature/presentation/pages/mat
 import 'package:live_football_stats/features/main_feature/presentation/pages/match/match_overview_screen.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/match/preview_match_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/pages/team/team_main_view.dart';
 
 import '../../blocs/match/preview_match/preview_match_bloc.dart';
 
@@ -122,15 +123,25 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                         children: [
                           Expanded(
                             flex: 4,
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
-                              child: Text(
-                                state.match!.teams!.home!.name,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.start,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 3,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return TeamMainView(
+                                        teamID: state.match!.teams!.home!.id);
+                                  },
+                                ));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                child: Text(
+                                  state.match!.teams!.home!.name,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500),
+                                  textAlign: TextAlign.start,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
+                                ),
                               ),
                             ),
                           ),
@@ -188,15 +199,25 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                                     ))),
                           Expanded(
                             flex: 4,
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
-                              child: Text(
-                                state.match!.teams!.away!.name,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 3,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return TeamMainView(
+                                        teamID: state.match!.teams!.away!.id);
+                                  },
+                                ));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                child: Text(
+                                  state.match!.teams!.away!.name,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500),
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
+                                ),
                               ),
                             ),
                           )
