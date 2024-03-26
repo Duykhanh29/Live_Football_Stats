@@ -65,22 +65,37 @@ class MatchModel {
         id: json["id"],
         date: json["date"],
         time: json["time"],
-        country: CountryModel.fromJson(json["country"]),
-        league: LeagueModelResponse.fromJson(json["league"]),
-        stage: StageModelResponse.fromJson(json["stage"]),
-        teams: Teams.fromJson(json["teams"]),
-        stadium: Stadium.fromJson(json["stadium"]),
-        status: matchStatusValues.map[json["status"]]!,
+        country: json["country"] != null
+            ? CountryModel.fromJson(json["country"])
+            : null,
+        league: json["league"] != null
+            ? LeagueModelResponse.fromJson(json["league"])
+            : null,
+        stage: json["stage"] != null
+            ? StageModelResponse.fromJson(json["stage"])
+            : null,
+        teams: json["teams"] != null ? Teams.fromJson(json["teams"]) : null,
+        stadium:
+            json["stadium"] != null ? Stadium.fromJson(json["stadium"]) : null,
+        status: json["status"] != null
+            ? matchStatusValues.map[json["status"]]
+            : null,
         minute: json["minute"],
-        winner: winnerValues.map[json["winner"]]!,
+        winner:
+            json["winner"] != null ? winnerValues.map[json["winner"]] : null,
         hasExtraTime: json["has_extra_time"],
         hasPenalties: json["has_penalties"],
-        goals: Goals.fromJson(json["goals"]),
-        events: List<MatchEventModel>.from(
-            json["events"].map((x) => MatchEventModel.fromJson(x))),
-        odds: Odds.fromJson(json["odds"]),
-        lineups: Lineups.fromJson(json["lineups"]),
-        matchPreview: MatchPreview.fromJson(json["match_preview"]),
+        goals: json["goals"] != null ? Goals.fromJson(json["goals"]) : null,
+        events: json["events"] != null
+            ? List<MatchEventModel>.from(
+                json["events"].map((x) => MatchEventModel.fromJson(x)))
+            : null,
+        odds: json["odds"] != null ? Odds.fromJson(json["odds"]) : null,
+        lineups:
+            json["lineups"] != null ? Lineups.fromJson(json["lineups"]) : null,
+        matchPreview: json["match_preview"] != null
+            ? MatchPreview.fromJson(json["match_preview"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {

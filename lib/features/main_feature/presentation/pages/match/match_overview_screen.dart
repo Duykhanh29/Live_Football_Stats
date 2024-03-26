@@ -21,13 +21,13 @@ class OverviewMatchWidget extends StatelessWidget {
       required this.leagueResponse,
       required this.stadium,
       required this.stage});
-  MatchStatus matchStatus;
+  MatchStatus? matchStatus;
   MatchWinner? matchWinner;
   OverUnder? overUnder;
   Handicap? handicap;
-  LeagueResponse leagueResponse;
+  LeagueResponse? leagueResponse;
   StageResponse? stage;
-  Stadium stadium;
+  Stadium? stadium;
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(

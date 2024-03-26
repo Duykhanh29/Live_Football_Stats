@@ -337,8 +337,8 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                           handicap: state.match!.odds!.handicap,
                           matchWinner: state.match!.odds!.matchWinner,
                           overUnder: state.match!.odds!.overUnder,
-                          leagueResponse: state.match!.league!,
-                          stadium: state.match!.stadium!,
+                          leagueResponse: state.match!.league,
+                          stadium: state.match!.stadium,
                           stage: state.match!.stage,
                         ),
                         BlocBuilder<PreviewMatchBloc, PreviewMatchState>(

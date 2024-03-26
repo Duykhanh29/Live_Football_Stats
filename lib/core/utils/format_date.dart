@@ -13,4 +13,8 @@ class FormatDate {
   static String dateToDateAndTime(DateTime dateTime) {
     return DateFormat('dd/MM/yyyy').format(dateTime);
   }
+
+  static String dateToDateAndTime2(DateTime dateTime) {
+    return DateFormat('dd-MM-yyyy').format(dateTime);
+  }
 }

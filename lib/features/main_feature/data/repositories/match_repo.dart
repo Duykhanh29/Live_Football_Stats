@@ -121,4 +121,49 @@ class MatchRepoImpl implements MatchRepositories {
       return Left(NetworkFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, LeagueMatches>?> getCurrentMatchesOfLeague(
+      {required int leagueID, required String date}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final LeagueMatchesModel? leagueMatchesModel =
+            await matchRemoteDataSource.getCurrentMatchesOfLeague(
+                leagueID: leagueID, date: date);
+        if (leagueMatchesModel != null) {
+          LeagueMatches leagueMatches = leagueMatchesModel.toEntity();
+          return Right(leagueMatches);
+        }
+        return null;
+      } catch (e) {
+        return Left(ServerFailure(message: e.toString()));
+      }
+    } else {
+      return Left(NetworkFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<LeagueMatches>>?> getMatchesByDate(
+      String date) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final List<LeagueMatchesModel>? listMatchesModel =
+            await matchRemoteDataSource.getMatchesByDate(date);
+        if (listMatchesModel != null) {
+          if (listMatchesModel.isEmpty) {
+            return Right([]);
+          }
+          List<LeagueMatches> list =
+              listMatchesModel.map((e) => e.toEntity()).toList();
+          return Right(list);
+        }
+        return null;
+      } catch (e) {
+        return Left(ServerFailure(message: e.toString()));
+      }
+    } else {
+      return Left(NetworkFailure());
+    }
+  }
 }

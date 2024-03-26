@@ -12,9 +12,9 @@ class GameInfoWidget extends StatelessWidget {
       required this.leagueResponse,
       required this.stadium,
       required this.stage});
-  LeagueResponse leagueResponse;
+  LeagueResponse? leagueResponse;
   StageResponse? stage;
-  Stadium stadium;
+  Stadium? stadium;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,11 +41,13 @@ class GameInfoWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) {
-                  return LeaguePage(leagueId: leagueResponse.id);
-                },
-              ));
+              if (leagueResponse != null) {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) {
+                    return LeaguePage(leagueId: leagueResponse!.id);
+                  },
+                ));
+              }
             },
             leading: const Icon(Ionicons.trophy),
             title: const Text(
@@ -53,7 +55,7 @@ class GameInfoWidget extends StatelessWidget {
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
             ),
             subtitle: Text(
-              leagueResponse.name,
+              leagueResponse != null ? leagueResponse!.name : "No data",
               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
           ),
@@ -75,7 +77,7 @@ class GameInfoWidget extends StatelessWidget {
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
             ),
             subtitle: Text(
-              stadium.name,
+              stadium != null ? stadium!.name : "No data",
               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
           ),

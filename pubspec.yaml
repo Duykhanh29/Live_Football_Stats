@@ -64,6 +64,9 @@ dependencies:
   grouped_list: ^5.1.2 
   sticky_grouped_list: ^3.1.0
 
+  # date timeline
+  easy_date_timeline: ^1.0.6
+
   # Remote API
   dio: ^5.4.1
   http: ^1.2.0

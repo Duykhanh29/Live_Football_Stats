@@ -7,6 +7,7 @@ import 'package:live_football_stats/features/main_feature/presentation/pages/lea
 import 'package:live_football_stats/features/main_feature/presentation/pages/league/table_of_league_screen.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/live_score/live_score_main_view.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/match/match_page.dart';
+import 'package:live_football_stats/features/main_feature/presentation/pages/matches/matches_main_view.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/profile/account_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/team/team_main_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -14,7 +15,8 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 class MainView extends StatelessWidget {
   MainView({super.key});
   final List<Widget> screens = [
-    LeagueMainView(),
+    // LeagueMainView(),
+    MatchesMainView(),
     LiveScoreMainView(),
     // MatchPage(),
     FavouritePage(),

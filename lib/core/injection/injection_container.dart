@@ -25,9 +25,11 @@ import 'package:live_football_stats/features/main_feature/domain/usecases/live_s
 import 'package:live_football_stats/features/main_feature/domain/usecases/live_score/get_list_stage_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/live_score/get_live_match_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/live_score/get_live_score_uc.dart';
+import 'package:live_football_stats/features/main_feature/domain/usecases/macthes/get_current_matches_of_league_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/macthes/get_head_to_head_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/macthes/get_match_preview_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/macthes/get_match_uc.dart';
+import 'package:live_football_stats/features/main_feature/domain/usecases/macthes/get_matches_by_date_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/macthes/get_matches_of_league_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/macthes/get_upcoming_matches_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/table/get_table_of_a_league_uc.dart';
@@ -42,6 +44,7 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/liv
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/a_match/match_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/head_to_head/head_to_head_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches/matches_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches_by_date/matches_by_date_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/preview_match/preview_match_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/a_team/team_bloc.dart';
@@ -110,6 +113,10 @@ Future<void> initDependencies() async {
       () => GetUpcomingMatchesUseCase(matchRepositories: sl()));
   sl.registerLazySingleton<GetHeadToHeadUseCase>(
       () => GetHeadToHeadUseCase(matchRepositories: sl()));
+  sl.registerLazySingleton<GetMatchesByDateUseCase>(
+      () => GetMatchesByDateUseCase(matchRepositories: sl()));
+  sl.registerLazySingleton<GetCurrentMatchesOfLeagueUseCase>(
+      () => GetCurrentMatchesOfLeagueUseCase(matchRepositories: sl()));
 
   sl.registerLazySingleton<GetTableOfALeagueUseCase>(
       () => GetTableOfALeagueUseCase(tableRepositories: sl()));
@@ -143,4 +150,6 @@ Future<void> initDependencies() async {
   sl.registerFactory<TransferBloc>(() => TransferBloc(transferUseCase: sl()));
   sl.registerFactory<HeadToHeadBloc>(
       () => HeadToHeadBloc(headToHeadUseCase: sl()));
+  sl.registerFactory<MatchesByDateBloc>(
+      () => MatchesByDateBloc(matchesByDateUseCase: sl()));
 }

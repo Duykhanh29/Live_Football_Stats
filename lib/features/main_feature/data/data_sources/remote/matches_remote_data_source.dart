@@ -16,6 +16,9 @@ abstract class MatchRemoteDataSource {
   Future<UpcomingMatchesModel?> getListUpcomingMacthes();
   Future<PreviewMatchModel?> getMacthPreview(int id);
   Future<HeadToHeadModel?> getHeadToHead(int team1ID, int team2ID);
+  Future<LeagueMatchesModel?> getCurrentMatchesOfLeague(
+      {required int leagueID, required String date});
+  Future<List<LeagueMatchesModel>?> getMatchesByDate(String date);
 }
 
 class MatchRemoteDataSourceImpl implements MatchRemoteDataSource {
@@ -89,12 +92,49 @@ class MatchRemoteDataSourceImpl implements MatchRemoteDataSource {
   @override
   Future<HeadToHeadModel?> getHeadToHead(int team1ID, int team2ID) async {
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.headToHeadUrl}${AppConfig.authUrlPath}&${ApiParams.team1ID}=$team1ID&${ApiParams.team2ID}=$team2ID");
+      final url =
+          "${AppConfig.baseUrl}${ApiEndPoint.headToHeadUrl}${AppConfig.authUrlPath}&${ApiParams.team1ID}=$team1ID&${ApiParams.team2ID}=$team2ID";
+      final response = await dio.get(url);
       if (response.statusCode == 200) {
         final data = response.data;
         HeadToHeadModel headToHeadModel = HeadToHeadModel.fromJson(data);
         return headToHeadModel;
+      }
+    } catch (e) {
+      throw ServerFailure(message: e.toString());
+    }
+  }
+
+  @override
+  Future<LeagueMatchesModel?> getCurrentMatchesOfLeague(
+      {required int leagueID, required String date}) async {
+    try {
+      final url =
+          "${AppConfig.baseUrl}${ApiEndPoint.matchesUrl}${AppConfig.authUrlPath}&${ApiParams.leagueID}=$leagueID&${ApiParams.date}=$date";
+      final response = await dio.get(url);
+      if (response.statusCode == 200) {
+        final data = response.data as List<dynamic>;
+        List<LeagueMatchesModel> list =
+            data.map((e) => LeagueMatchesModel.fromJson(e)).toList();
+        LeagueMatchesModel leagueMatchesModel = list[0];
+        return leagueMatchesModel;
+      }
+    } catch (e) {
+      throw ServerFailure(message: e.toString());
+    }
+  }
+
+  @override
+  Future<List<LeagueMatchesModel>?> getMatchesByDate(String date) async {
+    try {
+      final url =
+          "${AppConfig.baseUrl}${ApiEndPoint.matchesUrl}${AppConfig.authUrlPath}&${ApiParams.date}=$date";
+      final response = await dio.get(url);
+      if (response.statusCode == 200) {
+        final data = response.data as List<dynamic>;
+        List<LeagueMatchesModel> list =
+            data.map((e) => LeagueMatchesModel.fromJson(e)).toList();
+        return list;
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());

@@ -7,4 +7,5 @@ class ApiParams {
   static const String teamID = 'team_id';
   static const String team1ID = 'team_1_id';
   static const String team2ID = 'team_2_id';
+  static const String date = 'date';
 }

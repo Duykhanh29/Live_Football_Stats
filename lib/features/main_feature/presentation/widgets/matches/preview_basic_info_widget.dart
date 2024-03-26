@@ -53,13 +53,13 @@ class PreviewBasicInfoWidget extends StatelessWidget {
           ),
           Container(
             height: MediaQuery.of(context).size.height * 0.18,
-            width: MediaQuery.of(context).size.width * 0.5,
-            padding: const EdgeInsets.symmetric(horizontal: 5),
+            width: MediaQuery.of(context).size.width * 0.52,
+            padding: const EdgeInsets.symmetric(horizontal: 2),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.45,
+                  width: MediaQuery.of(context).size.width * 0.48,
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.lightGreen.shade300),
@@ -71,20 +71,21 @@ class PreviewBasicInfoWidget extends StatelessWidget {
                       const Text(
                         "League",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                            fontWeight: FontWeight.w500, fontSize: 14),
                       ),
                       Text(
                         matchPreview.league.name,
                         maxLines: 2,
+                        textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 16),
+                            fontWeight: FontWeight.w400, fontSize: 14),
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.45,
+                  width: MediaQuery.of(context).size.width * 0.48,
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.lightGreen.shade300),
@@ -96,14 +97,15 @@ class PreviewBasicInfoWidget extends StatelessWidget {
                       const Text(
                         "Stage",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                            fontWeight: FontWeight.w500, fontSize: 14),
                       ),
                       Text(
                         matchPreview.stage.name,
                         maxLines: 2,
+                        textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 16),
+                            fontWeight: FontWeight.w400, fontSize: 14),
                       ),
                     ],
                   ),

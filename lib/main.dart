@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:live_football_stats/core/injection/injection_container.dart';
+import 'package:live_football_stats/core/utils/format_date.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/league_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/country_bloc.dart';
@@ -13,6 +14,8 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/liv
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/a_match/match_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/head_to_head/head_to_head_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches/matches_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches_by_date/matches_by_date_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches_by_date/matches_by_date_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/preview_match/preview_match_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_bar_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_league_cubit.dart';
@@ -44,6 +47,11 @@ class MyApp extends StatelessWidget {
             providers: [
           BlocProvider(
             create: (context) => NavbarCubit(),
+          ),
+          BlocProvider(
+            create: (context) => sl.get<MatchesByDateBloc>()
+              ..add(MatchesByDateFetched(
+                  FormatDate.dateToDateAndTime2(DateTime.now()))),
           ),
           BlocProvider(
             create: (context) =>

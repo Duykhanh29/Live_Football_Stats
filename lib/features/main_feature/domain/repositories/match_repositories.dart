@@ -16,4 +16,7 @@ abstract class MatchRepositories {
   Future<Either<Failure, upcoming.UpcomingMatches>?> getUpcomingMacthes();
   Future<Either<Failure, preview.MatchPreview>?> getMacthPreview(int id);
   Future<Either<Failure, HeadToHead>?> getHeadtoHead(int team1ID, int team2ID);
+  Future<Either<Failure, List<LeagueMatches>>?> getMatchesByDate(String date);
+  Future<Either<Failure, LeagueMatches>?> getCurrentMatchesOfLeague(
+      {required int leagueID, required String date});
 }
