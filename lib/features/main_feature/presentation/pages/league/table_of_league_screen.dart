@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/standing.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_event.dart';
@@ -143,6 +144,8 @@ class DataTableWidget extends StatelessWidget {
     ];
 
     return DataTable(
+      decoration: BoxDecoration(
+          border: Border.all(color: AppColors.appBorder, width: 1)),
       // sortAscending: isAscending,
       // sortColumnIndex: sortColumnIndex,
       columns: getColumns(columns),

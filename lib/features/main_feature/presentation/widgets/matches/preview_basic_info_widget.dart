@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/match_preview.dart';
 
 class PreviewBasicInfoWidget extends StatelessWidget {
@@ -17,7 +18,7 @@ class PreviewBasicInfoWidget extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.18,
             width: MediaQuery.of(context).size.width * 0.4,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.lightGreen.shade300),
+              border: Border.all(color: AppColors.thirdBorder),
               borderRadius: BorderRadius.circular(5),
             ),
             padding: const EdgeInsets.all(5),
@@ -62,7 +63,7 @@ class PreviewBasicInfoWidget extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.48,
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.lightGreen.shade300),
+                    border: Border.all(color: AppColors.thirdBorder),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Column(
@@ -88,7 +89,7 @@ class PreviewBasicInfoWidget extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.48,
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.lightGreen.shade300),
+                    border: Border.all(color: AppColors.thirdBorder),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Column(

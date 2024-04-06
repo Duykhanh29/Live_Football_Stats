@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_state.dart';
@@ -67,7 +68,7 @@ class _LeaguePageState extends State<LeaguePage> with TickerProviderStateMixin {
             )
           ],
           labelStyle: const TextStyle(color: Colors.black),
-          indicatorColor: Colors.greenAccent,
+          indicatorColor: AppColors.lightTabarColor,
           controller: controller,
         ),
       ),

@@ -12,7 +12,7 @@ class LiveScoreInitial extends LiveScoreState {}
 class LiveScoreLoading extends LiveScoreState {}
 
 class LiveScoreFetchSuccess extends LiveScoreState {
-  LiveScore liveScore;
+  List<LiveScore>? liveScore;
   LiveScoreFetchSuccess({required this.liveScore});
   @override
   // TODO: implement props

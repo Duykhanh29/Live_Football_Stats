@@ -17,7 +17,7 @@ class LatestMatchWidget extends StatelessWidget {
         children: [
           if (match.status == MatchStatus.LIVE)
             Text(MatchStatus.LIVE.toString()),
-          if (match.status != MatchStatus.LIVE) Text("Next Match"),
+          if (match.status != MatchStatus.LIVE) const Text("Next Match"),
           Text(match.stage!.name),
           AMatchCard(
             match: match,

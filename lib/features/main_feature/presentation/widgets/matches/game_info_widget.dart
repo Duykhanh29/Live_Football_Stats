@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league_response.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/match.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/stage_response.dart';
@@ -19,7 +20,7 @@ class GameInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.blueGrey),
+          border: Border.all(color: AppColors.lightBorderColor),
           borderRadius: BorderRadius.circular(15)),
       width: MediaQuery.of(context).size.width * 0.9,
       margin: const EdgeInsets.only(top: 10),

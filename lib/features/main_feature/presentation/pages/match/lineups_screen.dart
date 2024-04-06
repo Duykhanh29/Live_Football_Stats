@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/enums/enum_values.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/match.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/player.dart';
@@ -71,8 +72,8 @@ class _LineupScreenState extends State<LineupScreen>
       child: Column(
         children: [
           TabBar(
-            indicatorColor: Colors.amberAccent.shade200,
-            labelColor: Colors.indigo.shade300,
+            indicatorColor: AppColors.lightTabarColor,
+            labelColor: AppColors.secondaryColor,
             controller: controller,
             mouseCursor: MouseCursor.defer,
             splashBorderRadius: BorderRadius.circular(5),

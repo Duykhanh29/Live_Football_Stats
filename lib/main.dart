@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:live_football_stats/core/constants/app_routes.dart';
 import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/core/utils/format_date.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/league_remote_data_source.dart';
@@ -93,9 +94,12 @@ class MyApp extends StatelessWidget {
             create: (context) => sl.get<PlayerBloc>(),
           ),
         ],
-            child: MaterialApp(
+            child: MaterialApp.router(
+              routerDelegate: goRouter.routerDelegate,
+              routeInformationParser: goRouter.routeInformationParser,
+              routeInformationProvider: goRouter.routeInformationProvider,
               debugShowCheckedModeBanner: false,
-              home: MainView(),
+              // home: MainView(),
               builder: EasyLoading.init(),
             ));
   }

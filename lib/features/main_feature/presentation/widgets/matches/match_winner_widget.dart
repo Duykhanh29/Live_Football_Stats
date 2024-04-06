@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/match.dart';
 
 class MatchWinnerWidget extends StatelessWidget {
@@ -9,7 +10,7 @@ class MatchWinnerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration:
-          BoxDecoration(border: Border.all(color: Colors.greenAccent.shade400)),
+          BoxDecoration(border: Border.all(color: AppColors.sencondaryBorder)),
       // height: MediaQuery.of(context).size.height * 0.25,
       width: MediaQuery.of(context).size.width * 0.9,
       margin: const EdgeInsets.symmetric(vertical: 5),
@@ -42,7 +43,8 @@ class MatchWinnerWidget extends StatelessWidget {
                               topLeft: Radius.circular(20),
                               bottomLeft: Radius.circular(20),
                             ),
-                            border: Border.all(color: Colors.red, width: 2)),
+                            border: Border.all(
+                                color: AppColors.homeWinColor, width: 2)),
                         child: Center(
                           child: Text(matchWinner != null
                               ? matchWinner!.home.toString()
@@ -54,7 +56,8 @@ class MatchWinnerWidget extends StatelessWidget {
                       flex: 1,
                       child: Container(
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blue, width: 2)),
+                            border: Border.all(
+                                color: AppColors.drawColor, width: 2)),
                         child: Center(
                           child: Text(matchWinner != null
                               ? matchWinner!.draw.toString()
@@ -70,7 +73,8 @@ class MatchWinnerWidget extends StatelessWidget {
                               topRight: Radius.circular(20),
                               bottomRight: Radius.circular(20),
                             ),
-                            border: Border.all(color: Colors.yellow, width: 2)),
+                            border: Border.all(
+                                color: AppColors.awayWinColor, width: 2)),
                         child: Center(
                           child: Text(matchWinner != null
                               ? matchWinner!.away.toString()

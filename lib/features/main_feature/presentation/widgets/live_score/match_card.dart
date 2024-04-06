@@ -1,18 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/enums/enum_values.dart';
-import 'package:live_football_stats/features/main_feature/domain/entities/league_matches.dart';
-import 'package:live_football_stats/features/main_feature/presentation/blocs/match/a_match/match_bloc.dart';
-import 'package:live_football_stats/features/main_feature/presentation/blocs/match/a_match/match_state.dart';
+import 'package:live_football_stats/features/main_feature/domain/entities/live_score.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/match/match_page.dart';
 
 class MatchCard extends StatelessWidget {
-  MatchCard({super.key, required this.match, this.heightSize = 70});
-  LeagueMatch match;
-  double heightSize;
+  MatchCard({super.key, required this.match});
+  Match match;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,7 +23,7 @@ class MatchCard extends StatelessWidget {
         decoration: BoxDecoration(
             border: Border.all(color: Colors.indigo),
             borderRadius: BorderRadius.circular(10)),
-        height: heightSize,
+        height: 70,
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: Center(
           child: Row(
@@ -37,14 +33,11 @@ class MatchCard extends StatelessWidget {
               if (match.status == MatchStatus.LIVE)
                 Expanded(
                   flex: 1,
-                  child: Container(
-                    //    decoration: BoxDecoration(color: Colors.red),
-                    child: Text(
-                      textAlign: TextAlign.center,
-                      match.minute != null ? "${match.minute}'" : "",
-                      style: const TextStyle(
-                        fontSize: 12,
-                      ),
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    match.minute != null ? "${match.minute}'" : "",
+                    style: const TextStyle(
+                      fontSize: 12,
                     ),
                   ),
                 ),

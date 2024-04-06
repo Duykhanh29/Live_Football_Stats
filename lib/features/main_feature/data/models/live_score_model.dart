@@ -21,11 +21,11 @@ String liveScoreModelToJson(List<LiveScoreModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class LiveScoreModel {
-  int leagueId;
-  String leagueName;
-  CountryModel country;
-  bool isCup;
-  List<Stage> stage;
+  int? leagueId;
+  String? leagueName;
+  CountryModel? country;
+  bool? isCup;
+  List<Stage>? stage;
 
   LiveScoreModel({
     required this.leagueId,
@@ -38,32 +38,38 @@ class LiveScoreModel {
   factory LiveScoreModel.fromJson(Map<String, dynamic> json) => LiveScoreModel(
         leagueId: json["league_id"],
         leagueName: json["league_name"],
-        country: CountryModel.fromJson(json["country"]),
+        country: json["country"] != null
+            ? CountryModel.fromJson(json["country"])
+            : null,
         isCup: json["is_cup"],
-        stage: List<Stage>.from(json["stage"].map((x) => Stage.fromJson(x))),
+        stage: json["stage"] != null
+            ? List<Stage>.from(json["stage"].map((x) => Stage.fromJson(x)))
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
         "league_id": leagueId,
         "league_name": leagueName,
-        "country": country.toJson(),
+        "country": country?.toJson(),
         "is_cup": isCup,
-        "stage": List<dynamic>.from(stage.map((x) => x.toJson())),
+        "stage": stage != null
+            ? List<dynamic>.from(stage!.map((x) => x.toJson()))
+            : null,
       };
   liveScoreEntity.LiveScore toEntity() {
     return liveScoreEntity.LiveScore(
         leagueId: leagueId,
         leagueName: leagueName,
-        country: country.toEntity(),
+        country: country?.toEntity(),
         isCup: isCup,
-        stage: stage.map((e) => e.toEntity()).toList());
+        stage: stage?.map((e) => e.toEntity()).toList());
   }
 }
 
 class Stage {
-  int stageId;
-  String stageName;
-  List<Match> matches;
+  int? stageId;
+  String? stageName;
+  List<Match>? matches;
 
   Stage({
     required this.stageId,
@@ -74,39 +80,42 @@ class Stage {
   factory Stage.fromJson(Map<String, dynamic> json) => Stage(
         stageId: json["stage_id"],
         stageName: json["stage_name"],
-        matches:
-            List<Match>.from(json["matches"].map((x) => Match.fromJson(x))),
+        matches: json["matches"] != null
+            ? List<Match>.from(json["matches"].map((x) => Match.fromJson(x)))
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
         "stage_id": stageId,
         "stage_name": stageName,
-        "matches": List<dynamic>.from(matches.map((x) => x.toJson())),
+        "matches": matches != null
+            ? List<dynamic>.from(matches!.map((x) => x.toJson()))
+            : null,
       };
   liveScoreEntity.Stage toEntity() {
     return liveScoreEntity.Stage(
         stageId: stageId,
         stageName: stageName,
-        matches: matches.map((e) => e.toEntity()).toList());
+        matches: matches?.map((e) => e.toEntity()).toList());
   }
 }
 
 class Match {
-  int id;
-  String date;
-  String time;
-  Teams teams;
+  int? id;
+  String? date;
+  String? time;
+  Teams? teams;
   Stadium? stadium;
-  MatchStatus status;
-  int minute;
-  Winner winner;
-  bool hasExtraTime;
-  bool hasPenalties;
-  Goals goals;
-  List<MatchEventModel> events;
-  Odds odds;
-  Lineups lineups;
-  MatchPreview matchPreview;
+  MatchStatus? status;
+  int? minute;
+  Winner? winner;
+  bool? hasExtraTime;
+  bool? hasPenalties;
+  Goals? goals;
+  List<MatchEventModel>? events;
+  Odds? odds;
+  Lineups? lineups;
+  MatchPreview? matchPreview;
 
   Match({
     required this.id,
@@ -130,68 +139,78 @@ class Match {
         id: json["id"],
         date: json["date"],
         time: json["time"],
-        teams: Teams.fromJson(json["teams"]),
+        teams: json["teams"] != null ? Teams.fromJson(json["teams"]) : null,
         stadium:
             json["stadium"] == null ? null : Stadium.fromJson(json["stadium"]),
-        status: matchStatusValues.map[json["status"]]!,
+        status: json["status"] != null
+            ? matchStatusValues.map[json["status"]]
+            : null,
         minute: json["minute"],
-        winner: winnerValues.map[json["winner"]]!,
+        winner:
+            json["winner"] != null ? winnerValues.map[json["winner"]] : null,
         hasExtraTime: json["has_extra_time"],
         hasPenalties: json["has_penalties"],
-        goals: Goals.fromJson(json["goals"]),
-        events: List<MatchEventModel>.from(
-            json["events"].map((x) => MatchEventModel.fromJson(x))),
-        odds: Odds.fromJson(json["odds"]),
-        lineups: Lineups.fromJson(json["lineups"]),
-        matchPreview: MatchPreview.fromJson(json["match_preview"]),
+        goals: json["goals"] != null ? Goals.fromJson(json["goals"]) : null,
+        events: json["events"] != null
+            ? List<MatchEventModel>.from(
+                json["events"].map((x) => MatchEventModel.fromJson(x)))
+            : null,
+        odds: json["odds"] != null ? Odds.fromJson(json["odds"]) : null,
+        lineups:
+            json["lineups"] != null ? Lineups.fromJson(json["lineups"]) : null,
+        matchPreview: json["match_preview"] != null
+            ? MatchPreview.fromJson(json["match_preview"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "date": date,
         "time": time,
-        "teams": teams.toJson(),
+        "teams": teams?.toJson(),
         "stadium": stadium?.toJson(),
         "status": matchStatusValues.reverse[status],
         "minute": minute,
         "winner": winnerValues.reverse[winner],
         "has_extra_time": hasExtraTime,
         "has_penalties": hasPenalties,
-        "goals": goals.toJson(),
-        "events": List<dynamic>.from(events.map((x) => x.toJson())),
-        "odds": odds.toJson(),
-        "lineups": lineups.toJson(),
-        "match_preview": matchPreview.toJson(),
+        "goals": goals?.toJson(),
+        "events": events != null
+            ? List<dynamic>.from(events!.map((x) => x.toJson()))
+            : null,
+        "odds": odds?.toJson(),
+        "lineups": lineups?.toJson(),
+        "match_preview": matchPreview?.toJson(),
       };
   liveScoreEntity.Match toEntity() {
     return liveScoreEntity.Match(
         id: id,
         date: date,
         time: time,
-        teams: teams.toEntity(),
+        teams: teams?.toEntity(),
         stadium: stadium != null ? stadium!.toEntity() : null,
         status: status,
         minute: minute,
         winner: winner,
         hasExtraTime: hasExtraTime,
         hasPenalties: hasPenalties,
-        goals: goals.toEntity(),
-        events: events.map((e) => e.toEntity()).toList(),
-        odds: odds.toEntity(),
-        lineups: lineups.toEntity(),
-        matchPreview: matchPreview.toEntity());
+        goals: goals?.toEntity(),
+        events: events?.map((e) => e.toEntity()).toList(),
+        odds: odds?.toEntity(),
+        lineups: lineups?.toEntity(),
+        matchPreview: matchPreview?.toEntity());
   }
 }
 
 class Goals {
-  int homeHtGoals;
-  int awayHtGoals;
-  int homeFtGoals;
-  int awayFtGoals;
-  int homeEtGoals;
-  int awayEtGoals;
-  int homePenGoals;
-  int awayPenGoals;
+  int? homeHtGoals;
+  int? awayHtGoals;
+  int? homeFtGoals;
+  int? awayFtGoals;
+  int? homeEtGoals;
+  int? awayEtGoals;
+  int? homePenGoals;
+  int? awayPenGoals;
 
   Goals({
     required this.homeHtGoals,
@@ -239,11 +258,11 @@ class Goals {
 }
 
 class Lineups {
-  LineupType lineupType;
-  LineupData lineups;
-  Bench bench;
-  Sidelined sidelined;
-  Formation formation;
+  LineupType? lineupType;
+  LineupData? lineups;
+  Bench? bench;
+  Sidelined? sidelined;
+  Formation? formation;
 
   Lineups({
     required this.lineupType,
@@ -254,33 +273,41 @@ class Lineups {
   });
 
   factory Lineups.fromJson(Map<String, dynamic> json) => Lineups(
-        lineupType: lineupTypeValues.map[json["lineup_type"]]!,
-        lineups: LineupData.fromJson(json["lineups"]),
-        bench: Bench.fromJson(json["bench"]),
-        sidelined: Sidelined.fromJson(json["sidelined"]),
-        formation: Formation.fromJson(json["formation"]),
+        lineupType: json["lineup_type"] != null
+            ? lineupTypeValues.map[json["lineup_type"]]
+            : null,
+        lineups: json["lineups"] != null
+            ? LineupData.fromJson(json["lineups"])
+            : null,
+        bench: json["bench"] != null ? Bench.fromJson(json["bench"]) : null,
+        sidelined: json["sidelined"] != null
+            ? Sidelined.fromJson(json["sidelined"])
+            : null,
+        formation: json["formation"] != null
+            ? Formation.fromJson(json["formation"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
         "lineup_type": lineupTypeValues.reverse[lineupType],
-        "lineups": lineups.toJson(),
-        "bench": bench.toJson(),
-        "sidelined": sidelined.toJson(),
-        "formation": formation.toJson(),
+        "lineups": lineups?.toJson(),
+        "bench": bench?.toJson(),
+        "sidelined": sidelined?.toJson(),
+        "formation": formation?.toJson(),
       };
   liveScoreEntity.Lineups toEntity() {
     return liveScoreEntity.Lineups(
         lineupType: lineupType,
-        lineups: lineups.toEntity(),
-        bench: bench.toEntity(),
-        sidelined: sidelined.toEntity(),
-        formation: formation.toEntity());
+        lineups: lineups?.toEntity(),
+        bench: bench?.toEntity(),
+        sidelined: sidelined?.toEntity(),
+        formation: formation?.toEntity());
   }
 }
 
 class LineupData {
-  List<BenchAway> home;
-  List<BenchAway> away;
+  List<BenchAway>? home;
+  List<BenchAway>? away;
 
   LineupData({
     required this.home,
@@ -288,26 +315,34 @@ class LineupData {
   });
 
   factory LineupData.fromJson(Map<String, dynamic> json) => LineupData(
-        home: List<BenchAway>.from(
-            json["home"].map((x) => BenchAway.fromJson(x))),
-        away: List<BenchAway>.from(
-            json["away"].map((x) => BenchAway.fromJson(x))),
+        home: json["home"] != null
+            ? List<BenchAway>.from(
+                json["home"].map((x) => BenchAway.fromJson(x)))
+            : null,
+        away: json["away"] != null
+            ? List<BenchAway>.from(
+                json["away"].map((x) => BenchAway.fromJson(x)))
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
-        "home": List<dynamic>.from(home.map((x) => x.toJson())),
-        "away": List<dynamic>.from(away.map((x) => x.toJson())),
+        "home": home != null
+            ? List<dynamic>.from(home!.map((x) => x.toJson()))
+            : null,
+        "away": away != null
+            ? List<dynamic>.from(away!.map((x) => x.toJson()))
+            : null,
       };
   liveScoreEntity.LineupData toEntity() {
     return liveScoreEntity.LineupData(
-        home: home.map((e) => e.toEntity()).toList(),
-        away: away.map((e) => e.toEntity()).toList());
+        home: home?.map((e) => e.toEntity()).toList(),
+        away: away?.map((e) => e.toEntity()).toList());
   }
 }
 
 class Bench {
-  List<BenchAway> home;
-  List<BenchAway> away;
+  List<BenchAway>? home;
+  List<BenchAway>? away;
 
   Bench({
     required this.home,
@@ -315,26 +350,34 @@ class Bench {
   });
 
   factory Bench.fromJson(Map<String, dynamic> json) => Bench(
-        home: List<BenchAway>.from(
-            json["home"].map((x) => BenchAway.fromJson(x))),
-        away: List<BenchAway>.from(
-            json["away"].map((x) => BenchAway.fromJson(x))),
+        home: json["home"] != null
+            ? List<BenchAway>.from(
+                json["home"].map((x) => BenchAway.fromJson(x)))
+            : null,
+        away: json["away"] != null
+            ? List<BenchAway>.from(
+                json["away"].map((x) => BenchAway.fromJson(x)))
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
-        "home": List<dynamic>.from(home.map((x) => x.toJson())),
-        "away": List<dynamic>.from(away.map((x) => x.toJson())),
+        "home": home != null
+            ? List<dynamic>.from(home!.map((x) => x.toJson()))
+            : null,
+        "away": away != null
+            ? List<dynamic>.from(away!.map((x) => x.toJson()))
+            : null,
       };
   liveScoreEntity.Bench toEntity() {
     return liveScoreEntity.Bench(
-        home: home.map((e) => e.toEntity()).toList(),
-        away: away.map((e) => e.toEntity()).toList());
+        home: home?.map((e) => e.toEntity()).toList(),
+        away: away?.map((e) => e.toEntity()).toList());
   }
 }
 
 class BenchAway {
-  PlayerModel player;
-  Position position;
+  PlayerModel? player;
+  Position? position;
 
   BenchAway({
     required this.player,
@@ -342,23 +385,27 @@ class BenchAway {
   });
 
   factory BenchAway.fromJson(Map<String, dynamic> json) => BenchAway(
-        player: PlayerModel.fromJson(json["player"]),
-        position: positionValues.map[json["position"]]!,
+        player: json["player"] != null
+            ? PlayerModel.fromJson(json["player"])
+            : null,
+        position: json["position"] != null
+            ? positionValues.map[json["position"]]
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
-        "player": player.toJson(),
+        "player": player?.toJson(),
         "position": positionValues.reverse[position],
       };
   liveScoreEntity.BenchAway toEntity() {
     return liveScoreEntity.BenchAway(
-        player: player.toEntity(), position: position);
+        player: player?.toEntity(), position: position);
   }
 }
 
 class Formation {
-  String home;
-  String away;
+  String? home;
+  String? away;
 
   Formation({
     required this.home,
@@ -380,8 +427,8 @@ class Formation {
 }
 
 class Sidelined {
-  List<SidelinedPlayerModel> home;
-  List<SidelinedPlayerModel> away;
+  List<SidelinedPlayerModel>? home;
+  List<SidelinedPlayerModel>? away;
 
   Sidelined({
     required this.home,
@@ -389,26 +436,34 @@ class Sidelined {
   });
 
   factory Sidelined.fromJson(Map<String, dynamic> json) => Sidelined(
-        home: List<SidelinedPlayerModel>.from(
-            json["home"].map((x) => SidelinedPlayerModel.fromJson(x))),
-        away: List<SidelinedPlayerModel>.from(
-            json["away"].map((x) => SidelinedPlayerModel.fromJson(x))),
+        home: json["home"] != null
+            ? List<SidelinedPlayerModel>.from(
+                json["home"].map((x) => SidelinedPlayerModel.fromJson(x)))
+            : null,
+        away: json["away"] != null
+            ? List<SidelinedPlayerModel>.from(
+                json["away"].map((x) => SidelinedPlayerModel.fromJson(x)))
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
-        "home": List<dynamic>.from(home.map((x) => x.toJson())),
-        "away": List<dynamic>.from(away.map((x) => x.toJson())),
+        "home": home != null
+            ? List<dynamic>.from(home!.map((x) => x.toJson()))
+            : null,
+        "away": away != null
+            ? List<dynamic>.from(away!.map((x) => x.toJson()))
+            : null,
       };
   liveScoreEntity.Sidelined toEntity() {
     return liveScoreEntity.Sidelined(
-        home: home.map((e) => e.toEntity()).toList(),
-        away: away.map((e) => e.toEntity()).toList());
+        home: home?.map((e) => e.toEntity()).toList(),
+        away: away?.map((e) => e.toEntity()).toList());
   }
 }
 
 class MatchPreview {
-  bool hasPreview;
-  int wordCount;
+  bool? hasPreview;
+  int? wordCount;
   double? excitementRating;
 
   MatchPreview({
@@ -437,10 +492,10 @@ class MatchPreview {
 }
 
 class Odds {
-  MatchWinner matchWinner;
-  OverUnder overUnder;
-  Handicap handicap;
-  int lastModifiedTimestamp;
+  MatchWinner? matchWinner;
+  OverUnder? overUnder;
+  Handicap? handicap;
+  int? lastModifiedTimestamp;
 
   Odds({
     required this.matchWinner,
@@ -450,31 +505,37 @@ class Odds {
   });
 
   factory Odds.fromJson(Map<String, dynamic> json) => Odds(
-        matchWinner: MatchWinner.fromJson(json["match_winner"]),
-        overUnder: OverUnder.fromJson(json["over_under"]),
-        handicap: Handicap.fromJson(json["handicap"]),
+        matchWinner: json["match_winner"] != null
+            ? MatchWinner.fromJson(json["match_winner"])
+            : null,
+        overUnder: json["over_under"] != null
+            ? OverUnder.fromJson(json["over_under"])
+            : null,
+        handicap: json["handicap"] != null
+            ? Handicap.fromJson(json["handicap"])
+            : null,
         lastModifiedTimestamp: json["last_modified_timestamp"],
       );
 
   Map<String, dynamic> toJson() => {
-        "match_winner": matchWinner.toJson(),
-        "over_under": overUnder.toJson(),
-        "handicap": handicap.toJson(),
+        "match_winner": matchWinner?.toJson(),
+        "over_under": overUnder?.toJson(),
+        "handicap": handicap?.toJson(),
         "last_modified_timestamp": lastModifiedTimestamp,
       };
   liveScoreEntity.Odds toEntity() {
     return liveScoreEntity.Odds(
-        matchWinner: matchWinner.toEntity(),
-        overUnder: overUnder.toEntity(),
-        handicap: handicap.toEntity(),
+        matchWinner: matchWinner?.toEntity(),
+        overUnder: overUnder?.toEntity(),
+        handicap: handicap?.toEntity(),
         lastModifiedTimestamp: lastModifiedTimestamp);
   }
 }
 
 class Handicap {
   dynamic market;
-  double home;
-  double away;
+  double? home;
+  double? away;
 
   Handicap({
     required this.market,
@@ -499,9 +560,9 @@ class Handicap {
 }
 
 class MatchWinner {
-  double home;
-  double draw;
-  double away;
+  double? home;
+  double? draw;
+  double? away;
 
   MatchWinner({
     required this.home,
@@ -526,9 +587,9 @@ class MatchWinner {
 }
 
 class OverUnder {
-  double total;
-  double over;
-  double under;
+  double? total;
+  double? over;
+  double? under;
 
   OverUnder({
     required this.total,
@@ -553,9 +614,9 @@ class OverUnder {
 }
 
 class Stadium {
-  int id;
-  String name;
-  String city;
+  int? id;
+  String? name;
+  String? city;
 
   Stadium({
     required this.id,
@@ -580,8 +641,8 @@ class Stadium {
 }
 
 class Teams {
-  TeamModelResponse home;
-  TeamModelResponse away;
+  TeamModelResponse? home;
+  TeamModelResponse? away;
 
   Teams({
     required this.home,
@@ -594,10 +655,11 @@ class Teams {
       );
 
   Map<String, dynamic> toJson() => {
-        "home": home.toJson(),
-        "away": away.toJson(),
+        "home": home?.toJson(),
+        "away": away?.toJson(),
       };
   liveScoreEntity.Teams toEntity() {
-    return liveScoreEntity.Teams(home: home.toEntity(), away: away.toEntity());
+    return liveScoreEntity.Teams(
+        home: home?.toEntity(), away: away?.toEntity());
   }
 }

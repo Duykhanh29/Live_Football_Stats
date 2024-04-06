@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/enums/enum_values.dart';
 
 import 'package:live_football_stats/features/main_feature/domain/entities/transfer.dart';
@@ -15,10 +16,10 @@ class TransferCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: Colors.cyanAccent),
+        border: Border.all(color: AppColors.appBorder),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

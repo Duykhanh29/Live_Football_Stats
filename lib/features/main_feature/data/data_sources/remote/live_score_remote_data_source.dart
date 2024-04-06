@@ -8,7 +8,7 @@ abstract class LiveScoreRemoteDataSource {
   Future<List<Match>?> getListLiveMatchesOfAStage(int leagueID, int stageID);
   Future<List<Stage>?> getLiveStages(int leagueID);
   Future<Match?> getLiveMatch(int leagueID, int stageID, int matchID);
-  Future<LiveScoreModel?> getLiveScore();
+  Future<List<LiveScoreModel>?> getLiveScore();
 }
 
 class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
@@ -49,9 +49,13 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
         list = listData.map((e) => Stage.fromJson(e)).toList();
         Stage stageModel =
             list.firstWhere((element) => element.stageId == stageID);
-        Match match =
-            stageModel.matches.firstWhere((element) => element.id == matchID);
-        return match;
+        if (stageModel.matches != null) {
+          Match match = stageModel.matches!
+              .firstWhere((element) => element.id == matchID);
+          return match;
+        } else {
+          return null;
+        }
       } else {
         print("Error: ${response.statusCode}");
         return null;
@@ -82,14 +86,17 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
   }
 
   @override
-  Future<LiveScoreModel?> getLiveScore() async {
+  Future<List<LiveScoreModel>?> getLiveScore() async {
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.livescoresUrl}${AppConfig.authUrlPath}");
+      final url =
+          "${AppConfig.baseUrl}${ApiEndPoint.livescoresUrl}${AppConfig.authUrlPath}";
+      final response = await dio.get(url);
       if (response.statusCode == 200) {
-        final data = response.data;
-        LiveScoreModel liveScoreModel = LiveScoreModel.fromJson(data);
-        return liveScoreModel;
+        final data = response.data as List<dynamic>;
+        List<LiveScoreModel>? list =
+            data.map((e) => LiveScoreModel.fromJson(e)).toList();
+
+        return list;
       } else {
         print("Error: ${response.statusCode}");
         return null;

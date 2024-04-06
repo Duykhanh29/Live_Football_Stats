@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:live_football_stats/core/helper/loading_helper.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_event.dart';
@@ -40,12 +41,7 @@ class AllLeagueWidget extends StatelessWidget {
                 child: Text("Something went wrong"),
               );
             } else {
-              return Center(
-                child: LoadingAnimationWidget.staggeredDotsWave(
-                  color: Colors.black,
-                  size: 30,
-                ),
-              );
+              return LoadingHelper.staggeredDotsWaveLoading();
             }
           },
         ),

@@ -16,6 +16,7 @@ class LiveScoreBloc extends Bloc<LiveScoreEvent, LiveScoreState> {
   Future onLiveScoreFetchedEvent(
       LiveScoreFetched event, Emitter<LiveScoreState> emit) async {
     try {
+      emit(LiveScoreLoading());
       final result = await liveScoreUseCase.call();
       if (result != null) {
         result.fold((l) => emit(LiveScoreFetchFail()),

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/match_preview.dart';
 
+import '../../../../../core/constants/app_colors.dart';
+
 class PreviewMatchDataWidget extends StatelessWidget {
   PreviewMatchDataWidget({super.key, required this.matchPreview});
   MatchPreview matchPreview;
@@ -12,7 +14,7 @@ class PreviewMatchDataWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.lightGreen.shade300),
+        border: Border.all(color: AppColors.thirdBorder),
         borderRadius: BorderRadius.circular(5),
       ),
       child: Column(

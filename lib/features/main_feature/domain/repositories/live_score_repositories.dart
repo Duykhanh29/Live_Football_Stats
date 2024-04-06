@@ -8,5 +8,5 @@ abstract class LiveScoreRepositories {
   Future<Either<Failure, List<Stage>>?> getListStage(int leagueID);
   Future<Either<Failure, Match>?> getLiveMatchByID(
       int leagueID, int stageID, int matchID);
-  Future<Either<Failure, LiveScore>?> getLiveScore();
+  Future<Either<Failure, List<LiveScore>>?> getLiveScore();
 }

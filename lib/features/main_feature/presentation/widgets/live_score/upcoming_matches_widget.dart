@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class UpcomingMatchesPage extends StatelessWidget {
-  const UpcomingMatchesPage({super.key});
+class UpcomingMatchesWidget extends StatelessWidget {
+  const UpcomingMatchesWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

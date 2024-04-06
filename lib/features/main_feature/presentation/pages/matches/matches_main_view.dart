@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/utils/format_date.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches_by_date/matches_by_date_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches_by_date/matches_by_date_event.dart';
@@ -33,7 +34,7 @@ class MatchesMainView extends StatelessWidget {
                   landScapeMode: false,
                   dayStructure: DayStructure.dayStrDayNumMonth,
                   todayHighlightStyle: TodayHighlightStyle.withBackground,
-                  todayHighlightColor: Color(0xffE1ECC8),
+                  // todayHighlightColor: AppColors.secondaryColor,
                   inactiveDayStyle: DayStyle(
                     borderRadius: 48.0,
                     dayNumStyle: TextStyle(
@@ -47,7 +48,7 @@ class MatchesMainView extends StatelessWidget {
                     ),
                   ),
                 ),
-                activeColor: Colors.tealAccent,
+                activeColor: AppColors.backgroundColor,
                 // firstDate: DateTime(2023, 12, 12),
                 // focusDate: DateTime.now(),
                 // lastDate: DateTime(2024, 12, 12),
@@ -73,6 +74,22 @@ class MatchesMainView extends StatelessWidget {
                 if (state is MatchesByDateFetchSuccess) {
                   return SliverList.separated(
                       itemBuilder: (context, index) {
+                        if (index == 0) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: MatchesOfLeagueWidget(
+                              leagueMatches: state.listLeagueMatches[index],
+                            ),
+                          );
+                        } else if (index ==
+                            state.listLeagueMatches.length - 1) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: MatchesOfLeagueWidget(
+                              leagueMatches: state.listLeagueMatches[index],
+                            ),
+                          );
+                        }
                         return MatchesOfLeagueWidget(
                           leagueMatches: state.listLeagueMatches[index],
                         );

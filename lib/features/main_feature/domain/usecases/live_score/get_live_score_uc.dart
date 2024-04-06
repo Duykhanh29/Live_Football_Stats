@@ -6,7 +6,7 @@ import 'package:live_football_stats/features/main_feature/domain/repositories/li
 class GetLiveScoreUseCase {
   final LiveScoreRepositories liveScoreRepositories;
   GetLiveScoreUseCase({required this.liveScoreRepositories});
-  Future<Either<Failure, LiveScore>?> call() {
+  Future<Either<Failure, List<LiveScore>>?> call() {
     return liveScoreRepositories.getLiveScore();
   }
 }

@@ -73,13 +73,14 @@ class LiveScoreRepoImpl implements LiveScoreRepositories {
   }
 
   @override
-  Future<Either<Failure, LiveScore>?> getLiveScore() async {
+  Future<Either<Failure, List<LiveScore>>?> getLiveScore() async {
     if (await networkInfo.isConnected) {
       try {
-        final model.LiveScoreModel? liveScoreModel =
+        final List<model.LiveScoreModel>? liveScoreModel =
             await liveScoreRemoteDataSource.getLiveScore();
         if (liveScoreModel != null) {
-          LiveScore liveScore = liveScoreModel.toEntity();
+          List<LiveScore>? liveScore =
+              liveScoreModel.map((e) => e.toEntity()).toList();
           return Right(liveScore);
         }
         return null;

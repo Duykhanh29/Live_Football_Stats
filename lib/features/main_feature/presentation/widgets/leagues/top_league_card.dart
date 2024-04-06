@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/league/league_page.dart';
 
@@ -21,7 +22,7 @@ class TopLeagueCard extends StatelessWidget {
         decoration: BoxDecoration(
             border: Border.all(color: Colors.indigoAccent),
             borderRadius: BorderRadius.circular(20),
-            color: Colors.tealAccent),
+            color: AppColors.cardColor),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         height: MediaQuery.of(context).size.height * 0.25,
         width: MediaQuery.of(context).size.width * 0.3,

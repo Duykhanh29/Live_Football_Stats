@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/head_to_head.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/team_response.dart';
 
@@ -29,7 +30,7 @@ class HeadToHeadWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.teal.shade300),
+        border: Border.all(color: AppColors.appBorder),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -63,9 +64,9 @@ class HeadToHeadWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              buildBar(context, Colors.orangeAccent, team1Wins, totalGames),
-              buildBar(context, Colors.blueAccent, draw, totalGames),
-              buildBar(context, Colors.pinkAccent, team2Wins, totalGames),
+              buildBar(context, AppColors.homeWinColor, team1Wins, totalGames),
+              buildBar(context, AppColors.drawColor, draw, totalGames),
+              buildBar(context, AppColors.awayWinColor, team2Wins, totalGames),
             ],
           ),
           Padding(

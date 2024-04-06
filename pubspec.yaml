@@ -67,6 +67,9 @@ dependencies:
   # date timeline
   easy_date_timeline: ^1.0.6
 
+  # router
+  go_router: ^13.2.1
+
   # Remote API
   dio: ^5.4.1
   http: ^1.2.0

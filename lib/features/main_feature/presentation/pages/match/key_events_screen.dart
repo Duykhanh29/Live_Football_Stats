@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/enums/enum_values.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/match_event.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/player.dart';
@@ -85,8 +86,8 @@ class KeyEventsScreen extends StatelessWidget {
                 return MatchEventCard(
                     matchEvent: listEvent[index],
                     color: index % 2 == 0
-                        ? Colors.green.shade200
-                        : Colors.cyan.shade200);
+                        ? AppColors.eventColor1
+                        : AppColors.eventColor2);
               },
               itemCount: listEvent.length,
             ),

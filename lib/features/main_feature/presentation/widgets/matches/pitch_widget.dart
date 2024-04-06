@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/sidelined_player.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/matches/pitch_painter.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/matches/team_formation.dart';
@@ -23,7 +24,7 @@ class PitchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-      shrinkWrap: true,
+      // shrinkWrap: true,
       slivers: [
         SliverToBoxAdapter(
           child: Stack(
@@ -80,16 +81,15 @@ class PitchWidget extends StatelessWidget {
                   ),
                 );
               },
-              separatorBuilder: (context, index) => const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+              separatorBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Divider(
-                      color: Color.fromARGB(153, 189, 188, 188),
+                      color: AppColors.lightBorderColor,
                       height: 2,
                     ),
                   ),
               itemCount: benchPlayers.length),
         ),
-
         sidelinedPlayers != null && sidelinedPlayers!.isNotEmpty
             ? SliverToBoxAdapter(
                 child: Container(
@@ -100,7 +100,7 @@ class PitchWidget extends StatelessWidget {
                   ),
                 ),
               )
-            : const SizedBox(),
+            : const SliverToBoxAdapter(child: SizedBox()),
         sidelinedPlayers != null && sidelinedPlayers!.isNotEmpty
             ? SliverPadding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -126,19 +126,16 @@ class PitchWidget extends StatelessWidget {
                   },
                   itemCount: sidelinedPlayers!.length,
                   separatorBuilder: (BuildContext context, int index) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Divider(
-                        color: Color.fromARGB(153, 189, 188, 188),
+                        color: AppColors.lightBorderColor,
                         height: 2,
                       ),
                     );
                   },
                 ))
-            : const SizedBox(),
-        // sidelinedPlayers != null && sidelinedPlayers!.isNotEmpty
-        //     ?
-        //     : const SizedBox()
+            : const SliverToBoxAdapter(child: SizedBox()),
       ],
     );
   }

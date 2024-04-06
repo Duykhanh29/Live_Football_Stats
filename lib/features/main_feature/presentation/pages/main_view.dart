@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_bar_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/favourite/favourite_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/league/league_main_view.dart';
@@ -19,21 +20,21 @@ class MainView extends StatelessWidget {
     MatchesMainView(),
     LiveScoreMainView(),
     // MatchPage(),
-    FavouritePage(),
+    LeagueMainView(),
     FavouritePage(),
     AccountPage(),
   ];
   final List<PersistentBottomNavBarItem> _navBarsItems = [
     PersistentBottomNavBarItem(
-      icon: const Icon(Icons.live_tv_rounded),
-      title: "Live",
+      icon: const Icon(Ionicons.game_controller_outline),
+      title: "Matches",
       activeColorPrimary: Colors.indigo,
       inactiveColorPrimary: Colors.grey,
       inactiveColorSecondary: Colors.purple,
     ),
     PersistentBottomNavBarItem(
-      icon: const Icon(Icons.event_available_rounded),
-      title: "Matches",
+      icon: const Icon(Icons.live_tv_rounded),
+      title: "Live",
       activeColorPrimary: Colors.indigo,
       inactiveColorPrimary: Colors.grey,
       inactiveColorSecondary: Colors.purple,

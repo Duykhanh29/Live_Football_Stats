@@ -7,11 +7,11 @@ import 'package:live_football_stats/features/main_feature/domain/entities/sideli
 import 'package:live_football_stats/features/main_feature/domain/entities/team_response.dart';
 
 class LiveScore extends Equatable {
-  int leagueId;
-  String leagueName;
-  Country country;
-  bool isCup;
-  List<Stage> stage;
+  int? leagueId;
+  String? leagueName;
+  Country? country;
+  bool? isCup;
+  List<Stage>? stage;
 
   LiveScore({
     required this.leagueId,
@@ -27,9 +27,9 @@ class LiveScore extends Equatable {
 }
 
 class Stage extends Equatable {
-  int stageId;
-  String stageName;
-  List<Match> matches;
+  int? stageId;
+  String? stageName;
+  List<Match>? matches;
 
   Stage({
     required this.stageId,
@@ -43,21 +43,21 @@ class Stage extends Equatable {
 }
 
 class Match extends Equatable {
-  int id;
-  String date;
-  String time;
-  Teams teams;
+  int? id;
+  String? date;
+  String? time;
+  Teams? teams;
   Stadium? stadium;
-  MatchStatus status;
-  int minute;
-  Winner winner;
-  bool hasExtraTime;
-  bool hasPenalties;
-  Goals goals;
-  List<MatchEvent> events;
-  Odds odds;
-  Lineups lineups;
-  MatchPreview matchPreview;
+  MatchStatus? status;
+  int? minute;
+  Winner? winner;
+  bool? hasExtraTime;
+  bool? hasPenalties;
+  Goals? goals;
+  List<MatchEvent>? events;
+  Odds? odds;
+  Lineups? lineups;
+  MatchPreview? matchPreview;
 
   Match({
     required this.id,
@@ -99,14 +99,14 @@ class Match extends Equatable {
 }
 
 class Goals extends Equatable {
-  int homeHtGoals;
-  int awayHtGoals;
-  int homeFtGoals;
-  int awayFtGoals;
-  int homeEtGoals;
-  int awayEtGoals;
-  int homePenGoals;
-  int awayPenGoals;
+  int? homeHtGoals;
+  int? awayHtGoals;
+  int? homeFtGoals;
+  int? awayFtGoals;
+  int? homeEtGoals;
+  int? awayEtGoals;
+  int? homePenGoals;
+  int? awayPenGoals;
 
   Goals({
     required this.homeHtGoals,
@@ -134,11 +134,11 @@ class Goals extends Equatable {
 }
 
 class Lineups extends Equatable {
-  LineupType lineupType;
-  LineupData lineups;
-  Bench bench;
-  Sidelined sidelined;
-  Formation formation;
+  LineupType? lineupType;
+  LineupData? lineups;
+  Bench? bench;
+  Sidelined? sidelined;
+  Formation? formation;
 
   Lineups({
     required this.lineupType,
@@ -154,8 +154,8 @@ class Lineups extends Equatable {
 }
 
 class LineupData extends Equatable {
-  List<BenchAway> home;
-  List<BenchAway> away;
+  List<BenchAway>? home;
+  List<BenchAway>? away;
 
   LineupData({
     required this.home,
@@ -168,8 +168,8 @@ class LineupData extends Equatable {
 }
 
 class Bench extends Equatable {
-  List<BenchAway> home;
-  List<BenchAway> away;
+  List<BenchAway>? home;
+  List<BenchAway>? away;
 
   Bench({
     required this.home,
@@ -182,8 +182,8 @@ class Bench extends Equatable {
 }
 
 class BenchAway extends Equatable {
-  Player player;
-  Position position;
+  Player? player;
+  Position? position;
 
   BenchAway({
     required this.player,
@@ -195,8 +195,8 @@ class BenchAway extends Equatable {
 }
 
 class Formation extends Equatable {
-  String home;
-  String away;
+  String? home;
+  String? away;
 
   Formation({
     required this.home,
@@ -208,8 +208,8 @@ class Formation extends Equatable {
 }
 
 class Sidelined extends Equatable {
-  List<SidelinedPlayer> home;
-  List<SidelinedPlayer> away;
+  List<SidelinedPlayer>? home;
+  List<SidelinedPlayer>? away;
 
   Sidelined({
     required this.home,
@@ -221,8 +221,8 @@ class Sidelined extends Equatable {
 }
 
 class MatchPreview extends Equatable {
-  bool hasPreview;
-  int wordCount;
+  bool? hasPreview;
+  int? wordCount;
   double? excitementRating;
 
   MatchPreview({
@@ -236,10 +236,10 @@ class MatchPreview extends Equatable {
 }
 
 class Odds extends Equatable {
-  MatchWinner matchWinner;
-  OverUnder overUnder;
-  Handicap handicap;
-  int lastModifiedTimestamp;
+  MatchWinner? matchWinner;
+  OverUnder? overUnder;
+  Handicap? handicap;
+  int? lastModifiedTimestamp;
 
   Odds({
     required this.matchWinner,
@@ -255,8 +255,8 @@ class Odds extends Equatable {
 
 class Handicap extends Equatable {
   dynamic market;
-  double home;
-  double away;
+  double? home;
+  double? away;
 
   Handicap({
     required this.market,
@@ -269,9 +269,9 @@ class Handicap extends Equatable {
 }
 
 class MatchWinner extends Equatable {
-  double home;
-  double draw;
-  double away;
+  double? home;
+  double? draw;
+  double? away;
 
   MatchWinner({
     required this.home,
@@ -284,9 +284,9 @@ class MatchWinner extends Equatable {
 }
 
 class OverUnder extends Equatable {
-  double total;
-  double over;
-  double under;
+  double? total;
+  double? over;
+  double? under;
 
   OverUnder({
     required this.total,
@@ -299,9 +299,9 @@ class OverUnder extends Equatable {
 }
 
 class Stadium extends Equatable {
-  int id;
-  String name;
-  String city;
+  int? id;
+  String? name;
+  String? city;
 
   Stadium({
     required this.id,
@@ -314,8 +314,8 @@ class Stadium extends Equatable {
 }
 
 class Teams extends Equatable {
-  TeamResponse home;
-  TeamResponse away;
+  TeamResponse? home;
+  TeamResponse? away;
 
   Teams({
     required this.home,

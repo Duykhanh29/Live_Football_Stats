@@ -27,6 +27,7 @@ class ListLeagueWidget extends StatelessWidget {
         if (state is AllCountryFetchSuccess) {
           return SliverList(
             delegate: SliverChildBuilderDelegate(
+              
                 (context, index) => ExpansionLeagueCard(
                       country: state.allCountry![index],
                     ),

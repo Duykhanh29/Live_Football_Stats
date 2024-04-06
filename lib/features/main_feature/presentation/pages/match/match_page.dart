@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/constants/image_data.dart';
 import 'package:live_football_stats/core/enums/enum_values.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
@@ -107,13 +108,13 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
               toolbarHeight: 160,
               // stretch: true,
               excludeHeaderSemantics: true,
-              backgroundColor: Colors.cyan.shade200,
+              backgroundColor: AppColors.secondaryColor,
               centerTitle: false,
               title: Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                decoration:
-                    BoxDecoration(border: Border.all(color: Colors.purple)),
+                // decoration:
+                //     BoxDecoration(border: Border.all(color: Colors.purple)),
                 child: BlocBuilder<MatchBloc, MatchState>(
                   builder: (context, state) {
                     if (state is MatchFetchSuccess) {
@@ -161,19 +162,17 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                                     decoration: BoxDecoration(
                                         border:
                                             Border.all(color: Colors.black)),
-                                    child: FittedBox(
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "${state.match!.date}",
-                                            textAlign: TextAlign.start,
-                                          ),
-                                          Text(
-                                            "${state.match!.time}",
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ],
-                                      ),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "${state.match!.date}",
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        Text(
+                                          "${state.match!.time}",
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
                                     ))),
                           if (state.match!.status == MatchStatus.FINISHED)
                             Expanded(
@@ -268,7 +267,7 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                 centerTitle: true,
                 title: TabBar(
                   isScrollable: true,
-                  dividerColor: Colors.orange,
+                  dividerColor: AppColors.lightTabarColor,
                   controller: tabController,
                   tabs: const [
                     Tab(
