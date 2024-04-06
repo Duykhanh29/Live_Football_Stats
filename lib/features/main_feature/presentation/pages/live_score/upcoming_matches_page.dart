@@ -7,12 +7,16 @@ class UpcomingMatchesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 15, top: 15),
-            child: Text('Upcoming matches'),
+          Padding(
+            padding: EdgeInsets.only(left: 10, bottom: 10),
+            child: Text(
+              'Upcoming matches',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            ),
           ),
           UpcomingMatchesWidget(),
         ],

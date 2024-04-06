@@ -52,6 +52,28 @@ class _LeaguePageState extends State<LeaguePage> with TickerProviderStateMixin {
             }
           },
         ),
+        flexibleSpace: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            BlocBuilder<LeagueBloc, LeagueState>(
+              builder: (context, state) {
+                if (state is LeagueFetchSuccess) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                    child: Text(
+                      state.league!.country.name!,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            ),
+          ],
+        ),
         bottom: TabBar(
           onTap: (value) {
             context.read<NavLeagueCubit>().updateIndex(value);

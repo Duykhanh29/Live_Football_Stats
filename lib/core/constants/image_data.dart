@@ -7,4 +7,6 @@ class ImageData {
   static const String redCardImage = '$imagePath/red_card.png';
   static const String substitutionImage = '$imagePath/substitution.png';
   static const String footballImage = '$imagePath/football.jpg';
+  static const String pdfImage = '$imagePath/pdf.png';
+  static const String excelImage = '$imagePath/excel.png';
 }

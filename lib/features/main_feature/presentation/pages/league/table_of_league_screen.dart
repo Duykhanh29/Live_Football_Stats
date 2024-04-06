@@ -2,62 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/standing.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_state.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/team/team_main_view.dart';
+import 'package:live_football_stats/features/main_feature/presentation/widgets/table/table_widget.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class TableOfLeagueScreen extends StatefulWidget {
+import '../../../../../core/constants/image_data.dart';
+
+class TableOfLeagueScreen extends StatelessWidget {
   TableOfLeagueScreen({super.key, required this.leagueId});
   int leagueId;
 
   @override
-  State<TableOfLeagueScreen> createState() => _TableOfLeagueScreenState();
-}
-
-class _TableOfLeagueScreenState extends State<TableOfLeagueScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    context.read<TableBloc>().add(TableFetched(leagueId: widget.leagueId));
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
       child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            child: BlocBuilder<TableBloc, TableState>(
-              builder: (context, state) {
-                if (state is TableFetchSuccess) {
-                  return DataTableWidget(
-                      standings: state.standingEntities.stage[0].standings);
-                } else if (state is TableFetchFail) {
-                  return const Center(
-                    child: Text("Something went wrong"),
-                  );
-                } else {
-                  return Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    width: MediaQuery.of(context).size.width,
-                    child: Center(
-                      child: LoadingAnimationWidget.discreteCircle(
-                        color: Colors.black,
-                        size: 30,
-                      ),
-                    ),
-                  );
-                }
-              },
-            )),
+        child: Column(
+          children: [
+            BlocProvider(
+              create: (context) =>
+                  sl.get<TableBloc>()..add(TableFetched(leagueId: leagueId)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: BlocBuilder<TableBloc, TableState>(
+                  builder: (context, state) {
+                    if (state is TableFetchSuccess) {
+                      return TableWidget(
+                          standings: state.standingEntities.stage[0].standings);
+                    } else if (state is TableFetchFail) {
+                      return const Center(
+                        child: Text("Something went wrong"),
+                      );
+                    } else {
+                      return Container(
+                        height: MediaQuery.of(context).size.height * 0.5,
+                        width: MediaQuery.of(context).size.width,
+                        child: Center(
+                          child: LoadingAnimationWidget.discreteCircle(
+                            color: Colors.black,
+                            size: 30,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -143,13 +141,44 @@ class DataTableWidget extends StatelessWidget {
       "Points"
     ];
 
-    return DataTable(
-      decoration: BoxDecoration(
-          border: Border.all(color: AppColors.appBorder, width: 1)),
-      // sortAscending: isAscending,
-      // sortColumnIndex: sortColumnIndex,
-      columns: getColumns(columns),
-      rows: getRows(standings, context),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        DataTable(
+          decoration: BoxDecoration(
+              border: Border.all(color: AppColors.appBorder, width: 1)),
+          // sortAscending: isAscending,
+          // sortColumnIndex: sortColumnIndex,
+          columns: getColumns(columns),
+          rows: getRows(standings, context),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        ElevatedButton.icon(
+          icon: Image.asset(
+            ImageData.excelImage,
+            height: 20,
+            width: 20,
+          ),
+          onPressed: () {},
+          label: const Text('Export to Excel'),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        ElevatedButton.icon(
+          icon: Image.asset(
+            ImageData.pdfImage,
+            height: 15,
+            width: 15,
+          ),
+          onPressed: () async {
+            //   exportDataGridToPdf();
+          },
+          label: const Text('Export to PDF'),
+        )
+      ],
     );
   }
 

@@ -67,6 +67,13 @@ dependencies:
   # date timeline
   easy_date_timeline: ^1.0.6
 
+  # export data to excel or pdf
+  syncfusion_flutter_datagrid_export: ^25.1.38
+  excel: ^4.0.3
+
+  # path
+  path_provider: ^2.1.2 
+
   # router
   go_router: ^13.2.1
 

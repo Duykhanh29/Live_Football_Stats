@@ -153,6 +153,9 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                                     child: Text(
                                   "${state.match!.goals!.homeFtGoals} - ${state.match!.goals!.awayFtGoals}",
                                   textAlign: TextAlign.start,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400),
                                 ))),
                           if (state.match!.status != MatchStatus.LIVE &&
                               state.match!.status != MatchStatus.FINISHED)
@@ -167,10 +170,16 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                                         Text(
                                           "${state.match!.date}",
                                           textAlign: TextAlign.start,
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400),
                                         ),
                                         Text(
                                           "${state.match!.time}",
                                           textAlign: TextAlign.start,
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400),
                                         ),
                                       ],
                                     ))),
@@ -187,11 +196,17 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                                           Text(
                                             "${state.match!.goals!.homeFtGoals}",
                                             textAlign: TextAlign.start,
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400),
                                           ),
                                           const Text("-"),
                                           Text(
                                             "${state.match!.goals!.awayFtGoals}",
                                             textAlign: TextAlign.start,
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400),
                                           ),
                                         ],
                                       ),

@@ -19,14 +19,6 @@ class MatchesFetchSuccess extends MatchesState {
   List<Object?> get props => [leagueMatches];
 }
 
-class UpcomingMatchesFetchSucess extends MatchesState {
-  final UpcomingMatches upcomingMatches;
-  UpcomingMatchesFetchSucess(this.upcomingMatches);
-  @override
-  // TODO: implement props
-  List<Object?> get props => [upcomingMatches];
-}
-
 class MatchesLoading extends MatchesState {}
 
 class MatchesFetchFail extends MatchesState {

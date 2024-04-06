@@ -5,6 +5,7 @@ import 'package:live_football_stats/core/constants/app_routes.dart';
 import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/core/utils/format_date.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/league_remote_data_source.dart';
+import 'package:live_football_stats/features/main_feature/domain/entities/upcoming_match.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/country_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/country_event.dart';
@@ -18,6 +19,8 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/mat
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches_by_date/matches_by_date_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches_by_date/matches_by_date_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/preview_match/preview_match_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/match/upcoming_matches/upcoming_matches_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/match/upcoming_matches/upcoming_matches_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_bar_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_league_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_bloc.dart';
@@ -57,6 +60,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) =>
                 sl.get<LiveScoreBloc>()..add(LiveScoreFetched()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                sl.get<UpcomingMatchesBloc>()..add(UpcomingMatchesFetched()),
           ),
           BlocProvider(
             create: (context) =>

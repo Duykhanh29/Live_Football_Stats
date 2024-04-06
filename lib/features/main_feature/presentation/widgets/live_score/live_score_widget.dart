@@ -25,7 +25,7 @@ class LiveScoreWidget extends StatelessWidget {
           children: [
             // const SliverToBoxAdapter(
             //   child:
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 10, bottom: 10),
               child: Text(
                 "Live matches",

@@ -37,10 +37,10 @@ class HeadToHeadWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Center(
+          Center(
             child: Text(
-              "Overall",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              name,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
           Text(

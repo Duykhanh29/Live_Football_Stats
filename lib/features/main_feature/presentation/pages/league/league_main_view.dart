@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_bar_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/leagues/all_league_widget.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/leagues/list_league_widget.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/leagues/top_leagues_widget.dart';
@@ -11,42 +13,51 @@ class LeagueMainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        child: CustomScrollView(
-          shrinkWrap: true,
-          slivers: [
-            TopLeaguesWidget(),
-            SliverToBoxAdapter(
-              child: Container(
-                padding: const EdgeInsets.only(top: 10, bottom: 5, right: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) {
-                            return const AllLeagueWidget();
-                          },
-                        ));
-                      },
-                      child: const Text("See all league"),
-                    )
-                  ],
-                ),
+      body: BlocBuilder<NavbarCubit, int>(
+        builder: (context, state) {
+          if (state == 2) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: CustomScrollView(
+                shrinkWrap: true,
+                slivers: [
+                  TopLeaguesWidget(),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      padding:
+                          const EdgeInsets.only(top: 10, bottom: 5, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) {
+                                  return const AllLeagueWidget();
+                                },
+                              ));
+                            },
+                            child: const Text("See all league"),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  ListLeagueWidget(),
+                ],
               ),
-            ),
-            ListLeagueWidget(),
-          ],
-        ),
-        //  Column(
-        //   children: [
-        //     // Expanded(child: TopLeaguesWidget()),
-        //     //
-        //     const Expanded(child: ListLeagueWidget()),
-        //   ],
-        // ),
+              //  Column(
+              //   children: [
+              //     // Expanded(child: TopLeaguesWidget()),
+              //     //
+              //     const Expanded(child: ListLeagueWidget()),
+              //   ],
+              // ),
+            );
+          } else {
+            return const SizedBox();
+          }
+        },
       ),
     );
   }

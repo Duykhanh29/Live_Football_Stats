@@ -21,6 +21,7 @@ class MatchesMainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.secondaryColor,
         title: const Text("Matches"),
       ),
       body: RefreshIndicator(

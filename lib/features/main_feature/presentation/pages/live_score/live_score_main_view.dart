@@ -5,6 +5,7 @@ import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/live_score.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/live_score/live_score_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/live_score/live_score_state.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_bar_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/live_score/upcoming_matches_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/live_score/live_score_card.dart';
 
@@ -17,21 +18,29 @@ class LiveScoreMainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: AppColors.secondaryColor,
         title: const Text(
           "Livescore",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          // shrinkWrap: true,
+      body: BlocBuilder<NavbarCubit, int>(
+        builder: (context, state) {
+          if (state == 1) {
+            return const SingleChildScrollView(
+              child: Column(
+                // shrinkWrap: true,
 
-          children: [
-            LiveScoreWidget()
-            //  UpcomingMatchesPage(),
-          ],
-        ),
+                children: [
+                  LiveScoreWidget(),
+                  UpcomingMatchesPage(),
+                ],
+              ),
+            );
+          } else {
+            return const SizedBox();
+          }
+        },
       ),
     );
   }

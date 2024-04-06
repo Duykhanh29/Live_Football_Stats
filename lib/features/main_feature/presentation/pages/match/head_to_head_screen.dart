@@ -70,7 +70,7 @@ class _HeadToHeadScreenState extends State<HeadToHeadScreen> {
                       team2: state.headToHead.team2!),
                   HeadToHeadWidget(
                       draw: state
-                          .headToHead.stats!.team1AtHome!.team1DrawsAtHome!,
+                          .headToHead.stats!.team2AtHome!.team2DrawsAtHome!,
                       name: "${state.headToHead.team2!.name} at home",
                       team1Wins:
                           state.headToHead.stats!.team2AtHome!.team2WinsAtHome!,
