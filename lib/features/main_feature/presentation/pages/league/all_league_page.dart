@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:live_football_stats/core/helper/loading_helper.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_bloc.dart';
@@ -8,8 +9,8 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/lea
 import 'package:live_football_stats/features/main_feature/presentation/widgets/leagues/a_league_card.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class AllLeagueWidget extends StatelessWidget {
-  const AllLeagueWidget({super.key});
+class AllLeaguePage extends StatelessWidget {
+  const AllLeaguePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,8 @@ class AllLeagueWidget extends StatelessWidget {
         title: const Text("All league"),
         leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              //Navigator.of(context).pop();
+              GoRouter.of(context).pop();
             },
             icon: const Icon(Icons.arrow_back_ios)),
       ),

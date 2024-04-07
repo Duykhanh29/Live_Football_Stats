@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/constants/app_routes_name.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/upcoming_match.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/match/match_page.dart';
 
@@ -10,11 +12,13 @@ class UpcomingMatchPreviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) {
-            return MatchPage(matchId: matchPreview.id!);
-          },
-        ));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) {
+        //     return MatchPage(matchId: matchPreview.id!);
+        //   },
+        // ));
+        context.pushNamed(AppRoutesName.matchPage,
+            pathParameters: {'id': "${matchPreview.id}"});
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),

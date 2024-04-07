@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/constants/app_routes_name.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_bloc.dart';
@@ -24,11 +26,12 @@ class ExpansionLeagueCard extends StatelessWidget {
         child: ListTile(
           // onExpansionChanged: ,
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) {
-                return AllLeagueOfCountryPage(country: country);
-              },
-            ));
+            // Navigator.of(context).push(MaterialPageRoute(
+            //   builder: (context) {
+            //     return AllLeagueOfCountryPage(country: country);
+            //   },
+            // ));
+            context.pushNamed(AppRoutesName.leaguesOfCountry, extra: country);
           },
           title: Text(
             country.name!,

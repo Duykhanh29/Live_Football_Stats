@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:go_router/go_router.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/constants/app_routes_name.dart';
 import 'package:live_football_stats/core/constants/image_data.dart';
 import 'package:live_football_stats/core/enums/enum_values.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
@@ -126,12 +128,14 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                             flex: 4,
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) {
-                                    return TeamMainView(
-                                        teamID: state.match!.teams!.home!.id);
-                                  },
-                                ));
+                                context.pushNamed(AppRoutesName.teamPage,
+                                    extra: state.match!.teams!.home!.id);
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //   builder: (context) {
+                                //     return TeamMainView(
+                                //         teamID: state.match!.teams!.home!.id);
+                                //   },
+                                // ));
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(2),
@@ -215,12 +219,14 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                             flex: 4,
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) {
-                                    return TeamMainView(
-                                        teamID: state.match!.teams!.away!.id);
-                                  },
-                                ));
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //   builder: (context) {
+                                //     return TeamMainView(
+                                //         teamID: state.match!.teams!.away!.id);
+                                //   },
+                                // ));
+                                context.pushNamed(AppRoutesName.teamPage,
+                                    extra: state.match!.teams!.away!.id);
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(2),
@@ -268,7 +274,8 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
 
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).pop();
+                    //        Navigator.of(context).pop();
+                    context.pop();
                   },
                   child: const Icon(
                     Icons.arrow_back_ios,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/constants/app_routes_name.dart';
 import 'package:live_football_stats/core/enums/enum_values.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league_matches.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/a_match/match_bloc.dart';
@@ -17,11 +19,13 @@ class MatchCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) {
-            return MatchPage(matchId: match.id!);
-          },
-        ));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) {
+        //     return MatchPage(matchId: match.id!);
+        //   },
+        // ));
+        context.pushNamed(AppRoutesName.matchPage,
+            pathParameters: {'id': "${match.id}"});
       },
       child: Container(
         decoration: BoxDecoration(

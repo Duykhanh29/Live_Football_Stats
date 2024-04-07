@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:live_football_stats/core/constants/app_routes_name.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/league/league_page.dart';
 
 class CommonWidget {
@@ -9,13 +11,14 @@ class CommonWidget {
       child: InkWell(
         onTap: () {
           if (leagueID != null) {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) {
-                return LeaguePage(
-                  leagueId: leagueID,
-                );
-              },
-            ));
+            context.pushNamed(AppRoutesName.leaguePage, extra: leagueID);
+            // Navigator.of(context).push(MaterialPageRoute(
+            //   builder: (context) {
+            //     return LeaguePage(
+            //       leagueId: leagueID,
+            //     );
+            //   },
+            // ));
           }
         },
         child: const Icon(

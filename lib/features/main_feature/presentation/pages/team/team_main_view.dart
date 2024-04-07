@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:go_router/go_router.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/team.dart';
@@ -96,13 +98,15 @@ class _TeamMainViewState extends State<TeamMainView>
     return PreferredSize(
       preferredSize: const Size.fromHeight(130),
       child: AppBar(
+        backgroundColor: AppColors.secondaryColor,
         leading: Container(
           // padding: const EdgeInsets.only(top: 15),
           width: 40,
           height: 40,
           child: InkWell(
             onTap: () {
-              Navigator.of(context).pop();
+              // Navigator.of(context).pop();
+              GoRouter.of(context).pop();
             },
             child: const Icon(
               Icons.arrow_back_ios,

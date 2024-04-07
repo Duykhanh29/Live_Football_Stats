@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/constants/app_routes_name.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/league/league_page.dart';
 
@@ -10,13 +12,14 @@ class TopLeagueCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) {
-            return LeaguePage(
-              leagueId: league.id,
-            );
-          },
-        ));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) {
+        //     return LeaguePage(
+        //       leagueId: league.id,
+        //     );
+        //   },
+        // ));
+        context.pushNamed(AppRoutesName.leaguePage, extra: league.id);
       },
       child: Container(
         decoration: BoxDecoration(

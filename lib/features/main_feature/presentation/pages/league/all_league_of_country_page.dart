@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:go_router/go_router.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_event.dart';
@@ -36,7 +37,8 @@ class _AllLeagueOfCountryPageState extends State<AllLeagueOfCountryPage> {
 
           child: InkWell(
             onTap: () {
-              Navigator.of(context).pop();
+              // Navigator.of(context).pop();
+              GoRouter.of(context).pop();
             },
             child: const Icon(
               Icons.arrow_back_ios,

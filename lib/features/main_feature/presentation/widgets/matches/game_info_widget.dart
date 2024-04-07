@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/constants/app_routes_name.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league_response.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/match.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/stage_response.dart';
@@ -43,11 +45,13 @@ class GameInfoWidget extends StatelessWidget {
           ListTile(
             onTap: () {
               if (leagueResponse != null) {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) {
-                    return LeaguePage(leagueId: leagueResponse!.id);
-                  },
-                ));
+                // Navigator.of(context).push(MaterialPageRoute(
+                //   builder: (context) {
+                //     return LeaguePage(leagueId: leagueResponse!.id);
+                //   },
+                // ));
+                context.pushNamed(AppRoutesName.leaguePage,
+                    extra: leagueResponse!.id);
               }
             },
             leading: const Icon(Ionicons.trophy),

@@ -1,38 +1,107 @@
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:live_football_stats/core/constants/app_routes_name.dart';
 import 'package:live_football_stats/features/auth/presentation/pages/login_page.dart';
+import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/favourite/favourite_page.dart';
+import 'package:live_football_stats/features/main_feature/presentation/pages/league/all_league_of_country_page.dart';
+import 'package:live_football_stats/features/main_feature/presentation/pages/league/all_league_page.dart';
+import 'package:live_football_stats/features/main_feature/presentation/pages/league/league_main_view.dart';
+import 'package:live_football_stats/features/main_feature/presentation/pages/league/league_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/live_score/live_score_main_view.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/main_view.dart';
+import 'package:live_football_stats/features/main_feature/presentation/pages/match/match_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/matches/matches_main_view.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/profile/account_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/profile/profile_page.dart';
+import 'package:live_football_stats/features/main_feature/presentation/pages/team/team_main_view.dart';
 
 GoRouter goRouter = GoRouter(
+  initialLocation: '/',
   routes: <GoRoute>[
-    GoRoute(path: '/', builder: (context, state) => MainView(), routes: [
-      // GoRoute(
-      //   path: '/matches_view',
-      //   builder: (context, state) => MatchesMainView(),
-      // ),
-      // GoRoute(
-      //   path: '/live_score_view',
-      //   builder: (context, state) => const LiveScoreMainView(),
-      // ),
-      // GoRoute(
-      //   path: '/favourite_page',
-      //   builder: (context, state) => const FavouritePage(),
-      // ),
-      // GoRoute(
-      //   path: '/account_page',
-      //   builder: (context, state) => const AccountPage(),
-      // ),
-      // GoRoute(
-      //   path: '/profile_page',
-      //   builder: (context, state) => const ProfilePage(),
-      // ),
-    ]),
     GoRoute(
-      path: '/login_view',
+      path: '/',
+      builder: (context, state) => MainView(),
+      name: AppRoutesName.mainView,
+      routes: [], //
+    ),
+    GoRoute(
+      path: '/matches_view',
+      name: AppRoutesName.matchesView,
+      builder: (context, state) => MatchesMainView(),
+      routes: [
+        GoRoute(
+          path: 'match_page/:id',
+          name: AppRoutesName.matchPage,
+          builder: (BuildContext context, GoRouterState state) {
+            final String? matchIdStr = state.pathParameters['id'];
+            final int? matchID = int.tryParse(matchIdStr ?? '');
+            return MatchPage(matchId: matchID!);
+          },
+        ),
+      ],
+    ),
+    GoRoute(
+      path: '/live_score_view',
+      name: AppRoutesName.liveScoreView,
+      builder: (context, state) => const LiveScoreMainView(),
+    ),
+    GoRoute(
+      path: '/league_main_view',
+      name: AppRoutesName.leagueMainView,
+      builder: (context, state) => const LeagueMainView(),
+      routes: [
+        GoRoute(
+          path: 'all_league',
+          name: AppRoutesName.allLeaguePage,
+          builder: (context, state) => const AllLeaguePage(),
+        ),
+        GoRoute(
+          path: 'leagues_of_country',
+          name: AppRoutesName.leaguesOfCountry,
+          builder: (context, state) {
+            final country = state.extra as Country;
+            return AllLeagueOfCountryPage(country: country);
+          },
+        ),
+        GoRoute(
+          path: 'league_page',
+          name: AppRoutesName.leaguePage,
+          builder: (context, state) {
+            final leagueID = state.extra as int;
+            return LeaguePage(leagueId: leagueID);
+          },
+        ),
+      ],
+    ),
+    GoRoute(
+      path: '/team_page',
+      name: AppRoutesName.teamPage,
+      builder: (context, state) {
+        final teamId = state.extra as int;
+        return TeamMainView(teamID: teamId);
+      },
+    ),
+    GoRoute(
+      path: '/favourite_page',
+      name: AppRoutesName.favouritePage,
+      builder: (context, state) => const FavouritePage(),
+    ),
+    GoRoute(
+      path: '/account_page',
+      name: AppRoutesName.accountPage,
+      builder: (context, state) => const AccountPage(),
+      routes: [
+        GoRoute(
+          name: AppRoutesName.profilePage,
+          path: 'profile_page',
+          builder: (context, state) => const ProfilePage(),
+        ),
+      ],
+    ),
+    GoRoute(
+      path: '/login_page',
+      name: AppRoutesName.loginPage,
       builder: (context, state) => const LoginPage(),
     ),
   ],
