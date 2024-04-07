@@ -39,6 +39,8 @@ class _LeaguePageState extends State<LeaguePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.secondaryColor,
+        centerTitle: true,
         title: BlocBuilder<LeagueBloc, LeagueState>(
           builder: (context, state) {
             if (state is LeagueFetchSuccess) {
@@ -52,46 +54,72 @@ class _LeaguePageState extends State<LeaguePage> with TickerProviderStateMixin {
             }
           },
         ),
-        flexibleSpace: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            BlocBuilder<LeagueBloc, LeagueState>(
-              builder: (context, state) {
-                if (state is LeagueFetchSuccess) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.only(top: 10, bottom: 10, left: 15),
-                    child: Text(
-                      state.league!.country.name!,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w600),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              },
-            ),
-          ],
-        ),
-        bottom: TabBar(
-          onTap: (value) {
-            context.read<NavLeagueCubit>().updateIndex(value);
-          },
-          tabs: const [
-            Tab(
-              text: "Macthes",
-            ),
-            Tab(
-              text: "Table",
-            ),
-            Tab(
-              text: "Current",
-            )
-          ],
-          labelStyle: const TextStyle(color: Colors.black),
-          indicatorColor: AppColors.lightTabarColor,
-          controller: controller,
+        // flexibleSpace: Column(
+        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //   children: [
+        //     BlocBuilder<LeagueBloc, LeagueState>(
+        //       builder: (context, state) {
+        //         if (state is LeagueFetchSuccess) {
+        //           return Padding(
+        //             padding:
+        //                 const EdgeInsets.only(top: 10, bottom: 10, left: 15),
+        //             child: Text(
+        //               state.league!.country.name!,
+        //               style: const TextStyle(
+        //                   fontSize: 16, fontWeight: FontWeight.w600),
+        //             ),
+        //           );
+        //         } else {
+        //           return Container();
+        //         }
+        //       },
+        //     ),
+        //   ],
+        // ),
+        bottom: PreferredSize(
+          preferredSize: Size(MediaQuery.of(context).size.width,
+              MediaQuery.of(context).size.height * 0.1),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              BlocBuilder<LeagueBloc, LeagueState>(
+                builder: (context, state) {
+                  if (state is LeagueFetchSuccess) {
+                    return Padding(
+                      padding:
+                          const EdgeInsets.only(top: 10, bottom: 10, left: 0),
+                      child: Text(
+                        state.league!.country.name!,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+              TabBar(
+                onTap: (value) {
+                  context.read<NavLeagueCubit>().updateIndex(value);
+                },
+                tabs: const [
+                  Tab(
+                    text: "Macthes",
+                  ),
+                  Tab(
+                    text: "Table",
+                  ),
+                  Tab(
+                    text: "Current",
+                  )
+                ],
+                labelStyle: const TextStyle(color: Colors.black),
+                indicatorColor: AppColors.lightTabarColor,
+                controller: controller,
+              ),
+            ],
+          ),
         ),
       ),
       body: Padding(

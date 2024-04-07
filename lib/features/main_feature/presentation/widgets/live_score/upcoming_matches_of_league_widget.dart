@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/helper/comon_widget.dart';
 import 'package:live_football_stats/core/helper/divider_helper.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/upcoming_match.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/league/league_main_view.dart';
@@ -40,26 +41,8 @@ class UpcomingMatchesOfLeagueWidget extends StatelessWidget {
                         fontSize: 15, fontWeight: FontWeight.w500),
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: InkWell(
-                    onTap: () {
-                      if (upcomingMatchesOfLeague.leagueID != null) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) {
-                            return LeaguePage(
-                              leagueId: upcomingMatchesOfLeague.leagueID!,
-                            );
-                          },
-                        ));
-                      }
-                    },
-                    child: const Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 18,
-                    ),
-                  ),
-                ),
+                CommonWidget.fowardToLeaguePage(
+                    context, upcomingMatchesOfLeague.leagueID),
               ],
             ),
           ),

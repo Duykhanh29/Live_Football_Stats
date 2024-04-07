@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_bar_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/leagues/all_league_widget.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/leagues/list_league_widget.dart';
@@ -13,6 +14,14 @@ class LeagueMainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.secondaryColor,
+        centerTitle: true,
+        title: const Text(
+          "Leagues",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: BlocBuilder<NavbarCubit, int>(
         builder: (context, state) {
           if (state == 2) {
@@ -21,6 +30,12 @@ class LeagueMainView extends StatelessWidget {
               child: CustomScrollView(
                 shrinkWrap: true,
                 slivers: [
+                  SliverToBoxAdapter(
+                    child: Container(
+                        padding:
+                            const EdgeInsets.only(top: 10, bottom: 5, left: 10),
+                        child: const Text("Top leagues")),
+                  ),
                   TopLeaguesWidget(),
                   SliverToBoxAdapter(
                     child: Container(
@@ -37,13 +52,24 @@ class LeagueMainView extends StatelessWidget {
                                 },
                               ));
                             },
-                            child: const Text("See all league"),
+                            child: const Text(
+                              "See all league",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.underline),
+                            ),
                           )
                         ],
                       ),
                     ),
                   ),
-                  ListLeagueWidget(),
+                  SliverToBoxAdapter(
+                    child: Container(
+                        padding:
+                            const EdgeInsets.only(top: 10, bottom: 5, left: 10),
+                        child: const Text("All country")),
+                  ),
+                  const ListLeagueWidget(),
                 ],
               ),
               //  Column(

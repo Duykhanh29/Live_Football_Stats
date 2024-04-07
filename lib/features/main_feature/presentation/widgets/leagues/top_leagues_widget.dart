@@ -61,7 +61,7 @@ class TopLeaguesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: const EdgeInsets.only(left: 10, right: 10, top: 30, bottom: 10),
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 10),
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(
           (context, index) => TopLeagueCard(

@@ -12,7 +12,7 @@ class UpcomingMatchesPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 10, bottom: 10),
+            padding: EdgeInsets.only(left: 15, bottom: 10, top: 15),
             child: Text(
               'Upcoming matches',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),

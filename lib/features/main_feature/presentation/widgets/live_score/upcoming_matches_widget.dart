@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:live_football_stats/core/helper/error_helper.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/upcoming_matches/upcoming_matches_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/upcoming_matches/upcoming_matches_state.dart';
@@ -12,7 +13,7 @@ class UpcomingMatchesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UpcomingMatchesBloc, UpcomingMatchesState>(
+    return BlocConsumer<UpcomingMatchesBloc, UpcomingMatchesState>(
       builder: (context, state) {
         if (state is UpcomingMatchesFetchSuccess) {
           if (state.upcomingMatches.count != null &&
@@ -38,6 +39,13 @@ class UpcomingMatchesWidget extends StatelessWidget {
           return ErrorHelper.basicErrorWidget();
         } else {
           return const SizedBox();
+        }
+      },
+      listener: (context, state) {
+        if (state is UpcomingMatchesLoading) {
+          EasyLoading.show();
+        } else {
+          EasyLoading.dismiss();
         }
       },
     );

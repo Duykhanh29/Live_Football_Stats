@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/helper/comon_widget.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league_matches.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/matches/match_card.dart';
 
@@ -23,10 +24,20 @@ class MatchesOfLeagueWidget extends StatelessWidget {
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              child: Text(
-                leagueMatches.leagueName != null
-                    ? "${leagueMatches.leagueName} (${leagueMatches.country!.name ?? ""}) "
-                    : "",
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 7,
+                    child: Text(
+                      leagueMatches.leagueName != null
+                          ? "${leagueMatches.leagueName} (${leagueMatches.country!.name ?? ""}) "
+                          : "",
+                    ),
+                  ),
+                  CommonWidget.fowardToLeaguePage(
+                      context, leagueMatches.leagueID),
+                ],
               ),
             ),
           ),

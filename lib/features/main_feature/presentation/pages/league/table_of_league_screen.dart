@@ -32,8 +32,15 @@ class TableOfLeagueScreen extends StatelessWidget {
                 child: BlocBuilder<TableBloc, TableState>(
                   builder: (context, state) {
                     if (state is TableFetchSuccess) {
-                      return TableWidget(
-                          standings: state.standingEntities.stage[0].standings);
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: TableWidget(
+                              standings:
+                                  state.standingEntities.stage[0].standings),
+                        ),
+                      );
                     } else if (state is TableFetchFail) {
                       return const Center(
                         child: Text("Something went wrong"),

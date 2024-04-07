@@ -108,7 +108,7 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
               toolbarHeight: 160,
               // stretch: true,
               excludeHeaderSemantics: true,
-              backgroundColor: AppColors.secondaryColor,
+              backgroundColor: AppColors.backgroundColor,
               centerTitle: false,
               title: Container(
                 padding:

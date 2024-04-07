@@ -22,6 +22,8 @@ class AppColors {
 
   static const Color errorColor = Colors.redAccent;
   static const Color transparentColor = Colors.transparent;
+
+  static const Color liveColor = Color.fromARGB(255, 255, 88, 5);
   // dark
   static Color darkTabarColor = const Color.fromARGB(255, 25, 99, 28);
   static Color darkBorderColor = const Color.fromARGB(255, 60, 60, 60);

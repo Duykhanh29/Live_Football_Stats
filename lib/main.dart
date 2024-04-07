@@ -23,6 +23,7 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/mat
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/upcoming_matches/upcoming_matches_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_bar_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_league_cubit.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_live_score_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/a_team/team_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/player/player_bloc.dart';
@@ -51,6 +52,9 @@ class MyApp extends StatelessWidget {
             providers: [
           BlocProvider(
             create: (context) => NavbarCubit(),
+          ),
+          BlocProvider(
+            create: (context) => NavLiveScoreCubit(),
           ),
           BlocProvider(
             create: (context) => sl.get<MatchesByDateBloc>()
