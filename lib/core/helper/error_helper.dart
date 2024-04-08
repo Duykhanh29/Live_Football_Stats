@@ -7,4 +7,8 @@ class ErrorHelper {
       child: Text("Something went wrong"),
     );
   }
+
+  static Widget itemErrorWidget() {
+    return const Text("Something went wrong");
+  }
 }

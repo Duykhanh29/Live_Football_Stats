@@ -5,8 +5,10 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/constants/app_routes_name.dart';
+import 'package:live_football_stats/core/constants/app_text_style.dart';
 import 'package:live_football_stats/core/constants/image_data.dart';
 import 'package:live_football_stats/core/enums/enum_values.dart';
+import 'package:live_football_stats/core/helper/error_helper.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league_response.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/player.dart';
@@ -106,7 +108,7 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-              titleTextStyle: TextStyle(fontSize: 20),
+              titleTextStyle: AppTextStyles.appBarTexStyle(),
               toolbarHeight: 160,
               // stretch: true,
               excludeHeaderSemantics: true,
@@ -288,6 +290,7 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                 titlePadding: const EdgeInsets.symmetric(horizontal: 20),
                 centerTitle: true,
                 title: TabBar(
+                  labelStyle: AppTextStyles.tabBarTextStyle(),
                   isScrollable: true,
                   dividerColor: AppColors.lightTabarColor,
                   controller: tabController,
@@ -369,9 +372,7 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                               matchPreview: state.match,
                             );
                           } else if (state is PreviewMatchFetchFail) {
-                            return const Center(
-                              child: Text("Something went wrong"),
-                            );
+                            return ErrorHelper.basicErrorWidget();
                           } else {
                             return Container();
                           }
@@ -391,9 +392,7 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                       ],
                     );
                   } else if (state is MatchFetchFail) {
-                    return const Center(
-                      child: Text("Something went wrong"),
-                    );
+                    return ErrorHelper.basicErrorWidget();
                   } else {
                     return const SizedBox();
                   }

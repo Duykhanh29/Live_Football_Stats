@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:live_football_stats/core/constants/app_routes.dart';
+import 'package:live_football_stats/core/constants/app_themes.dart';
 import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/core/utils/format_date.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/league_remote_data_source.dart';
@@ -28,6 +29,7 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/tab
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/a_team/team_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/player/player_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/transfers/transfers_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/themes/themes_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/main_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,6 +52,9 @@ class MyApp extends StatelessWidget {
 
         MultiBlocProvider(
             providers: [
+          BlocProvider(
+            create: (context) => ThemesCubit(),
+          ),
           BlocProvider(
             create: (context) => NavbarCubit(),
           ),
@@ -105,13 +110,21 @@ class MyApp extends StatelessWidget {
             create: (context) => sl.get<PlayerBloc>(),
           ),
         ],
-            child: MaterialApp.router(
-              routerDelegate: goRouter.routerDelegate,
-              routeInformationParser: goRouter.routeInformationParser,
-              routeInformationProvider: goRouter.routeInformationProvider,
-              debugShowCheckedModeBanner: false,
-              // home: MainView(),
-              builder: EasyLoading.init(),
+            child: BlocBuilder<ThemesCubit, bool>(
+              builder: (context, state) => MaterialApp.router(
+                routerDelegate: goRouter.routerDelegate,
+                routeInformationParser: goRouter.routeInformationParser,
+                routeInformationProvider: goRouter.routeInformationProvider,
+                debugShowCheckedModeBanner: false,
+                // home: MainView(),
+                themeMode: ThemeMode.system,
+                theme: state
+                    ? AppTheme.lightThemes
+                    : AppTheme
+                        .darkTheme, // applies this theme if the device theme is light mode
+                darkTheme: AppTheme.darkTheme,
+                builder: EasyLoading.init(),
+              ),
             ));
   }
 }

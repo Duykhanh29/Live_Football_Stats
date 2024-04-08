@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:live_football_stats/core/constants/app_text_style.dart';
 
 import '../../widgets/live_score/upcoming_matches_widget.dart';
 
@@ -7,18 +8,18 @@ class UpcomingMatchesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 15, bottom: 10, top: 15),
+            padding: const EdgeInsets.only(left: 15, bottom: 10, top: 15),
             child: Text(
               'Upcoming matches',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              style: AppTextStyles.headingTextStyle(),
             ),
           ),
-          UpcomingMatchesWidget(),
+          const UpcomingMatchesWidget(),
         ],
       ),
     );

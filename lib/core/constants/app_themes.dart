@@ -37,6 +37,18 @@ class AppTheme {
       ),
     );
   }
+
+  static ThemeData lightThemes = ThemeData(
+    primaryColor: ThemeData.light().scaffoldBackgroundColor,
+    colorScheme: const ColorScheme.light()
+        .copyWith(primary: AppColors.secondaryColor, background: Colors.white),
+  );
+
+  static ThemeData darkTheme = ThemeData(
+    primaryColor: ThemeData.dark().scaffoldBackgroundColor,
+    colorScheme: const ColorScheme.dark()
+        .copyWith(background: Color.fromARGB(255, 139, 139, 139)),
+  );
 }
 
 const OutlineInputBorder outlineInputBorder = OutlineInputBorder(

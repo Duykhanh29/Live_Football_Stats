@@ -7,6 +7,8 @@ import 'package:live_football_stats/features/main_feature/domain/entities/match.
 import 'package:live_football_stats/features/main_feature/domain/entities/player.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/matches/pitch_widget.dart';
 
+import '../../../../../core/constants/app_text_style.dart';
+
 class LineupScreen extends StatefulWidget {
   LineupScreen({super.key, required this.lineups});
   Lineups lineups;
@@ -72,6 +74,7 @@ class _LineupScreenState extends State<LineupScreen>
       child: Column(
         children: [
           TabBar(
+            labelStyle: AppTextStyles.tabBarTextStyle(),
             indicatorColor: AppColors.lightTabarColor,
             labelColor: AppColors.secondaryColor,
             controller: controller,

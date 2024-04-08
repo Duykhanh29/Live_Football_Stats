@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/constants/app_text_style.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_state.dart';
@@ -46,8 +47,7 @@ class _LeaguePageState extends State<LeaguePage> with TickerProviderStateMixin {
             if (state is LeagueFetchSuccess) {
               return Text(
                 state.league!.name,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: AppTextStyles.appBarTexStyle(),
               );
             } else {
               return Container();
@@ -90,8 +90,7 @@ class _LeaguePageState extends State<LeaguePage> with TickerProviderStateMixin {
                           const EdgeInsets.only(top: 10, bottom: 10, left: 0),
                       child: Text(
                         state.league!.country.name!,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
+                        style: AppTextStyles.secondAppBarTextStyle(),
                       ),
                     );
                   } else {
@@ -114,7 +113,7 @@ class _LeaguePageState extends State<LeaguePage> with TickerProviderStateMixin {
                     text: "Current",
                   )
                 ],
-                labelStyle: const TextStyle(color: Colors.black),
+                labelStyle: AppTextStyles.tabBarTextStyle(),
                 indicatorColor: AppColors.lightTabarColor,
                 controller: controller,
               ),

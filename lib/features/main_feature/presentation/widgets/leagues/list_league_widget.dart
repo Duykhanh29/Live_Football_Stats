@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:live_football_stats/core/helper/error_helper.dart';
+import 'package:live_football_stats/core/helper/loading_helper.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/contry_state.dart';
@@ -27,26 +29,16 @@ class ListLeagueWidget extends StatelessWidget {
         if (state is AllCountryFetchSuccess) {
           return SliverList(
             delegate: SliverChildBuilderDelegate(
-              
                 (context, index) => ExpansionLeagueCard(
                       country: state.allCountry![index],
                     ),
                 childCount: state.allCountry!.length),
           );
         } else if (state is CountryFetchFail) {
-          return const SliverToBoxAdapter(
-            child: Center(
-              child: Text("Something went wrong"),
-            ),
-          );
+          return SliverToBoxAdapter(child: ErrorHelper.basicErrorWidget());
         } else {
           return SliverToBoxAdapter(
-            child: Center(
-              child: LoadingAnimationWidget.staggeredDotsWave(
-                color: Colors.black,
-                size: 30,
-              ),
-            ),
+            child: LoadingHelper.staggeredDotsWaveLoading(),
           );
         }
       },

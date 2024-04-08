@@ -12,6 +12,8 @@ import 'package:live_football_stats/features/main_feature/presentation/widgets/m
 import 'package:grouped_list/grouped_list.dart';
 import 'package:sticky_grouped_list/sticky_grouped_list.dart';
 
+import '../../../../../core/helper/error_helper.dart';
+
 class MatchedOfLeagueScreen extends StatefulWidget {
   MatchedOfLeagueScreen({super.key, required this.leagueID});
   int leagueID;
@@ -124,9 +126,7 @@ class _MatchedOfLeagueScreenState extends State<MatchedOfLeagueScreen> {
             } else if (state is InitialMatches) {
               return Container();
             } else {
-              return const Center(
-                child: Text("Something went wrong 111"),
-              );
+              return ErrorHelper.basicErrorWidget();
             }
           },
           listener: (context, state) {

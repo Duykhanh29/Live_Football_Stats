@@ -27,4 +27,7 @@ class AppColors {
   // dark
   static Color darkTabarColor = const Color.fromARGB(255, 25, 99, 28);
   static Color darkBorderColor = const Color.fromARGB(255, 60, 60, 60);
+
+  static Color darkBackgroundColor = const Color.fromARGB(255, 7, 35, 80);
+  static Color dardSecondaryColor = const Color.fromARGB(255, 15, 75, 173);
 }

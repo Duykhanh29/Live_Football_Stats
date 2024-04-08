@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/constants/app_routes_name.dart';
+import 'package:live_football_stats/core/constants/app_text_style.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_bar_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/league/all_league_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/leagues/list_league_widget.dart';
@@ -19,9 +20,9 @@ class LeagueMainView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.secondaryColor,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           "Leagues",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: AppTextStyles.appBarTexStyle(),
         ),
       ),
       body: BlocBuilder<NavbarCubit, int>(
@@ -36,7 +37,10 @@ class LeagueMainView extends StatelessWidget {
                     child: Container(
                         padding:
                             const EdgeInsets.only(top: 10, bottom: 5, left: 10),
-                        child: const Text("Top leagues")),
+                        child: Text(
+                          "Top leagues",
+                          style: AppTextStyles.headingTextStyle(),
+                        )),
                   ),
                   TopLeaguesWidget(),
                   SliverToBoxAdapter(
@@ -71,7 +75,10 @@ class LeagueMainView extends StatelessWidget {
                     child: Container(
                         padding:
                             const EdgeInsets.only(top: 10, bottom: 5, left: 10),
-                        child: const Text("All country")),
+                        child: Text(
+                          "All country",
+                          style: AppTextStyles.headingTextStyle(),
+                        )),
                   ),
                   const ListLeagueWidget(),
                 ],

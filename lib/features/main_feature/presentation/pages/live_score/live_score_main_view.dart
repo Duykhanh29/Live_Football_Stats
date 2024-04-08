@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/constants/app_text_style.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/live_score.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/live_score/live_score_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/live_score/live_score_state.dart';
@@ -21,14 +22,18 @@ class LiveScoreMainView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.secondaryColor,
-        title: const Text(
+        // centerTitle: true,
+        title: Text(
           "Livescore",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          style: AppTextStyles.appBarTexStyle(),
         ),
         actions: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Text("Live"),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Text(
+              "Live",
+              style: AppTextStyles.actionAppBarTextStyle(),
+            ),
           ),
           BlocBuilder<NavLiveScoreCubit, bool>(builder: (context, state) {
             return

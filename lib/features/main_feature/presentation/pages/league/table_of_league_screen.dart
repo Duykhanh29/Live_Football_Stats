@@ -12,6 +12,7 @@ import 'package:live_football_stats/features/main_feature/presentation/widgets/t
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../../../core/constants/image_data.dart';
+import '../../../../../core/helper/error_helper.dart';
 
 class TableOfLeagueScreen extends StatelessWidget {
   TableOfLeagueScreen({super.key, required this.leagueId});
@@ -42,9 +43,7 @@ class TableOfLeagueScreen extends StatelessWidget {
                         ),
                       );
                     } else if (state is TableFetchFail) {
-                      return const Center(
-                        child: Text("Something went wrong"),
-                      );
+                      return ErrorHelper.basicErrorWidget();
                     } else {
                       return Container(
                         height: MediaQuery.of(context).size.height * 0.5,

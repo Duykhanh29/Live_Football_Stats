@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:live_football_stats/core/enums/enum_values.dart';
+import 'package:live_football_stats/core/helper/error_helper.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/a_match/match_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/a_match/match_state.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/match.dart';
@@ -17,7 +18,7 @@ class AMatchCard extends StatelessWidget {
         } else if (state is MatchFetchSuccess) {
           return Container(
             height: 70,
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -57,9 +58,7 @@ class AMatchCard extends StatelessWidget {
             ),
           );
         } else {
-          return const Center(
-            child: Text("Something went wrong"),
-          );
+          return ErrorHelper.basicErrorWidget();
         }
       },
     );

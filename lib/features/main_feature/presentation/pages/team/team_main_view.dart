@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/constants/app_text_style.dart';
+import 'package:live_football_stats/core/helper/error_helper.dart';
 import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/team.dart';
@@ -43,7 +45,7 @@ class _TeamMainViewState extends State<TeamMainView>
     return Scaffold(
       appBar: buildAppBar(context),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
         child: BlocConsumer<TeamBloc, TeamState>(
           builder: (context, state) {
             if (state is TeamFetchSuccess) {
@@ -61,9 +63,7 @@ class _TeamMainViewState extends State<TeamMainView>
                 ],
               );
             } else if (state is TeamFetchFail) {
-              return const Center(
-                child: Text("Something went wrong"),
-              );
+              return ErrorHelper.basicErrorWidget();
             } else {
               return TabBarView(
                 controller: controller,
@@ -167,10 +167,10 @@ class _TeamMainViewState extends State<TeamMainView>
         ],
         bottom: TabBar(
           isScrollable: true,
-          labelStyle: TextStyle(color: Colors.black),
+          labelStyle: AppTextStyles.tabBarTextStyle(),
           indicatorColor: Colors.greenAccent,
           controller: controller,
-          tabs: [
+          tabs: const [
             Tab(
               text: "Overview",
             ),

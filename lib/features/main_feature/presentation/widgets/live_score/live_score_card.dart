@@ -37,7 +37,7 @@ class LiveScoreCard extends StatelessWidget {
         // ),
         // if (liveScore.stage != null && liveScore.stage![0].matches != null)
         ListView.separated(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           separatorBuilder: (context, index) => const SizedBox(
             height: 4,
           ),

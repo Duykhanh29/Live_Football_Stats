@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:live_football_stats/core/constants/app_text_style.dart';
 import 'package:live_football_stats/core/helper/loading_helper.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_bloc.dart';
@@ -9,6 +10,8 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/lea
 import 'package:live_football_stats/features/main_feature/presentation/widgets/leagues/a_league_card.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../../../../../core/helper/error_helper.dart';
+
 class AllLeaguePage extends StatelessWidget {
   const AllLeaguePage({super.key});
 
@@ -16,7 +19,11 @@ class AllLeaguePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("All league"),
+        centerTitle: true,
+        title: Text(
+          "All league",
+          style: AppTextStyles.appBarTexStyle(),
+        ),
         leading: IconButton(
             onPressed: () {
               //Navigator.of(context).pop();
@@ -39,9 +46,7 @@ class AllLeaguePage extends StatelessWidget {
                       ),
                   itemCount: state.listLeague.length);
             } else if (state is LeaguesFetchFail) {
-              return const Center(
-                child: Text("Something went wrong"),
-              );
+              return ErrorHelper.basicErrorWidget();
             } else {
               return LoadingHelper.staggeredDotsWaveLoading();
             }
