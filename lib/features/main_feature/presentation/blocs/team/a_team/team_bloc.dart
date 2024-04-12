@@ -20,7 +20,7 @@ class TeamBloc extends Bloc<TeamEvent, TeamState> {
       emit(TeamLoading());
       final result = await teamUseCase.call(event.teamID);
       if (result != null) {
-        result.fold((l) => emit(TeamFetchFail(message: l.message)),
+        result.fold((l) => emit(TeamFetchFail(failure: l)),
             (r) => emit(TeamFetchSuccess(team: r)));
       } else {
         emit(TeamFetchFail());

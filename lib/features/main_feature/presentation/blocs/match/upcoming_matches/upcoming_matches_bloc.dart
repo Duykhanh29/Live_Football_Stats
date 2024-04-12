@@ -17,7 +17,7 @@ class UpcomingMatchesBloc
       emit(UpcomingMatchesLoading());
       final result = await upcomingMatchesUseCase!.call();
       if (result != null) {
-        result.fold((l) => emit(UpcomingMatchesFetchFail()),
+        result.fold((l) => emit(UpcomingMatchesFetchFail(failure: l)),
             (r) => emit(UpcomingMatchesFetchSuccess(r)));
       } else {
         emit(UpcomingMatchesFetchFail());

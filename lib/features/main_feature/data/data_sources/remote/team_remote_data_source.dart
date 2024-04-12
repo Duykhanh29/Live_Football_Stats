@@ -2,11 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:live_football_stats/config/const/api_endpoints.dart';
 import 'package:live_football_stats/config/const/api_params.dart';
 import 'package:live_football_stats/config/const/app_config.dart';
+import 'package:live_football_stats/core/constants/string_constants.dart';
 import 'package:live_football_stats/core/error/failures.dart';
 import 'package:live_football_stats/features/main_feature/data/models/player.dart';
 import 'package:live_football_stats/features/main_feature/data/models/stadium.dart';
 import 'package:live_football_stats/features/main_feature/data/models/team.dart';
 import 'package:live_football_stats/features/main_feature/data/models/transfer_model.dart';
+
+import '../../../../../core/utils/dio_client.dart';
 
 abstract class TeamRemoteDataSource {
   Future<PlayerModel?> getPlayerByID(int id);
@@ -16,20 +19,26 @@ abstract class TeamRemoteDataSource {
 }
 
 class TeamRemoteDataSourceImpl implements TeamRemoteDataSource {
-  TeamRemoteDataSourceImpl({required this.dio});
+  TeamRemoteDataSourceImpl({required this.dio, required this.dioClient});
   Dio dio = Dio();
+  DioClient dioClient;
   @override
   Future<PlayerModel?> getPlayerByID(int id) async {
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.playerUrl}${AppConfig.authUrlPath}&=${ApiParams.playerID}=$id");
+      final url =
+          "${ApiEndPoint.playerUrl}${AppConfig.authUrlPath}&=${ApiParams.playerID}=$id";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         final data = response.data;
         PlayerModel playerModel = PlayerModel.fromJson(data);
         return playerModel;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());
@@ -39,15 +48,20 @@ class TeamRemoteDataSourceImpl implements TeamRemoteDataSource {
   @override
   Future<StadiumModel?> getStadiumByID(int id) async {
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.stadiumUrl}${AppConfig.authUrlPath}&=${ApiParams.teamID}=$id");
+      final url =
+          "${ApiEndPoint.stadiumUrl}${AppConfig.authUrlPath}&=${ApiParams.teamID}=$id";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         final data = response.data;
         StadiumModel stadiumModel = StadiumModel.fromJson(data);
         return stadiumModel;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());
@@ -58,15 +72,19 @@ class TeamRemoteDataSourceImpl implements TeamRemoteDataSource {
   Future<TeamModel?> getTeamByID(int id) async {
     try {
       final url =
-          "${AppConfig.baseUrl}${ApiEndPoint.teamUrl}${AppConfig.authUrlPath}&${ApiParams.teamID}=$id";
-      final response = await dio.get(url);
+          "${ApiEndPoint.teamUrl}${AppConfig.authUrlPath}&${ApiParams.teamID}=$id";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         final data = response.data;
         TeamModel teamModel = TeamModel.fromJson(data);
         return teamModel;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());
@@ -76,15 +94,20 @@ class TeamRemoteDataSourceImpl implements TeamRemoteDataSource {
   @override
   Future<TransferModel?> getTransferByID(int id) async {
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.transfersUrl}${AppConfig.authUrlPath}&${ApiParams.teamID}=$id");
+      final url =
+          "${ApiEndPoint.transfersUrl}${AppConfig.authUrlPath}&${ApiParams.teamID}=$id";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         final data = response.data;
         TransferModel transferModel = TransferModel.fromJson(data);
         return transferModel;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());

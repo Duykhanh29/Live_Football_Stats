@@ -14,7 +14,7 @@ class MatchesBloc extends Bloc<MatchesEvent, MatchesState> {
       emit(MatchesLoading());
       final result = await matchesOfLeagueUseCase!.call(event.leagueId);
       if (result != null) {
-        result.fold((l) => emit(MatchesFetchFail(message: l.message)),
+        result.fold((l) => emit(MatchesFetchFail(failure: l)),
             (r) => emit(MatchesFetchSuccess(r)));
       } else {
         emit(MatchesFetchFail());

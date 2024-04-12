@@ -29,6 +29,7 @@ import 'package:live_football_stats/features/main_feature/presentation/pages/mat
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/team/team_main_view.dart';
 
+import '../../../../../core/error/failures.dart';
 import '../../blocs/match/preview_match/preview_match_bloc.dart';
 
 class MatchPage extends StatefulWidget {
@@ -196,26 +197,24 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                                     decoration: BoxDecoration(
                                         border:
                                             Border.all(color: Colors.black)),
-                                    child: FittedBox(
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            "${state.match!.goals!.homeFtGoals}",
-                                            textAlign: TextAlign.start,
-                                            style: const TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                          const Text("-"),
-                                          Text(
-                                            "${state.match!.goals!.awayFtGoals}",
-                                            textAlign: TextAlign.start,
-                                            style: const TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                        ],
-                                      ),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "${state.match!.goals!.homeFtGoals}",
+                                          textAlign: TextAlign.start,
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        const Text("-"),
+                                        Text(
+                                          "${state.match!.goals!.awayFtGoals}",
+                                          textAlign: TextAlign.start,
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
                                     ))),
                           Expanded(
                             flex: 4,
@@ -392,7 +391,17 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                       ],
                     );
                   } else if (state is MatchFetchFail) {
-                    return ErrorHelper.basicErrorWidget();
+                    if (state.failure != null) {
+                      if (state.failure is TooManyRequestsFailure) {
+                        return SliverToBoxAdapter(
+                          child: ErrorHelper.errorWidgetWithMsg(
+                              state.failure!.message!),
+                        );
+                      }
+                    }
+                    return SliverToBoxAdapter(
+                      child: ErrorHelper.basicErrorWidget(),
+                    );
                   } else {
                     return const SizedBox();
                   }

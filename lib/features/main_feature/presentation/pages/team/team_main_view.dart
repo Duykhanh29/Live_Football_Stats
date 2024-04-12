@@ -14,6 +14,8 @@ import 'package:live_football_stats/features/main_feature/presentation/pages/tea
 import 'package:live_football_stats/features/main_feature/presentation/pages/team/team_transfers_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/error/failures.dart';
+
 class TeamMainView extends StatefulWidget {
   TeamMainView({super.key, required this.teamID});
   int teamID;
@@ -63,7 +65,17 @@ class _TeamMainViewState extends State<TeamMainView>
                 ],
               );
             } else if (state is TeamFetchFail) {
-              return ErrorHelper.basicErrorWidget();
+              if (state.failure != null) {
+                if (state.failure is TooManyRequestsFailure) {
+                  return SliverToBoxAdapter(
+                    child:
+                        ErrorHelper.errorWidgetWithMsg(state.failure!.message!),
+                  );
+                }
+              }
+              return SliverToBoxAdapter(
+                child: ErrorHelper.basicErrorWidget(),
+              );
             } else {
               return TabBarView(
                 controller: controller,

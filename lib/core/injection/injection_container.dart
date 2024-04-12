@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:live_football_stats/core/platform/network_info.dart';
+import 'package:live_football_stats/core/utils/dio_client.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/league_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/live_score_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/matches_remote_data_source.dart';
@@ -59,18 +60,19 @@ Future<void> initDependencies() async {
 
   // network info
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
+  sl.registerLazySingleton<DioClient>(() => DioClient());
   sl.registerFactory<Dio>(() => Dio());
   // data sources
   sl.registerLazySingleton<LeagueRemoteDataSource>(
-      () => LeagueRemoteDataSourceImpl(dio: sl()));
+      () => LeagueRemoteDataSourceImpl(dio: sl(), dioClient: sl()));
   sl.registerLazySingleton<LiveScoreRemoteDataSource>(
-      () => LiveScoreRemoteDataSourceImpl(dio: sl()));
+      () => LiveScoreRemoteDataSourceImpl(dio: sl(), dioClient: sl()));
   sl.registerLazySingleton<MatchRemoteDataSource>(
-      () => MatchRemoteDataSourceImpl(dio: sl()));
+      () => MatchRemoteDataSourceImpl(dio: sl(), dioClient: sl()));
   sl.registerLazySingleton<TableRemoteDataSource>(
-      () => TableRemoteDataSourceImpl(dio: sl()));
+      () => TableRemoteDataSourceImpl(dio: sl(), dioClient: sl()));
   sl.registerLazySingleton<TeamRemoteDataSource>(
-      () => TeamRemoteDataSourceImpl(dio: sl()));
+      () => TeamRemoteDataSourceImpl(dio: sl(), dioClient: sl()));
 
   // repositories
   sl.registerLazySingleton<LeagueRepositories>(

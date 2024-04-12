@@ -5,25 +5,34 @@ import 'package:live_football_stats/config/const/app_config.dart';
 import 'package:live_football_stats/core/error/failures.dart';
 import 'package:live_football_stats/features/main_feature/data/models/stading_model.dart';
 
+import '../../../../../core/constants/string_constants.dart';
+import '../../../../../core/utils/dio_client.dart';
+
 abstract class TableRemoteDataSource {
   Future<StandingModel?> getTableByLeague(int leagueID);
 }
 
 class TableRemoteDataSourceImpl implements TableRemoteDataSource {
-  TableRemoteDataSourceImpl({required this.dio});
+  TableRemoteDataSourceImpl({required this.dio, required this.dioClient});
   Dio dio = Dio();
+  DioClient dioClient;
   @override
   Future<StandingModel?> getTableByLeague(int leagueID) async {
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.standingUrl}${AppConfig.authUrlPath}&${ApiParams.leagueID}=$leagueID");
+      final String url =
+          "${ApiEndPoint.standingUrl}${AppConfig.authUrlPath}&${ApiParams.leagueID}=$leagueID";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         final data = response.data;
         StandingModel standingModel = StandingModel.fromJson(data);
         return standingModel;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());

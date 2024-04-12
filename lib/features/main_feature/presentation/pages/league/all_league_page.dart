@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/constants/app_text_style.dart';
 import 'package:live_football_stats/core/helper/loading_helper.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_event.dart';
@@ -19,6 +20,7 @@ class AllLeaguePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.secondaryColor,
         centerTitle: true,
         title: Text(
           "All league",

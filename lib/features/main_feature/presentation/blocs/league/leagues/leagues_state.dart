@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league.dart';
+import 'package:live_football_stats/core/error/failures.dart';
 
 class LeaguesState extends Equatable {
   @override
@@ -20,9 +21,9 @@ class LeaguesFetchSuccess extends LeaguesState {
 class LeaguesLoading extends LeaguesState {}
 
 class LeaguesFetchFail extends LeaguesState {
-  String? message;
-  LeaguesFetchFail({this.message});
+  Failure? failure;
+  LeaguesFetchFail({this.failure});
   @override
   // TODO: implement props
-  List<Object?> get props => [message];
+  List<Object?> get props => [failure];
 }

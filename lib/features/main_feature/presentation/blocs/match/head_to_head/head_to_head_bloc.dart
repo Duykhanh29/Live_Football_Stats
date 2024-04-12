@@ -15,7 +15,7 @@ class HeadToHeadBloc extends Bloc<HeadToHeadEvent, HeadToHeadState> {
       emit(HeadToHeadLoading());
       final result = await headToHeadUseCase.call(event.team1ID, event.team2ID);
       if (result != null) {
-        result.fold((l) => emit(HeadToHeadFetchFail(message: l.message)),
+        result.fold((l) => emit(HeadToHeadFetchFail(failure: l)),
             (r) => emit(HeadToHeadFetchSuccess(headToHead: r)));
       } else {
         emit(HeadToHeadFetchFail());

@@ -15,11 +15,13 @@ class MockHttpClient extends Mock implements HttpClientAdapter {}
 void main() {
   late MockHttpClient mockHttpClient;
   final Dio dio = Dio();
+  DioClient dioClient = DioClient();
   late LiveScoreRemoteDataSourceImpl liveScoreRemoteDataSourceImpl;
   setUp(() {
     mockHttpClient = MockHttpClient();
     dio.httpClientAdapter = mockHttpClient;
-    liveScoreRemoteDataSourceImpl = LiveScoreRemoteDataSourceImpl(dio: dio);
+    liveScoreRemoteDataSourceImpl =
+        LiveScoreRemoteDataSourceImpl(dio: dio, dioClient: dioClient);
   });
   test("should perform a GET request to the correct URL", () async {
     // arrange

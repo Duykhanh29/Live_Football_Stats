@@ -12,6 +12,10 @@ class ServerFailure extends Failure {
   ServerFailure({super.message});
 }
 
+class TooManyRequestsFailure extends Failure {
+  TooManyRequestsFailure({super.message});
+}
+
 class CacheFailure extends Failure {
   CacheFailure({super.message});
 }

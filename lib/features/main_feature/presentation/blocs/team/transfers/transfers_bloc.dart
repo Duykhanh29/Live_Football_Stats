@@ -15,7 +15,7 @@ class TransferBloc extends Bloc<TransferEvent, TransferState> {
       emit(TransferLoading());
       final result = await transferUseCase.call(event.transferID);
       if (result != null) {
-        result.fold((l) => emit(TransferFetchFail(message: l.message)),
+        result.fold((l) => emit(TransferFetchFail(failure: l)),
             (r) => emit(TransferFetchSuccess(transfers: r)));
       } else {
         emit(TransferFetchFail());

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/leagues/get_all_country_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/leagues/get_country_uc.dart';
-import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/contry_state.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/country_state.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/country_event.dart';
 
 class CountryBloc extends Bloc<CountryEvent, CountryState> {
@@ -16,7 +16,7 @@ class CountryBloc extends Bloc<CountryEvent, CountryState> {
     try {
       final result = await allCountryUseCase!.call();
       if (result != null) {
-        result.fold((l) => emit(CountryFetchFail(message: l.message)),
+        result.fold((l) => emit(CountryFetchFail(failure: l)),
             (r) => emit(AllCountryFetchSuccess(allCountry: r)));
       } else {
         emit(CountryFetchFail());

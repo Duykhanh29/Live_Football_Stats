@@ -19,7 +19,7 @@ class LiveScoreBloc extends Bloc<LiveScoreEvent, LiveScoreState> {
       emit(LiveScoreLoading());
       final result = await liveScoreUseCase.call();
       if (result != null) {
-        result.fold((l) => emit(LiveScoreFetchFail()),
+        result.fold((l) => emit(LiveScoreFetchFail(failure: l)),
             (r) => emit(LiveScoreFetchSuccess(liveScore: r)));
       } else {
         emit(LiveScoreFetchFail());

@@ -17,7 +17,7 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
       emit(PlayerLoading());
       final result = await playerUseCase.call(event.playerID);
       if (result != null) {
-        result.fold((l) => emit(PlayerFetchFail(message: l.message)),
+        result.fold((l) => emit(PlayerFetchFail(failure: l)),
             (r) => emit(PlayerFetchSuccess(player: r)));
       } else {
         emit(PlayerFetchFail());

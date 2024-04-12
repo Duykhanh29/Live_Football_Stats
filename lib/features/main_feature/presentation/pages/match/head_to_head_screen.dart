@@ -7,6 +7,8 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/mat
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/head_to_head/head_to_head_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/head_to_head/head_to_head_state.dart';
 
+import '../../../../../core/error/failures.dart';
+import '../../../../../core/helper/error_helper.dart';
 import '../../widgets/matches/head_to_head_overall_widget.dart';
 
 class HeadToHeadScreen extends StatefulWidget {
@@ -89,8 +91,15 @@ class _HeadToHeadScreenState extends State<HeadToHeadScreen> {
             ),
           );
         } else if (state is HeadToHeadFetchFail) {
-          return Center(
-            child: Text(state.message ?? ""),
+          if (state.failure != null) {
+            if (state.failure is TooManyRequestsFailure) {
+              return SliverToBoxAdapter(
+                child: ErrorHelper.errorWidgetWithMsg(state.failure!.message!),
+              );
+            }
+          }
+          return SliverToBoxAdapter(
+            child: ErrorHelper.basicErrorWidget(),
           );
         } else {
           return const SizedBox();

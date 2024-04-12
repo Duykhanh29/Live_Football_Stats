@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/constants/app_text_style.dart';
+import 'package:live_football_stats/core/error/failures.dart';
 import 'package:live_football_stats/core/helper/error_helper.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_bloc.dart';
@@ -31,6 +33,7 @@ class _AllLeagueOfCountryPageState extends State<AllLeagueOfCountryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.secondaryColor,
         title: Text(
           widget.country.name!,
           style: AppTextStyles.appBarTexStyle(),
@@ -65,6 +68,11 @@ class _AllLeagueOfCountryPageState extends State<AllLeagueOfCountryPage> {
                       ),
                   itemCount: state.listLeague.length);
             } else if (state is LeaguesFetchFail) {
+              if (state.failure is TooManyRequestsFailure &&
+                  state.failure!.message != null) {
+                return ErrorHelper.errorWidgetWithMsg(state.failure!.message!);
+              }
+
               return ErrorHelper.basicErrorWidget();
             } else {
               return const SizedBox();

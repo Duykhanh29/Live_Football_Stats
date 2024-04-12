@@ -15,7 +15,7 @@ class MatchesByDateBloc extends Bloc<MatchesByDateEvent, MatchesByDateState> {
       emit(MatchesByDateLoading());
       final result = await matchesByDateUseCase.call(event.date);
       if (result != null) {
-        result.fold((l) => emit(MatchesByDateFetchFail(message: l.message)),
+        result.fold((l) => emit(MatchesByDateFetchFail(failure: l)),
             (r) => emit(MatchesByDateFetchSuccess(r)));
       } else {
         emit(MatchesByDateFetchFail());

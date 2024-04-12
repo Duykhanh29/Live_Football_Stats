@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/live_score.dart';
 
+import '../../../../../core/error/failures.dart';
+
 class LiveScoreState extends Equatable {
   @override
   // TODO: implement props
@@ -27,4 +29,10 @@ class LiveMatchFetchSuccess extends LiveScoreState {
   List<Object?> get props => [match];
 }
 
-class LiveScoreFetchFail extends LiveScoreState {}
+class LiveScoreFetchFail extends LiveScoreState {
+  Failure? failure;
+  LiveScoreFetchFail({this.failure});
+  @override
+  // TODO: implement props
+  List<Object?> get props => [failure];
+}

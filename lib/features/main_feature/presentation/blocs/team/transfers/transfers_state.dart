@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/transfer.dart';
 
+import '../../../../../../core/error/failures.dart';
+
 class TransferState extends Equatable {
   @override
   // TODO: implement props
@@ -20,9 +22,9 @@ class TransferFetchSuccess extends TransferState {
 }
 
 class TransferFetchFail extends TransferState {
-  String? message;
-  TransferFetchFail({this.message});
+  Failure? failure;
+  TransferFetchFail({this.failure});
   @override
   // TODO: implement props
-  List<Object?> get props => [message];
+  List<Object?> get props => [failure];
 }

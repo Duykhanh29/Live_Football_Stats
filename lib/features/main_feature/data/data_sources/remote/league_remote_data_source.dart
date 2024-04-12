@@ -2,9 +2,13 @@ import 'package:live_football_stats/config/const/api_endpoints.dart';
 import 'package:live_football_stats/config/const/api_params.dart';
 import 'package:live_football_stats/config/const/app_config.dart';
 import 'package:live_football_stats/core/error/failures.dart';
+import 'package:live_football_stats/core/injection/injection_container.dart';
+import 'package:live_football_stats/core/utils/dio_client.dart';
 import 'package:live_football_stats/features/main_feature/data/models/country.dart';
 import 'package:live_football_stats/features/main_feature/data/models/league.dart';
 import 'package:dio/dio.dart';
+
+import '../../../../../core/constants/string_constants.dart';
 
 abstract class LeagueRemoteDataSource {
   Future<List<CountryModel>?> getlistCountry();
@@ -15,14 +19,14 @@ abstract class LeagueRemoteDataSource {
 }
 
 class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
-  LeagueRemoteDataSourceImpl({required this.dio});
+  LeagueRemoteDataSourceImpl({required this.dio, required this.dioClient});
   Dio dio = Dio();
+  DioClient dioClient;
   @override
   Future<List<LeagueModel>?> getAllLeague() async {
     try {
-      String url =
-          "${AppConfig.baseUrl}${ApiEndPoint.leagueUrl}${AppConfig.authUrlPath}";
-      final response = await dio.get(url);
+      String url = "${ApiEndPoint.leagueUrl}${AppConfig.authUrlPath}";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         final data = response.data;
         final leagueData = data['results'] as List<dynamic>;
@@ -30,8 +34,12 @@ class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
             leagueData.map((e) => LeagueModel.fromJson(e)).toList();
         return leagues;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());
@@ -42,15 +50,19 @@ class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
   Future<CountryModel?> getCountryByID(int id) async {
     // TODO: implement getCountryByID
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.countryUrl}/$id${AppConfig.authUrlPath}");
+      final url = "${ApiEndPoint.countryUrl}/$id${AppConfig.authUrlPath}";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         final data = response.data;
         CountryModel countryModel = CountryModel.fromJson(data);
         return countryModel;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());
@@ -60,15 +72,19 @@ class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
   @override
   Future<LeagueModel?> getLeagueByID(int id) async {
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.leagueUrl}/$id${AppConfig.authUrlPath}");
+      final url = "${ApiEndPoint.leagueUrl}/$id${AppConfig.authUrlPath}";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         final data = response.data;
         LeagueModel leagueModel = LeagueModel.fromJson(data);
         return leagueModel;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());
@@ -79,8 +95,8 @@ class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
   Future<List<LeagueModel>?> getLeaguesOfACountry(int id) async {
     try {
       final String url =
-          "${AppConfig.baseUrl}${ApiEndPoint.leagueUrl}${AppConfig.authUrlPath}&${ApiParams.countryID}=$id";
-      final response = await dio.get(url);
+          "${ApiEndPoint.leagueUrl}${AppConfig.authUrlPath}&${ApiParams.countryID}=$id";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         final data = response.data;
         final listData = data['results'] as List<dynamic>;
@@ -88,8 +104,12 @@ class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
             listData.map((e) => LeagueModel.fromJson(e)).toList();
         return list;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());
@@ -99,8 +119,8 @@ class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
   @override
   Future<List<CountryModel>?> getlistCountry() async {
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.countryUrl}${AppConfig.authUrlPath}");
+      final url = "${ApiEndPoint.countryUrl}${AppConfig.authUrlPath}";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         final data = response.data;
         final countryData = data['results'] as List<dynamic>;
@@ -108,8 +128,12 @@ class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
             countryData.map((e) => CountryModel.fromJson(e)).toList();
         return list;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());

@@ -8,6 +8,12 @@ class ErrorHelper {
     );
   }
 
+  static Widget errorWidgetWithMsg(String msg) {
+    return Center(
+      child: Text(msg),
+    );
+  }
+
   static Widget itemErrorWidget() {
     return const Text("Something went wrong");
   }

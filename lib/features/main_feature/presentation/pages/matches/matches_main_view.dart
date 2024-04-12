@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/constants/app_text_style.dart';
+import 'package:live_football_stats/core/error/failures.dart';
 import 'package:live_football_stats/core/helper/error_helper.dart';
 import 'package:live_football_stats/core/utils/format_date.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/match/matches_by_date/matches_by_date_bloc.dart';
@@ -114,6 +115,14 @@ class MatchesMainView extends StatelessWidget {
                                 ),
                             itemCount: state.listLeagueMatches.length);
                       } else if (state is MatchesByDateFetchFail) {
+                        if (state.failure != null) {
+                          if (state.failure is TooManyRequestsFailure) {
+                            return SliverToBoxAdapter(
+                              child: ErrorHelper.errorWidgetWithMsg(
+                                  state.failure!.message!),
+                            );
+                          }
+                        }
                         return SliverToBoxAdapter(
                           child: ErrorHelper.basicErrorWidget(),
                         );

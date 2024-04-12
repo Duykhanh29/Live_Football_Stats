@@ -19,7 +19,7 @@ class PreviewMatchBloc extends Bloc<PreviewMatchEvent, PreviewMatchState> {
       emit(PreviewMatchLoading());
       final result = await matchPreviewUseCase!.call(event.matchId);
       if (result != null) {
-        result.fold((l) => emit(PreviewMatchFetchFail()),
+        result.fold((l) => emit(PreviewMatchFetchFail(failure: l)),
             (r) => emit(MatchPreviewFetchSuccess(r)));
       } else {
         emit(PreviewMatchFetchFail());

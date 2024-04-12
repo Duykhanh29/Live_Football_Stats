@@ -19,7 +19,7 @@ class LeaguesBloc extends Bloc<LeaguesEvent, LeaguesState> {
       emit(LeaguesLoading());
       final result = await leaguesUseCase!.call();
       if (result != null) {
-        result.fold((l) => emit(LeaguesFetchFail(message: l.message)),
+        result.fold((l) => emit(LeaguesFetchFail(failure: l)),
             (r) => emit(LeaguesFetchSuccess(r)));
       } else {
         emit(LeaguesFetchFail());

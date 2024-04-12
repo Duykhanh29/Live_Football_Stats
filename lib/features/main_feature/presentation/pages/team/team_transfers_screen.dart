@@ -8,6 +8,8 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/tea
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/transfers/transfers_state.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/teams/transfer_card.dart';
 
+import '../../../../../core/error/failures.dart';
+
 class TeamTransferScreen extends StatefulWidget {
   TeamTransferScreen({super.key, required this.teamID});
   int teamID;
@@ -55,7 +57,16 @@ class _TeamTransferScreenState extends State<TeamTransferScreen> {
               itemCount: state.transfers.transfers.transfersIn.length +
                   state.transfers.transfers.transfersOut.length);
         } else if (state is TransferFetchFail) {
-          return ErrorHelper.basicErrorWidget();
+          if (state.failure != null) {
+            if (state.failure is TooManyRequestsFailure) {
+              return SliverToBoxAdapter(
+                child: ErrorHelper.errorWidgetWithMsg(state.failure!.message!),
+              );
+            }
+          }
+          return SliverToBoxAdapter(
+            child: ErrorHelper.basicErrorWidget(),
+          );
         } else {
           return Container();
         }

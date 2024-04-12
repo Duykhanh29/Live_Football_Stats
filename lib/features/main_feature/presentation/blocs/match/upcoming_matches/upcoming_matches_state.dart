@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/upcoming_match.dart';
 
+import '../../../../../../core/error/failures.dart';
+
 class UpcomingMatchesState extends Equatable {
   @override
   // TODO: implement props
@@ -21,9 +23,9 @@ class UpcomingMatchesLoading extends UpcomingMatchesState {}
 
 // ignore: must_be_immutable
 class UpcomingMatchesFetchFail extends UpcomingMatchesState {
-  String? message;
-  UpcomingMatchesFetchFail({this.message});
+  Failure? failure;
+  UpcomingMatchesFetchFail({this.failure});
   @override
   // TODO: implement props
-  List<Object?> get props => [message];
+  List<Object?> get props => [failure];
 }

@@ -14,7 +14,7 @@ class TableBloc extends Bloc<TableEvent, TableState> {
       emit(TableLoading());
       final result = await tableOfALeagueUseCase.call(event.leagueId);
       if (result != null) {
-        result.fold((l) => emit(TableFetchFail()),
+        result.fold((l) => emit(TableFetchFail(failure: l)),
             (r) => emit(TableFetchSuccess(standingEntities: r)));
       } else {
         emit(TableFetchFail());

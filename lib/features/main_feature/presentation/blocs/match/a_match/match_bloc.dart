@@ -22,8 +22,8 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
       emit(MatchLoading());
       final result = await matchUseCase!.call(event.matchId);
       if (result != null) {
-        result.fold(
-            (l) => emit(MatchFetchFail()), (r) => emit(MatchFetchSuccess(r)));
+        result.fold((l) => emit(MatchFetchFail(failure: l)),
+            (r) => emit(MatchFetchSuccess(r)));
       } else {
         emit(MatchFetchFail());
       }

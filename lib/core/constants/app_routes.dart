@@ -30,9 +30,17 @@ GoRouter goRouter = GoRouter(
           path: 'matches_view',
           name: AppRoutesName.matchesView,
           builder: (context, state) => MatchesMainView(),
-          // routes: [
-
-          // ],
+          routes: [
+            GoRoute(
+              path: 'match_page/:id',
+              name: AppRoutesName.matchPage,
+              builder: (BuildContext context, GoRouterState state) {
+                final String? matchIdStr = state.pathParameters['id'];
+                final int? matchID = int.tryParse(matchIdStr ?? '');
+                return MatchPage(matchId: matchID!);
+              },
+            ),
+          ],
         ),
         GoRoute(
           path: 'live_score_view',
@@ -43,9 +51,29 @@ GoRouter goRouter = GoRouter(
           path: 'league_main_view',
           name: AppRoutesName.leagueMainView,
           builder: (context, state) => const LeagueMainView(),
-          // routes: [
-
-          // ],
+          routes: [
+            GoRoute(
+              path: 'all_league',
+              name: AppRoutesName.allLeaguePage,
+              builder: (context, state) => const AllLeaguePage(),
+            ),
+            GoRoute(
+              path: 'leagues_of_country',
+              name: AppRoutesName.leaguesOfCountry,
+              builder: (context, state) {
+                final country = state.extra as Country;
+                return AllLeagueOfCountryPage(country: country);
+              },
+            ),
+            GoRoute(
+              path: 'league_page',
+              name: AppRoutesName.leaguePage,
+              builder: (context, state) {
+                final leagueID = state.extra as int;
+                return LeaguePage(leagueId: leagueID);
+              },
+            ),
+          ],
         ),
         GoRoute(
           path: 'favourite_page',
@@ -56,7 +84,13 @@ GoRouter goRouter = GoRouter(
           path: 'account_page',
           name: AppRoutesName.accountPage,
           builder: (context, state) => const AccountPage(),
-          //    routes: [],
+             routes: [
+               GoRoute(
+          name: AppRoutesName.profilePage,
+          path: 'profile_page',
+          builder: (context, state) => const ProfilePage(),
+        ),
+             ],
         ),
         GoRoute(
           path: 'team_page',
@@ -66,41 +100,7 @@ GoRouter goRouter = GoRouter(
             return TeamMainView(teamID: teamId);
           },
         ),
-        GoRoute(
-          path: 'match_page/:id',
-          name: AppRoutesName.matchPage,
-          builder: (BuildContext context, GoRouterState state) {
-            final String? matchIdStr = state.pathParameters['id'];
-            final int? matchID = int.tryParse(matchIdStr ?? '');
-            return MatchPage(matchId: matchID!);
-          },
-        ),
-        GoRoute(
-          name: AppRoutesName.profilePage,
-          path: 'profile_page',
-          builder: (context, state) => const ProfilePage(),
-        ),
-        GoRoute(
-          path: 'all_league',
-          name: AppRoutesName.allLeaguePage,
-          builder: (context, state) => const AllLeaguePage(),
-        ),
-        GoRoute(
-          path: 'leagues_of_country',
-          name: AppRoutesName.leaguesOfCountry,
-          builder: (context, state) {
-            final country = state.extra as Country;
-            return AllLeagueOfCountryPage(country: country);
-          },
-        ),
-        GoRoute(
-          path: 'league_page',
-          name: AppRoutesName.leaguePage,
-          builder: (context, state) {
-            final leagueID = state.extra as int;
-            return LeaguePage(leagueId: leagueID);
-          },
-        ),
+       
       ], //
     ),
     GoRoute(

@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/head_to_head.dart';
 
+import '../../../../../../core/error/failures.dart';
+
 class HeadToHeadState extends Equatable {
   @override
   // TODO: implement props
@@ -20,9 +22,9 @@ class HeadToHeadFetchSuccess extends HeadToHeadState {
 }
 
 class HeadToHeadFetchFail extends HeadToHeadState {
-  String? message;
-  HeadToHeadFetchFail({this.message});
+  Failure? failure;
+  HeadToHeadFetchFail({this.failure});
   @override
   // TODO: implement props
-  List<Object?> get props => [message];
+  List<Object?> get props => [failure];
 }

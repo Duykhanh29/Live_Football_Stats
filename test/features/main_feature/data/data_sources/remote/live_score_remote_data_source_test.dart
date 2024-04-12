@@ -10,20 +10,23 @@ import '../../../../../fixtures/fixtures_reader.dart';
 
 class MockHttpClient extends Mock implements Dio {}
 
+class MockDioClient extends Mock implements DioClient {}
+
 void main() {
   late MockHttpClient mockHttpClient;
+  late MockDioClient mockDioClient;
   late LiveScoreRemoteDataSourceImpl liveScoreRemoteDataSourceImpl;
   setUp(() {
     mockHttpClient = MockHttpClient();
-    liveScoreRemoteDataSourceImpl =
-        LiveScoreRemoteDataSourceImpl(dio: mockHttpClient);
+    mockDioClient = MockDioClient();
+    liveScoreRemoteDataSourceImpl = LiveScoreRemoteDataSourceImpl(
+        dio: mockHttpClient, dioClient: mockDioClient);
   });
   test("should perform a GET request to the correct URL", () async {
     // arrange
-    final String url =
-        "${AppConfig.baseUrl}${ApiEndPoint.livescoresUrl}${AppConfig.authUrlPath}";
+    final String url = "${ApiEndPoint.livescoresUrl}${AppConfig.authUrlPath}";
     final fakeResponse = fixture("live_score/livescore.json");
-    when(mockHttpClient.get(url)).thenAnswer((realInvocation) async => Response(
+    when(mockDioClient.get(url)).thenAnswer((realInvocation) async => Response(
         requestOptions: RequestOptions(responseType: ResponseType.json),
         data: fixture("live_score/livescore.json"),
         statusCode: 200));

@@ -4,6 +4,9 @@ import 'package:live_football_stats/config/const/app_config.dart';
 import 'package:live_football_stats/core/error/failures.dart';
 import 'package:live_football_stats/features/main_feature/data/models/live_score_model.dart';
 
+import '../../../../../core/constants/string_constants.dart';
+import '../../../../../core/utils/dio_client.dart';
+
 abstract class LiveScoreRemoteDataSource {
   Future<List<Match>?> getListLiveMatchesOfAStage(int leagueID, int stageID);
   Future<List<Stage>?> getLiveStages(int leagueID);
@@ -12,14 +15,16 @@ abstract class LiveScoreRemoteDataSource {
 }
 
 class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
-  LiveScoreRemoteDataSourceImpl({required this.dio});
+  LiveScoreRemoteDataSourceImpl({required this.dio, required this.dioClient});
   Dio dio = Dio();
+  DioClient dioClient;
   @override
   Future<List<Match>?> getListLiveMatchesOfAStage(
       int leagueID, int stageID) async {
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.livescoresUrl}/$leagueID${AppConfig.authUrlPath}");
+      final url =
+          "${ApiEndPoint.livescoresUrl}/$leagueID${AppConfig.authUrlPath}";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         List<Stage> list;
         final data = response.data;
@@ -29,8 +34,12 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
             list.firstWhere((element) => element.stageId == stageID);
         return stageModel.matches;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());
@@ -40,8 +49,9 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
   @override
   Future<Match?> getLiveMatch(int leagueID, int stageID, int matchID) async {
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.livescoresUrl}/$leagueID${AppConfig.authUrlPath}");
+      final url =
+          "${ApiEndPoint.livescoresUrl}/$leagueID${AppConfig.authUrlPath}";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         List<Stage> list;
         final data = response.data;
@@ -57,8 +67,12 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
           return null;
         }
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());
@@ -68,8 +82,9 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
   @override
   Future<List<Stage>?> getLiveStages(int leagueID) async {
     try {
-      final response = await dio.get(
-          "${AppConfig.baseUrl}${ApiEndPoint.livescoresUrl}/$leagueID${AppConfig.authUrlPath}");
+      final url =
+          "${ApiEndPoint.livescoresUrl}/$leagueID${AppConfig.authUrlPath}";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         List<Stage> list;
         final data = response.data;
@@ -77,8 +92,12 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
         list = listData.map((e) => Stage.fromJson(e)).toList();
         return list;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());
@@ -88,9 +107,8 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
   @override
   Future<List<LiveScoreModel>?> getLiveScore() async {
     try {
-      final url =
-          "${AppConfig.baseUrl}${ApiEndPoint.livescoresUrl}${AppConfig.authUrlPath}";
-      final response = await dio.get(url);
+      final url = "${ApiEndPoint.livescoresUrl}${AppConfig.authUrlPath}";
+      final response = await dioClient.get(url);
       if (response.statusCode == 200) {
         final data = response.data as List<dynamic>;
         List<LiveScoreModel>? list =
@@ -98,8 +116,12 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
 
         return list;
       } else {
-        print("Error: ${response.statusCode}");
-        return null;
+        if (response.statusCode == 429) {
+          throw TooManyRequestsFailure(message: StringConstants.exceededError);
+        } else {
+          print("Error: ${response.statusCode}");
+          return null;
+        }
       }
     } catch (e) {
       throw ServerFailure(message: e.toString());

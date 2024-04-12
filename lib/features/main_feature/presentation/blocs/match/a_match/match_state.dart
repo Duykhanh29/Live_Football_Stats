@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import '../../../../../../core/error/failures.dart';
 import '../../../../domain/entities/match.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/match_preview.dart'
     as preview;
@@ -23,4 +24,10 @@ class MatchFetchSuccess extends MatchState {
 
 class MatchLoading extends MatchState {}
 
-class MatchFetchFail extends MatchState {}
+class MatchFetchFail extends MatchState {
+  Failure? failure;
+  MatchFetchFail({this.failure});
+  @override
+  // TODO: implement props
+  List<Object?> get props => [failure];
+}
