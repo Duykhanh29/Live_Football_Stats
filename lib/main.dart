@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:live_football_stats/core/constants/app_routes.dart';
 import 'package:live_football_stats/core/constants/app_themes.dart';
 import 'package:live_football_stats/core/injection/injection_container.dart';
@@ -32,10 +33,17 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/tea
 import 'package:live_football_stats/features/main_feature/presentation/blocs/themes/themes_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/main_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await Future.delayed(const Duration(seconds: 5));
+  FlutterNativeSplash.remove();
   await dotenv.load(fileName: ".env");
   await initDependencies();
+  await Hive.initFlutter();
   runApp(MyApp());
 }
 

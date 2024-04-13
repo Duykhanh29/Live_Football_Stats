@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   static Color backgroundColor = const Color.fromARGB(255, 66, 138, 255);
   static Color secondaryColor = const Color.fromARGB(255, 107, 152, 224);
+  static Color thirdColor = const Color.fromARGB(255, 77, 186, 175);
   static Color lightTabarColor = const Color.fromARGB(255, 152, 253, 155);
   static Color appBorder = Colors.teal.shade300;
   static Color sencondaryBorder = Colors.greenAccent.shade400;

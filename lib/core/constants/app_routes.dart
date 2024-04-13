@@ -1,7 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:live_football_stats/core/constants/app_routes_name.dart';
+import 'package:live_football_stats/core/constants/string_constants.dart';
+import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/features/auth/presentation/pages/login_page.dart';
+import 'package:live_football_stats/features/intro/domain/usecase/check_first_time_open.dart';
+import 'package:live_football_stats/features/intro/presentation/page/intro_page.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/favourite/favourite_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/league/all_league_of_country_page.dart';
@@ -23,6 +28,32 @@ GoRouter goRouter = GoRouter(
   routes: <GoRoute>[
     GoRoute(
       path: '/',
+      // builder: (context, state) => IntroPage(),
+      redirect: (context, state) async {
+        bool? isFirst =
+            await sl.get<CheckFirstTimeOpen>().checkIfUserLoggedIn();
+        if (isFirst != null && isFirst == true) {
+          return "/main_view";
+        } else {
+          return "/intro";
+        }
+      },
+    ),
+    GoRoute(
+      path: '/intro',
+      builder: (context, state) => IntroPage(),
+      // redirect: (context, state) async {
+      //   bool? isFirst =
+      //       await sl.get<CheckFirstTimeOpen>().checkIfUserLoggedIn();
+      //   if (isFirst != null && isFirst == true) {
+      //     return "/main_view";
+      //   } else {
+      //     return "/intro";
+      //   }
+      // },
+    ),
+    GoRoute(
+      path: '/main_view',
       builder: (context, state) => MainView(),
       name: AppRoutesName.mainView,
       routes: [
@@ -84,13 +115,13 @@ GoRouter goRouter = GoRouter(
           path: 'account_page',
           name: AppRoutesName.accountPage,
           builder: (context, state) => const AccountPage(),
-             routes: [
-               GoRoute(
-          name: AppRoutesName.profilePage,
-          path: 'profile_page',
-          builder: (context, state) => const ProfilePage(),
-        ),
-             ],
+          routes: [
+            GoRoute(
+              name: AppRoutesName.profilePage,
+              path: 'profile_page',
+              builder: (context, state) => const ProfilePage(),
+            ),
+          ],
         ),
         GoRoute(
           path: 'team_page',
@@ -100,7 +131,6 @@ GoRouter goRouter = GoRouter(
             return TeamMainView(teamID: teamId);
           },
         ),
-       
       ], //
     ),
     GoRoute(

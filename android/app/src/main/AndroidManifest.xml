@@ -4,7 +4,7 @@
     <application
         android:label="Live football stats"
         android:name="${applicationName}"
-        android:icon="@mipmap/app_logo">
+        android:icon="@mipmap/logo">
         <activity
             android:name=".MainActivity"
             android:exported="true"

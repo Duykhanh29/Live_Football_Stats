@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:live_football_stats/core/platform/network_info.dart';
 import 'package:live_football_stats/core/utils/dio_client.dart';
+import 'package:live_football_stats/features/intro/domain/usecase/check_first_time_open.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/league_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/live_score_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/matches_remote_data_source.dart';
@@ -56,6 +57,9 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/tea
 final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
+  //intro
+  sl.registerLazySingleton<CheckFirstTimeOpen>(() => CheckFirstTimeOpenImpl());
+
   // _initAuth();
 
   // network info
