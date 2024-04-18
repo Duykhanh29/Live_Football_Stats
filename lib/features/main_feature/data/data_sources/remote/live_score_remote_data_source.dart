@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:live_football_stats/config/const/api_endpoints.dart';
 import 'package:live_football_stats/config/const/app_config.dart';
 import 'package:live_football_stats/core/error/failures.dart';
+import 'package:live_football_stats/core/services/websocket_services/websocket_client_service.dart';
 import 'package:live_football_stats/features/main_feature/data/models/live_score_model.dart';
 
 import '../../../../../core/constants/string_constants.dart';
@@ -15,9 +17,13 @@ abstract class LiveScoreRemoteDataSource {
 }
 
 class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
-  LiveScoreRemoteDataSourceImpl({required this.dio, required this.dioClient});
+  LiveScoreRemoteDataSourceImpl(
+      {required this.dio,
+      required this.dioClient,
+      required this.webSocketClientService});
   Dio dio = Dio();
   DioClient dioClient;
+  WebSocketClientService webSocketClientService;
   @override
   Future<List<Match>?> getListLiveMatchesOfAStage(
       int leagueID, int stageID) async {
@@ -104,6 +110,26 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
     }
   }
 
+  // @override
+  // Stream<List<LiveScoreModel>?> getLiveScore() {
+  //   try {
+  //     final url =
+  //         "${AppConfig.baseUrl}${ApiEndPoint.livescoresUrl}${AppConfig.authUrlPath}";
+  //     print(url);
+  //     webSocketClientService.connect(url: url);
+  //     return webSocketClientService.channel!.stream.map((event) {
+  //       final data = event.data as List<dynamic>;
+  //       List<LiveScoreModel>? list =
+  //           data.map((e) => LiveScoreModel.fromJson(e)).toList();
+  //       return list;
+  //     }).handleError((error) {
+  //       print(error);
+  //       throw ServerFailure(message: error);
+  //     });
+  //   } catch (e) {
+  //     throw ServerFailure(message: e.toString());
+  //   }
+  // }
   @override
   Future<List<LiveScoreModel>?> getLiveScore() async {
     try {

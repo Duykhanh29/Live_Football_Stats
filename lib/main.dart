@@ -8,6 +8,7 @@ import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/core/utils/format_date.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/league_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/upcoming_match.dart';
+import 'package:live_football_stats/features/main_feature/domain/usecases/themes/get_themes_usecase.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/country_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/country_event.dart';
@@ -61,7 +62,8 @@ class MyApp extends StatelessWidget {
         MultiBlocProvider(
             providers: [
           BlocProvider(
-            create: (context) => ThemesCubit(),
+            create: (context) =>
+                ThemesCubit(getThemeUseCase: sl.get<GetThemeUsecase>()),
           ),
           BlocProvider(
             create: (context) => NavbarCubit(),

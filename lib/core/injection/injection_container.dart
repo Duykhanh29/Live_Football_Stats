@@ -39,6 +39,7 @@ import 'package:live_football_stats/features/main_feature/domain/usecases/team/g
 import 'package:live_football_stats/features/main_feature/domain/usecases/team/get_stadium_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/team/get_team_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/team/get_transfer_uc.dart';
+import 'package:live_football_stats/features/main_feature/domain/usecases/themes/get_themes_usecase.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/country_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_bloc.dart';
@@ -54,23 +55,33 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/tea
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/player/player_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/transfers/transfers_bloc.dart';
 
+import '../services/websocket_services/websocket_client_service.dart';
+
 final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
   //intro
   sl.registerLazySingleton<CheckFirstTimeOpen>(() => CheckFirstTimeOpenImpl());
 
+  // themes
+  sl.registerLazySingleton<GetThemeUsecase>(() => GetThemeUseCaseImpl());
+  // final sharedPreferences = await SharedPreferences.getInstance();
+  // sl.registerFactory<SharedPreferences>(() => sharedPreferences);
   // _initAuth();
 
   // network info
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
   sl.registerLazySingleton<DioClient>(() => DioClient());
   sl.registerFactory<Dio>(() => Dio());
+  sl.registerLazySingleton<WebSocketClientService>(
+    () => WebSocketClientService(),
+  );
   // data sources
   sl.registerLazySingleton<LeagueRemoteDataSource>(
       () => LeagueRemoteDataSourceImpl(dio: sl(), dioClient: sl()));
-  sl.registerLazySingleton<LiveScoreRemoteDataSource>(
-      () => LiveScoreRemoteDataSourceImpl(dio: sl(), dioClient: sl()));
+  sl.registerLazySingleton<LiveScoreRemoteDataSource>(() =>
+      LiveScoreRemoteDataSourceImpl(
+          dio: sl(), dioClient: sl(), webSocketClientService: sl()));
   sl.registerLazySingleton<MatchRemoteDataSource>(
       () => MatchRemoteDataSourceImpl(dio: sl(), dioClient: sl()));
   sl.registerLazySingleton<TableRemoteDataSource>(

@@ -35,8 +35,8 @@ class LeaguesBloc extends Bloc<LeaguesEvent, LeaguesState> {
       emit(LeaguesLoading());
       final result = await leagueOfCountryUseCase!.call(event.conutryId);
       if (result != null) {
-        result.fold((l) => emit(LeaguesFetchFail()),
-            (r) => emit(LeaguesFetchSuccess(r)));
+        result.fold((l) => emit(LeaguesFetchFail(failure: l)),
+            (r) => emit(LeaguesOfCountryFetchSuccess(r)));
       } else {
         emit(LeaguesFetchFail());
       }

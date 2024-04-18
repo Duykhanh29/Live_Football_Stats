@@ -18,6 +18,14 @@ class LeaguesFetchSuccess extends LeaguesState {
   List<Object?> get props => [listLeague];
 }
 
+class LeaguesOfCountryFetchSuccess extends LeaguesState {
+  final List<League> listLeague;
+  LeaguesOfCountryFetchSuccess(this.listLeague);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [listLeague];
+}
+
 class LeaguesLoading extends LeaguesState {}
 
 class LeaguesFetchFail extends LeaguesState {

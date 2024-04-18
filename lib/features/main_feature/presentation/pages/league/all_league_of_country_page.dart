@@ -59,7 +59,7 @@ class _AllLeagueOfCountryPageState extends State<AllLeagueOfCountryPage> {
         onRefresh: () async {},
         child: BlocConsumer<LeaguesBloc, LeaguesState>(
           builder: (context, state) {
-            if (state is LeaguesFetchSuccess) {
+            if (state is LeaguesOfCountryFetchSuccess) {
               return ListView.separated(
                   itemBuilder: (context, index) =>
                       LeagueCard(league: state.listLeague[index]),

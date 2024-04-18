@@ -25,4 +25,12 @@ class CommonMethods {
     }
     return false;
   }
+
+  static String convertHttpToWS(String url) {
+    if (url.startsWith('https://')) {
+      return 'wss://${url.substring(8)}';
+    } else {
+      return 'ws://${url.substring(7)}';
+    }
+  }
 }

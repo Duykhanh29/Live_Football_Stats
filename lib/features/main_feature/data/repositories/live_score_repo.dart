@@ -72,6 +72,31 @@ class LiveScoreRepoImpl implements LiveScoreRepositories {
     }
   }
 
+  // @override
+  // Stream<Either<Failure, List<LiveScore>>> getLiveScore() async* {
+  //   final bool isConnected = await networkInfo.isConnected;
+
+  //   if (isConnected) {
+  //     try {
+  //       final Stream<List<model.LiveScoreModel>?> liveScoreStream =
+  //           liveScoreRemoteDataSource.getLiveScore();
+
+  //       await for (final List<model.LiveScoreModel>? data in liveScoreStream) {
+  //         if (data != null) {
+  //           List<LiveScore> liveScoreList =
+  //               data.map((e) => e.toEntity()).toList();
+  //           yield Right(liveScoreList);
+  //         } else {
+  //           yield Left(ServerFailure(message: 'Data is null'));
+  //         }
+  //       }
+  //     } catch (e) {
+  //       yield Left(ServerFailure(message: e.toString()));
+  //     }
+  //   } else {
+  //     yield Left(NetworkFailure());
+  //   }
+  // }
   @override
   Future<Either<Failure, List<LiveScore>>?> getLiveScore() async {
     if (await networkInfo.isConnected) {

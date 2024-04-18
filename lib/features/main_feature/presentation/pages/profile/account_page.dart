@@ -29,8 +29,8 @@ class AccountPage extends StatelessWidget {
                 child: SwitchListTile(
                   dense: true,
                   value: state,
-                  onChanged: (value) {
-                    context.read<ThemesCubit>().changeTheme(value);
+                  onChanged: (value) async {
+                    await context.read<ThemesCubit>().changeTheme(value);
                   },
                   activeColor: AppColors.cardColor,
                   title: Text(state ? "ON" : "OFF"),

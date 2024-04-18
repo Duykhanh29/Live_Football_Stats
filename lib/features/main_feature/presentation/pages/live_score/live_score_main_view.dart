@@ -5,6 +5,7 @@ import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/constants/app_text_style.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/live_score.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/live_score/live_score_bloc.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/live_score/live_score_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/live_score/live_score_state.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_bar_cubit.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/nav_bar/nav_live_score_cubit.dart';
@@ -61,6 +62,12 @@ class LiveScoreMainView extends StatelessWidget {
                 onToggle: (value) {
                   BlocProvider.of<NavLiveScoreCubit>(context)
                       .updateValue(value);
+                  if (value) {
+                    BlocProvider.of<LiveScoreBloc>(context)
+                        .add(LiveScoreFetched());
+                  } else {
+                    // BlocProvider.of(context);
+                  }
                 },
               ),
             );
@@ -72,11 +79,22 @@ class LiveScoreMainView extends StatelessWidget {
           if (state == 1) {
             return BlocBuilder<NavLiveScoreCubit, bool>(
               builder: (context, state) {
-                if (state) {
-                  return const LiveScoreWidget();
-                } else {
-                  return const UpcomingMatchesPage();
-                }
+                return RefreshIndicator(
+                  child: state
+                      ? const LiveScoreWidget()
+                      : const UpcomingMatchesPage(),
+                  onRefresh: () async {
+                    if (state) {
+                      BlocProvider.of<LiveScoreBloc>(context)
+                          .add(LiveScoreFetched());
+                    }
+                  },
+                );
+                // if (state) {
+                //    const LiveScoreWidget();
+                // } else {
+                //    const UpcomingMatchesPage();
+                // }
               },
             );
           } else {

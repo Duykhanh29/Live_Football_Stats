@@ -51,6 +51,9 @@ dependencies:
   # icons
   ionicons: ^0.2.2
 
+  # real-time updates
+  web_socket_channel: ^2.4.5
+
   # loading 
   flutter_easyloading: ^3.0.5
   loading_animation_widget: ^1.2.1

@@ -26,7 +26,9 @@ class LeagueCard extends StatelessWidget {
       title: Text(league.name),
       subtitle: Text(league.country.name!),
       trailing: InkWell(
-        onTap: () {},
+        onTap: () {
+          
+        },
         child: Icon(Icons.star),
       ),
     );
