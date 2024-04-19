@@ -9,6 +9,7 @@ import 'package:live_football_stats/core/constants/app_text_style.dart';
 import 'package:live_football_stats/core/constants/image_data.dart';
 import 'package:live_football_stats/core/enums/enum_values.dart';
 import 'package:live_football_stats/core/helper/error_helper.dart';
+import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league_response.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/player.dart';
@@ -106,320 +107,344 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
     return DefaultTabController(
       length: 6,
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              titleTextStyle: AppTextStyles.appBarTexStyle(),
-              toolbarHeight: 160,
-              // stretch: true,
-              excludeHeaderSemantics: true,
-              backgroundColor: AppColors.backgroundColor,
-              centerTitle: false,
-              title: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                // decoration:
-                //     BoxDecoration(border: Border.all(color: Colors.purple)),
-                child: BlocBuilder<MatchBloc, MatchState>(
+        body: RefreshIndicator(
+          onRefresh: () async {
+            sl.get<MatchBloc>().add(MatchFetched(widget.matchId));
+          },
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                titleTextStyle: AppTextStyles.appBarTexStyle(),
+                toolbarHeight: 160,
+                // stretch: true,
+                excludeHeaderSemantics: true,
+                backgroundColor: AppColors.backgroundColor,
+                centerTitle: false,
+                title: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  // decoration:
+                  //     BoxDecoration(border: Border.all(color: Colors.purple)),
+                  child: BlocBuilder<MatchBloc, MatchState>(
+                    builder: (context, state) {
+                      if (state is MatchFetchSuccess) {
+                        return Column(
+                          children: [
+                            if (state.match!.status == MatchStatus.LIVE)
+                              Container(
+                                // decoration: BoxDecoration(
+                                //     border: Border.all(color: Colors.red)),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 2, horizontal: 5),
+                                alignment: Alignment.center,
+                                child: Text(state.match!.minute != null
+                                    ? state.match!.minute.toString()
+                                    : ""),
+                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  flex: 4,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      context.pushNamed(AppRoutesName.teamPage,
+                                          extra: state.match!.teams!.home!.id);
+                                      // Navigator.of(context).push(MaterialPageRoute(
+                                      //   builder: (context) {
+                                      //     return TeamMainView(
+                                      //         teamID: state.match!.teams!.home!.id);
+                                      //   },
+                                      // ));
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(2),
+                                      child: Text(
+                                        state.match!.teams!.home!.name,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w500),
+                                        textAlign: TextAlign.start,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 3,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                if (state.match!.status == MatchStatus.LIVE)
+                                  Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                          child: Text(
+                                        "${state.match!.goals!.homeFtGoals} - ${state.match!.goals!.awayFtGoals}",
+                                        textAlign: TextAlign.start,
+                                        style: const TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400),
+                                      ))),
+                                if (state.match!.status != MatchStatus.LIVE &&
+                                    state.match!.status != MatchStatus.FINISHED)
+                                  Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black)),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "${state.match!.date}",
+                                                textAlign: TextAlign.start,
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                              Text(
+                                                "${state.match!.time}",
+                                                textAlign: TextAlign.start,
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                            ],
+                                          ))),
+                                if (state.match!.status == MatchStatus.FINISHED)
+                                  Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black)),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "${state.match!.goals!.homeFtGoals}",
+                                                textAlign: TextAlign.start,
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                              const Text("-"),
+                                              Text(
+                                                "${state.match!.goals!.awayFtGoals}",
+                                                textAlign: TextAlign.start,
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                            ],
+                                          ))),
+                                Expanded(
+                                  flex: 4,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      // Navigator.of(context).push(MaterialPageRoute(
+                                      //   builder: (context) {
+                                      //     return TeamMainView(
+                                      //         teamID: state.match!.teams!.away!.id);
+                                      //   },
+                                      // ));
+                                      context.pushNamed(AppRoutesName.teamPage,
+                                          extra: state.match!.teams!.away!.id);
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(2),
+                                      child: Text(
+                                        state.match!.teams!.away!.name,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w500),
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 3,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        );
+                      } else if (state is MatchFetchFail) {
+                        return const Text("Error");
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
+                  ),
+                ),
+                actions: [
+                  InkWell(
+                    onTap: () {},
+                    child: Icon(Icons.star_rounded),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  )
+                ],
+                // onStretchTrigger: () {
+
+                // },
+                expandedHeight: 200,
+                // forceElevated: true,
+                pinned: true,
+                floating: true,
+                leading: Container(
+                  // padding: const EdgeInsets.only(top: 15),
+                  width: 40,
+                  height: 40,
+
+                  child: InkWell(
+                    onTap: () {
+                      //        Navigator.of(context).pop();
+                      context.pop();
+                    },
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                flexibleSpace: FlexibleSpaceBar(
+                  expandedTitleScale: 1.2,
+                  titlePadding: const EdgeInsets.symmetric(horizontal: 20),
+                  centerTitle: true,
+                  title: TabBar(
+                    labelStyle: AppTextStyles.tabBarTextStyle(),
+                    isScrollable: true,
+                    dividerColor: AppColors.lightTabarColor,
+                    controller: tabController,
+                    tabs: const [
+                      Tab(
+                        text: "Overview",
+                      ),
+                      Tab(
+                        text: "Preview",
+                      ),
+                      Tab(
+                        text: "Key events",
+                      ),
+                      Tab(
+                        text: "Lineups",
+                      ),
+                      Tab(
+                        text: "Standing",
+                      ),
+                      Tab(
+                        text: "H2H",
+                      )
+                    ],
+                  ),
+                  background: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(20.0),
+                      bottomRight: Radius.circular(20.0),
+                    ),
+                    child: Image.asset(
+                      ImageData.footballImage,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+              ),
+              // bottom: TabBar(controller: tabController, tabs: const [
+              //   Tab(
+              //     text: "Overview",
+              //   ),
+              //   Tab(
+              //     text: "Preview",
+              //   ),
+              //   Tab(
+              //     text: "Key events",
+              //   ),
+              //   Tab(
+              //     text: "Lineups",
+              //   ),
+              //   Tab(
+              //     text: "Standing",
+              //   ),
+              //   Tab(
+              //     text: "H2H",
+              //   )
+              // ]),
+              // ),
+              SliverFillRemaining(
+                hasScrollBody: true,
+                child: BlocConsumer<MatchBloc, MatchState>(
                   builder: (context, state) {
                     if (state is MatchFetchSuccess) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      return TabBarView(
+                        controller: tabController,
                         children: [
-                          Expanded(
-                            flex: 4,
-                            child: GestureDetector(
-                              onTap: () {
-                                context.pushNamed(AppRoutesName.teamPage,
-                                    extra: state.match!.teams!.home!.id);
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                //   builder: (context) {
-                                //     return TeamMainView(
-                                //         teamID: state.match!.teams!.home!.id);
-                                //   },
-                                // ));
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                child: Text(
-                                  state.match!.teams!.home!.name,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500),
-                                  textAlign: TextAlign.start,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                ),
-                              ),
-                            ),
+                          OverviewMatchWidget(
+                            matchStatus: state.match!.status!,
+                            handicap: state.match!.odds!.handicap,
+                            matchWinner: state.match!.odds!.matchWinner,
+                            overUnder: state.match!.odds!.overUnder,
+                            leagueResponse: state.match!.league,
+                            stadium: state.match!.stadium,
+                            stage: state.match!.stage,
                           ),
-                          if (state.match!.status == MatchStatus.LIVE)
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    child: Text(
-                                  "${state.match!.goals!.homeFtGoals} - ${state.match!.goals!.awayFtGoals}",
-                                  textAlign: TextAlign.start,
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400),
-                                ))),
-                          if (state.match!.status != MatchStatus.LIVE &&
-                              state.match!.status != MatchStatus.FINISHED)
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        border:
-                                            Border.all(color: Colors.black)),
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          "${state.match!.date}",
-                                          textAlign: TextAlign.start,
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        Text(
-                                          "${state.match!.time}",
-                                          textAlign: TextAlign.start,
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ],
-                                    ))),
-                          if (state.match!.status == MatchStatus.FINISHED)
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        border:
-                                            Border.all(color: Colors.black)),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "${state.match!.goals!.homeFtGoals}",
-                                          textAlign: TextAlign.start,
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        const Text("-"),
-                                        Text(
-                                          "${state.match!.goals!.awayFtGoals}",
-                                          textAlign: TextAlign.start,
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ],
-                                    ))),
-                          Expanded(
-                            flex: 4,
-                            child: GestureDetector(
-                              onTap: () {
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                //   builder: (context) {
-                                //     return TeamMainView(
-                                //         teamID: state.match!.teams!.away!.id);
-                                //   },
-                                // ));
-                                context.pushNamed(AppRoutesName.teamPage,
-                                    extra: state.match!.teams!.away!.id);
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                child: Text(
-                                  state.match!.teams!.away!.name,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500),
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                ),
-                              ),
-                            ),
-                          )
+                          BlocBuilder<PreviewMatchBloc, PreviewMatchState>(
+                              builder: (context, state) {
+                            if (state is MatchPreviewFetchSuccess) {
+                              return PreviewMatchScreen(
+                                matchPreview: state.match,
+                              );
+                            } else if (state is PreviewMatchFetchFail) {
+                              return ErrorHelper.basicErrorWidget();
+                            } else {
+                              return Container();
+                            }
+                          }),
+                          KeyEventsScreen(
+                            listEvent: state.match!.events!,
+                          ),
+                          LineupScreen(
+                            lineups: state.match!.lineups!,
+                          ),
+                          TableOfLeagueScreen(
+                            leagueId: state.match!.league!.id,
+                          ),
+                          HeadToHeadScreen(
+                              team1Id: state.match!.teams!.home!.id,
+                              team2Id: state.match!.teams!.away!.id),
                         ],
                       );
                     } else if (state is MatchFetchFail) {
-                      return const Text("Error");
+                      if (state.failure != null) {
+                        if (state.failure is TooManyRequestsFailure) {
+                          return SliverToBoxAdapter(
+                            child: ErrorHelper.errorWidgetWithMsg(
+                                state.failure!.message!),
+                          );
+                        }
+                      }
+                      return SliverToBoxAdapter(
+                        child: ErrorHelper.basicErrorWidget(),
+                      );
                     } else {
                       return const SizedBox();
                     }
                   },
-                ),
-              ),
-              actions: [
-                InkWell(
-                  onTap: () {},
-                  child: Icon(Icons.star_rounded),
-                ),
-                const SizedBox(
-                  width: 10,
-                )
-              ],
-              // onStretchTrigger: () {
-
-              // },
-              expandedHeight: 200,
-              // forceElevated: true,
-              pinned: true,
-              floating: true,
-              leading: Container(
-                // padding: const EdgeInsets.only(top: 15),
-                width: 40,
-                height: 40,
-
-                child: InkWell(
-                  onTap: () {
-                    //        Navigator.of(context).pop();
-                    context.pop();
-                  },
-                  child: const Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              flexibleSpace: FlexibleSpaceBar(
-                expandedTitleScale: 1.2,
-                titlePadding: const EdgeInsets.symmetric(horizontal: 20),
-                centerTitle: true,
-                title: TabBar(
-                  labelStyle: AppTextStyles.tabBarTextStyle(),
-                  isScrollable: true,
-                  dividerColor: AppColors.lightTabarColor,
-                  controller: tabController,
-                  tabs: const [
-                    Tab(
-                      text: "Overview",
-                    ),
-                    Tab(
-                      text: "Preview",
-                    ),
-                    Tab(
-                      text: "Key events",
-                    ),
-                    Tab(
-                      text: "Lineups",
-                    ),
-                    Tab(
-                      text: "Standing",
-                    ),
-                    Tab(
-                      text: "H2H",
-                    )
-                  ],
-                ),
-                background: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(20.0),
-                    bottomRight: Radius.circular(20.0),
-                  ),
-                  child: Image.asset(
-                    ImageData.footballImage,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-            ),
-            // bottom: TabBar(controller: tabController, tabs: const [
-            //   Tab(
-            //     text: "Overview",
-            //   ),
-            //   Tab(
-            //     text: "Preview",
-            //   ),
-            //   Tab(
-            //     text: "Key events",
-            //   ),
-            //   Tab(
-            //     text: "Lineups",
-            //   ),
-            //   Tab(
-            //     text: "Standing",
-            //   ),
-            //   Tab(
-            //     text: "H2H",
-            //   )
-            // ]),
-            // ),
-            SliverFillRemaining(
-              hasScrollBody: true,
-              child: BlocConsumer<MatchBloc, MatchState>(
-                builder: (context, state) {
-                  if (state is MatchFetchSuccess) {
-                    return TabBarView(
-                      controller: tabController,
-                      children: [
-                        OverviewMatchWidget(
-                          matchStatus: state.match!.status!,
-                          handicap: state.match!.odds!.handicap,
-                          matchWinner: state.match!.odds!.matchWinner,
-                          overUnder: state.match!.odds!.overUnder,
-                          leagueResponse: state.match!.league,
-                          stadium: state.match!.stadium,
-                          stage: state.match!.stage,
-                        ),
-                        BlocBuilder<PreviewMatchBloc, PreviewMatchState>(
-                            builder: (context, state) {
-                          if (state is MatchPreviewFetchSuccess) {
-                            return PreviewMatchScreen(
-                              matchPreview: state.match,
-                            );
-                          } else if (state is PreviewMatchFetchFail) {
-                            return ErrorHelper.basicErrorWidget();
-                          } else {
-                            return Container();
-                          }
-                        }),
-                        KeyEventsScreen(
-                          listEvent: state.match!.events!,
-                        ),
-                        LineupScreen(
-                          lineups: state.match!.lineups!,
-                        ),
-                        TableOfLeagueScreen(
-                          leagueId: state.match!.league!.id,
-                        ),
-                        HeadToHeadScreen(
-                            team1Id: state.match!.teams!.home!.id,
-                            team2Id: state.match!.teams!.away!.id),
-                      ],
-                    );
-                  } else if (state is MatchFetchFail) {
-                    if (state.failure != null) {
-                      if (state.failure is TooManyRequestsFailure) {
-                        return SliverToBoxAdapter(
-                          child: ErrorHelper.errorWidgetWithMsg(
-                              state.failure!.message!),
-                        );
-                      }
+                  listener: (context, state) async {
+                    if (state is MatchLoading) {
+                      EasyLoading.show();
+                    } else if (state is MatchFetchFail) {
+                      EasyLoading.dismiss();
+                      EasyLoading.showError("An error has occurred");
+                      EasyLoading.dismiss();
+                    } else {
+                      EasyLoading.dismiss();
                     }
-                    return SliverToBoxAdapter(
-                      child: ErrorHelper.basicErrorWidget(),
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                },
-                listener: (context, state) async {
-                  if (state is MatchLoading) {
-                    EasyLoading.show();
-                  } else if (state is MatchFetchFail) {
-                    EasyLoading.dismiss();
-                    EasyLoading.showError("An error has occurred");
-                    EasyLoading.dismiss();
-                  } else {
-                    EasyLoading.dismiss();
-                  }
-                },
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

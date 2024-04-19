@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "691105051129",
+    "project_id": "live-football-stats-ee0f2",
+    "storage_bucket": "live-football-stats-ee0f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691105051129:android:db8c15036e2dcd43a40d28",
+        "android_client_info": {
+          "package_name": "com.example.live_football_stats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "691105051129-dm69kuqeq365b5l9d309vqia95ht2tqc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.live_football_stats",
+            "certificate_hash": "ff22f445a4eacb55d6d89015d81494050d53ce1a"
+          }
+        },
+        {
+          "client_id": "691105051129-9iol4qiqog5ec6h7mg3ni689nigmcuqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANxxxA1kUqTRx3of8xa6CG2kt-DbOVoOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "691105051129-9iol4qiqog5ec6h7mg3ni689nigmcuqj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
