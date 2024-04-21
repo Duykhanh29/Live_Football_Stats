@@ -21,6 +21,8 @@ import 'package:live_football_stats/features/main_feature/presentation/pages/pro
 import 'package:live_football_stats/features/main_feature/presentation/pages/profile/profile_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/team/team_main_view.dart';
 
+import '../app/root_page.dart';
+
 final GlobalKey<NavigatorState> mainNavigatorKey = GlobalKey<NavigatorState>();
 GoRouter goRouter = GoRouter(
   navigatorKey: mainNavigatorKey,
@@ -33,10 +35,17 @@ GoRouter goRouter = GoRouter(
         bool? isFirst =
             await sl.get<CheckFirstTimeOpen>().checkIfUserLoggedIn();
         if (isFirst != null && isFirst == true) {
-          return "/main_view";
+          return '/root';
         } else {
           return "/intro";
         }
+      },
+    ),
+    GoRoute(
+      path: '/root',
+      name: AppRoutesName.root,
+      builder: (context, state) {
+        return const RootPage();
       },
     ),
     GoRoute(

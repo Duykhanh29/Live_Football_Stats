@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/constants/app_routes_name.dart';
@@ -25,7 +26,7 @@ class LeagueMainView extends StatelessWidget {
           style: AppTextStyles.appBarTexStyle(),
         ),
       ),
-      body: BlocBuilder<NavbarCubit, int>(
+      body: BlocConsumer<NavbarCubit, int>(
         builder: (context, state) {
           if (state == 2) {
             return Padding(
@@ -93,6 +94,11 @@ class LeagueMainView extends StatelessWidget {
             );
           } else {
             return const SizedBox();
+          }
+        },
+        listener: (context, state) {
+          if (state != 2) {
+            EasyLoading.dismiss();
           }
         },
       ),

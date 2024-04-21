@@ -1,7 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:live_football_stats/core/platform/network_info.dart';
 import 'package:live_football_stats/core/utils/dio_client.dart';
+import 'package:live_football_stats/features/auth/data/data_source/remote/auth_remote_data_source.dart';
+import 'package:live_football_stats/features/auth/domain/usecases/get_current_user_uc.dart';
+import 'package:live_football_stats/features/auth/domain/usecases/get_update_user_uc.dart';
+import 'package:live_football_stats/features/auth/domain/usecases/is_login_uc.dart';
+import 'package:live_football_stats/features/auth/domain/usecases/sign_in_with_facebook_uc.dart';
+import 'package:live_football_stats/features/auth/domain/usecases/sign_in_with_google_uc.dart';
+import 'package:live_football_stats/features/auth/domain/usecases/sign_in_with_phone_uc.dart';
+import 'package:live_football_stats/features/auth/domain/usecases/sign_out_uc.dart';
+import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:live_football_stats/features/intro/domain/usecase/check_first_time_open.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/league_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/live_score_remote_data_source.dart';
@@ -55,6 +66,8 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/tea
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/player/player_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/transfers/transfers_bloc.dart';
 
+import '../../features/auth/data/repositories/auth_repo.dart';
+import '../../features/auth/domain/repositories/auth_repositories.dart';
 import '../services/websocket_services/websocket_client_service.dart';
 
 final sl = GetIt.instance;
@@ -76,6 +89,48 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton<WebSocketClientService>(
     () => WebSocketClientService(),
   );
+
+  // AUTH
+  // data source
+  sl.registerFactory<FirebaseAuth>(
+    () => FirebaseAuth.instance,
+  );
+  sl.registerFactory<FirebaseFirestore>(() => FirebaseFirestore.instance);
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(auth: sl(), firestore: sl()));
+
+  //repo
+  sl.registerLazySingleton<AuthRepositories>(
+    () => AuthRepoImpl(authRemoteDataSource: sl()),
+  );
+  //use cases
+  sl.registerLazySingleton<GetCurrentUserUseCase>(
+      () => GetCurrentUserUseCase(sl()));
+  sl.registerLazySingleton<SignInWithFacebookeUseCase>(
+      () => SignInWithFacebookeUseCase(sl()));
+  sl.registerLazySingleton<SignInWithGoogleUseCase>(
+      () => SignInWithGoogleUseCase(sl()));
+  sl.registerLazySingleton<SignInWithPhoneUseCase>(
+      () => SignInWithPhoneUseCase(sl()));
+  sl.registerLazySingleton<GetUpdateUserUseCase>(
+      () => GetUpdateUserUseCase(sl()));
+  sl.registerLazySingleton<SignOutUseCase>(() => SignOutUseCase(sl()));
+  sl.registerLazySingleton<IsLoginUseCase>(() => IsLoginUseCase(sl()));
+  // blocs
+  sl.registerLazySingleton<AuthBloc>(
+    () => AuthBloc(
+      currentUserUseCase: sl(),
+      signInWithFacebookeUseCase: sl(),
+      signInWithGoogleUseCase: sl(),
+      signInWithPhoneUseCase: sl(),
+      signOutUseCase: sl(),
+      updateUserUseCase: sl(),
+      isLoginUseCase: sl(),
+    ),
+  );
+
+  // MAIN FEATURE
+
   // data sources
   sl.registerLazySingleton<LeagueRemoteDataSource>(
       () => LeagueRemoteDataSourceImpl(dio: sl(), dioClient: sl()));

@@ -9,4 +9,10 @@ class ImageData {
   static const String footballImage = '$imagePath/football.jpg';
   static const String pdfImage = '$imagePath/pdf.png';
   static const String excelImage = '$imagePath/excel.png';
+  static const String appLogo = '$imagePath/appLogo.png';
+  static const String smallAppLogo = '$imagePath/logo.png';
+  static const String facebookLogo = '$imagePath/facebook_logo.png';
+  static const String googleLogo = '$imagePath/google_logo.png';
+  static const String phoneImage = '$imagePath/phone.png';
+  static const String circleAvatar = '$imagePath/circel_avatar.png';
 }

@@ -32,7 +32,7 @@ class MatchesMainView extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: BlocBuilder<NavbarCubit, int>(
+      body: BlocConsumer<NavbarCubit, int>(
         builder: (context, state) {
           if (state == 0) {
             return RefreshIndicator(
@@ -136,6 +136,11 @@ class MatchesMainView extends StatelessWidget {
             );
           } else {
             return const SizedBox();
+          }
+        },
+        listener: (context, state) {
+          if (state != 0) {
+            EasyLoading.dismiss();
           }
         },
       ),

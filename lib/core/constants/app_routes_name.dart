@@ -1,5 +1,6 @@
 class AppRoutesName {
   AppRoutesName._();
+  static const String root = 'root';
   static const String mainView = 'main_view';
   static const String liveScoreView = 'live_score_view';
   static const String matchesView = 'matches_view';

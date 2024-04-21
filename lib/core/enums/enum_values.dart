@@ -79,6 +79,15 @@ final transferTypeValues = EnumValues({
 
 enum TypeOfTransfer { TransferIn, TransferOut }
 
+// auth option
+enum AuthOption { Google, PhoneNumber, Facebook }
+
+final AuthOptionValues = EnumValues({
+  "Google": AuthOption.Google,
+  "PhoneNumber": AuthOption.PhoneNumber,
+  "Facebook": AuthOption.Facebook,
+});
+
 class EnumValues<T> {
   Map<String, T> map;
   late Map<T, String> reverseMap;

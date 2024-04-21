@@ -22,6 +22,7 @@ class AppColors {
   static Color eventColor2 = const Color.fromARGB(153, 219, 255, 60);
 
   static const Color errorColor = Colors.redAccent;
+  static const Color warningColor = Color.fromARGB(255, 243, 74, 62);
   static const Color transparentColor = Colors.transparent;
 
   static const Color liveColor = Color.fromARGB(255, 255, 88, 5);

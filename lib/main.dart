@@ -6,6 +6,8 @@ import 'package:live_football_stats/core/constants/app_routes.dart';
 import 'package:live_football_stats/core/constants/app_themes.dart';
 import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/core/utils/format_date.dart';
+import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_bloc.dart';
+import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/league_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/upcoming_match.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/themes/get_themes_usecase.dart';
@@ -72,6 +74,9 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) =>
                 ThemesCubit(getThemeUseCase: sl.get<GetThemeUsecase>()),
+          ),
+          BlocProvider(
+            create: (context) => sl.get<AuthBloc>()..add(IsLoginEvent()),
           ),
           BlocProvider(
             create: (context) => NavbarCubit(),

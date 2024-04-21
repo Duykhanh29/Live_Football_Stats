@@ -81,7 +81,7 @@ class _IntroPageState extends State<IntroPage> {
                   final box =
                       await Hive.openBox<bool>(StringConstants.initAppBoxKey);
                   await box.put(StringConstants.initAppKey, true);
-                  goRouter.goNamed(AppRoutesName.mainView);
+                  goRouter.goNamed(AppRoutesName.loginPage);
                 },
                 child: const Center(child: Icon(CupertinoIcons.forward_fill)),
               ),

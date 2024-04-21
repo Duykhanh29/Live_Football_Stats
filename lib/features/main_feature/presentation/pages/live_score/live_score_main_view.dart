@@ -74,7 +74,7 @@ class LiveScoreMainView extends StatelessWidget {
           })
         ],
       ),
-      body: BlocBuilder<NavbarCubit, int>(
+      body: BlocConsumer<NavbarCubit, int>(
         builder: (context, state) {
           if (state == 1) {
             return BlocBuilder<NavLiveScoreCubit, bool>(
@@ -99,6 +99,11 @@ class LiveScoreMainView extends StatelessWidget {
             );
           } else {
             return const SizedBox();
+          }
+        },
+        listener: (context, state) {
+          if (state != 1) {
+            EasyLoading.dismiss();
           }
         },
       ),
