@@ -32,3 +32,11 @@ class UpdateUser extends AuthEvent {
   // TODO: implement props
   List<Object?> get props => [userEntity];
 }
+
+class OtpVerify extends AuthEvent {
+  String verificationId, userOtp;
+  OtpVerify({required this.userOtp, required this.verificationId});
+  @override
+  // TODO: implement props
+  List<Object?> get props => [userOtp, verificationId];
+}

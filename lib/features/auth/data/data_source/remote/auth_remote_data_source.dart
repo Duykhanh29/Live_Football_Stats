@@ -14,11 +14,12 @@ abstract class AuthRemoteDataSource {
   Future<bool> signOut();
   Future<bool> signInWithGoogle();
   Future<bool> signInwithFacebook();
-  Future<bool> singInWithPhone(String phone);
+  Future<String?> singInWithPhone(String phone);
   Future<void> createUser(UserModel userModel);
   Future<bool> isUserExists(String id);
   UserModel getUserModel(User user, AuthOption authOption);
   Future<bool> updateCurrentUser(UserEntity userEntity);
+  Future<void> verifyOTP(String verificationId, String userOtp);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -146,11 +147,42 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<bool> singInWithPhone(String phone) async {
+  Future<String?> singInWithPhone(String phone) async {
     try {
-      return true;
+      String? verificationID;
+      await auth.verifyPhoneNumber(
+        phoneNumber: phone,
+        verificationCompleted: (phoneAuthCredential) async {
+          // Sign the user in (or link) with the auto-generated credential
+          final UserCredential userCredential =
+              await auth.signInWithCredential(phoneAuthCredential);
+        },
+        verificationFailed: (error) {
+          if (error.code == 'invalid-phone-number') {
+            print('The provided phone number is not valid.');
+            print("Error here: ${error.toString()}");
+            throw Exception(error.toString());
+          } else {
+            print("Error here: ${error.toString()}");
+            throw Exception(error.toString());
+          }
+        },
+        codeSent: (verificationId, forceResendingToken) async {
+          // Update the UI - wait for the user to enter the SMS code
+          verificationID = verificationId;
+        },
+        codeAutoRetrievalTimeout: (verificationId) {
+          print('code Auto Retrieval Timeout');
+        },
+      );
+      //     .then((value) {
+
+      // });
+      await Future.delayed(const Duration(seconds: 20));
+      return verificationID;
     } catch (e) {
-      return false;
+      print("Error here: ${e.toString()}");
+      throw Exception(e.toString());
     }
   }
 
@@ -163,6 +195,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           .set(userModel.toJson());
     } catch (e) {
       print("Error: $e");
+      throw Exception(e.toString());
     }
   }
 
@@ -190,4 +223,17 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   // TODO: implement uid
   Future<bool?> get isLogin async => auth.currentUser != null ? true : false;
+
+  @override
+  Future<void> verifyOTP(String verificationId, String userOtp) async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: verificationId, smsCode: userOtp);
+      // Sign the user in (or link) with the credential
+      await auth.signInWithCredential(credential);
+    } catch (e) {
+      print("Error: $e");
+      throw Exception(e.toString());
+    }
+  }
 }

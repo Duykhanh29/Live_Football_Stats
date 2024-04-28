@@ -70,15 +70,11 @@ class AuthRepoImpl extends AuthRepositories {
   }
 
   @override
-  Future<Either<Failure, bool>?> signInWithPhone(String phone) async {
+  Future<Either<Failure, String?>?> signInWithPhone(String phone) async {
     try {
       final result = await authRemoteDataSource.singInWithPhone(phone);
 
-      if (result) {
-        return const Right(true);
-      } else {
-        return Left(ServerFailure(message: ""));
-      }
+      return Right(result);
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
@@ -103,6 +99,18 @@ class AuthRepoImpl extends AuthRepositories {
     try {
       final result = await authRemoteDataSource.isLogin;
       return Right(result!);
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>?> verifyOTP(
+      String verificationId, String userOtp) async {
+    try {
+      final result =
+          await authRemoteDataSource.verifyOTP(verificationId, userOtp);
+      return Right(result);
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }

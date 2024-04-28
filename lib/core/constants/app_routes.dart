@@ -5,6 +5,8 @@ import 'package:live_football_stats/core/constants/app_routes_name.dart';
 import 'package:live_football_stats/core/constants/string_constants.dart';
 import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/features/auth/presentation/pages/login_page.dart';
+import 'package:live_football_stats/features/auth/presentation/pages/otp_page.dart';
+import 'package:live_football_stats/features/auth/presentation/pages/phone_login_page.dart';
 import 'package:live_football_stats/features/intro/domain/usecase/check_first_time_open.dart';
 import 'package:live_football_stats/features/intro/presentation/page/intro_page.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
@@ -46,6 +48,13 @@ GoRouter goRouter = GoRouter(
       name: AppRoutesName.root,
       builder: (context, state) {
         return const RootPage();
+      },
+      redirect: (context, state) async {
+        var box = await Hive.openBox<bool>(StringConstants.guestBoxKey);
+        bool? isGuest = box.get(StringConstants.guestKey);
+        if (isGuest != null && isGuest == true) {
+          return '/main_view';
+        }
       },
     ),
     GoRoute(
@@ -143,9 +152,28 @@ GoRouter goRouter = GoRouter(
       ], //
     ),
     GoRoute(
-      path: '/login_page',
-      name: AppRoutesName.loginPage,
-      builder: (context, state) => const LoginPage(),
-    ),
+        path: '/login_page',
+        name: AppRoutesName.loginPage,
+        builder: (context, state) => const LoginPage(),
+        routes: [
+          GoRoute(
+            path: 'login_phone_page',
+            name: AppRoutesName.loginPhonePage,
+            builder: (context, state) {
+              return const PhoneLoginPage();
+            },
+          ),
+          GoRoute(
+            path: 'otp_page',
+            name: AppRoutesName.otpPage,
+            builder: (context, state) {
+              final verificationId = state.extra as String;
+
+              return OTPPage(
+                verificationId: verificationId,
+              );
+            },
+          ),
+        ]),
   ],
 );

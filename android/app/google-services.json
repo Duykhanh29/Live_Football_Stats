@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "691105051129-u07qu80vu7k2eifo984rmaij2re04ue9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.live_football_stats",
+            "certificate_hash": "5e8bb21d5bf4c3dc17f4c61013f28b5dda4d0ac8"
+          }
+        },
+        {
           "client_id": "691105051129-9iol4qiqog5ec6h7mg3ni689nigmcuqj.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -37,6 +45,13 @@
             {
               "client_id": "691105051129-9iol4qiqog5ec6h7mg3ni689nigmcuqj.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "691105051129-sp6445b51qsdbm92cdeqcec52uffbg26.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.liveFootballStats"
+              }
             }
           ]
         }

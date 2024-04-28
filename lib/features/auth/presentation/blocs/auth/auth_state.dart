@@ -29,3 +29,10 @@ class ChangeUserInfoState extends AuthState {}
 class AuthorizedState extends AuthState {}
 
 class UnauthorizedState extends AuthState {}
+
+class IsOTPVerified extends AuthState {
+  String verificationId;
+  IsOTPVerified({required this.verificationId});
+  @override
+  List<Object> get props => [verificationId!];
+}

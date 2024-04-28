@@ -236,6 +236,13 @@ class AccountPage extends StatelessWidget {
                     context.goNamed(AppRoutesName.loginPage);
                   }
                 },
+                listenWhen: (previous, current) {
+                  if (previous is AuthorizedState) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                },
               );
             } else {
               return const SizedBox();

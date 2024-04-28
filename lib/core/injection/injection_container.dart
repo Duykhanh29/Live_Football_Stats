@@ -6,6 +6,7 @@ import 'package:live_football_stats/core/platform/network_info.dart';
 import 'package:live_football_stats/core/utils/dio_client.dart';
 import 'package:live_football_stats/features/auth/data/data_source/remote/auth_remote_data_source.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/get_current_user_uc.dart';
+import 'package:live_football_stats/features/auth/domain/usecases/get_otp_verify_uc.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/get_update_user_uc.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/is_login_uc.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/sign_in_with_facebook_uc.dart';
@@ -116,6 +117,8 @@ Future<void> initDependencies() async {
       () => GetUpdateUserUseCase(sl()));
   sl.registerLazySingleton<SignOutUseCase>(() => SignOutUseCase(sl()));
   sl.registerLazySingleton<IsLoginUseCase>(() => IsLoginUseCase(sl()));
+  sl.registerLazySingleton<GetOTPVerifyUseCase>(
+      () => GetOTPVerifyUseCase(sl()));
   // blocs
   sl.registerLazySingleton<AuthBloc>(
     () => AuthBloc(
@@ -126,6 +129,7 @@ Future<void> initDependencies() async {
       signOutUseCase: sl(),
       updateUserUseCase: sl(),
       isLoginUseCase: sl(),
+      verifyUseCase: sl(),
     ),
   );
 

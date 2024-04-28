@@ -104,6 +104,8 @@ dependencies:
 
   # phone
   intl_phone_number_input: ^0.7.4
+
+  pinput: ^4.0.0
   
 
   # The following adds the Cupertino Icons font to your application.

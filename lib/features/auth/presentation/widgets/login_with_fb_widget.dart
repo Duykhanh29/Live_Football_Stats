@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/image_data.dart';
+import '../../../../core/constants/string_constants.dart';
 import '../../../../core/injection/injection_container.dart';
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_event.dart';
@@ -14,6 +16,8 @@ class LoginWithFacebookWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         sl.get<AuthBloc>().add(SignInWithFacebook());
+        final box = await Hive.openBox<bool>(StringConstants.guestBoxKey);
+        await box.put(StringConstants.guestKey, false);
       },
       child: Container(
           decoration: BoxDecoration(

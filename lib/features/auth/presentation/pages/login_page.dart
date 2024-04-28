@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/constants/app_routes_name.dart';
 import 'package:live_football_stats/core/constants/app_text_style.dart';
@@ -11,7 +12,9 @@ import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_b
 import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_state.dart';
 import 'package:live_football_stats/features/auth/presentation/widgets/login_with_google_widget.dart';
 
+import '../../../../core/constants/app_routes.dart';
 import '../../../../core/constants/image_data.dart';
+import '../../../../core/constants/string_constants.dart';
 import '../widgets/login_with_fb_widget.dart';
 import '../widgets/login_with_phone_widget.dart';
 
@@ -134,7 +137,11 @@ Widget _buildOrLine(BuildContext context) {
 
 Widget loginAsGuest(BuildContext context) {
   return GestureDetector(
-    onTap: () => context.goNamed(AppRoutesName.mainView),
+    onTap: () async {
+      final box = await Hive.openBox<bool>(StringConstants.guestBoxKey);
+      await box.put(StringConstants.guestKey, true);
+      goRouter.goNamed(AppRoutesName.mainView);
+    },
     child: Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10), color: AppColors.thirdColor),

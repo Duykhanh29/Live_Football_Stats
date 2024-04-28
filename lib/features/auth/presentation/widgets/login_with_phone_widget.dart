@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/image_data.dart';
+import '../../../../core/constants/string_constants.dart';
+import 'package:go_router/go_router.dart';
+import 'package:live_football_stats/core/constants/app_routes_name.dart';
 
 class LoginWithPhoneWidget extends StatelessWidget {
   const LoginWithPhoneWidget({super.key});
@@ -9,7 +13,11 @@ class LoginWithPhoneWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {},
+      onTap: () async {
+        final box = await Hive.openBox<bool>(StringConstants.guestBoxKey);
+        await box.put(StringConstants.guestKey, false);
+        context.pushNamed(AppRoutesName.loginPhonePage);
+      },
       child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),

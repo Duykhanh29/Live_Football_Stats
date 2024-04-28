@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_event.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/image_data.dart';
+import '../../../../core/constants/string_constants.dart';
 
 class LoginWithGoogleWidget extends StatelessWidget {
   const LoginWithGoogleWidget({super.key});
@@ -14,6 +16,8 @@ class LoginWithGoogleWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         sl.get<AuthBloc>().add(SignInWithGoogle());
+        final box = await Hive.openBox<bool>(StringConstants.guestBoxKey);
+        await box.put(StringConstants.guestKey, false);
       },
       child: Container(
           decoration: BoxDecoration(

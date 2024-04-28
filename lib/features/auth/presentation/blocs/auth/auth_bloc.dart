@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/get_current_user_uc.dart';
+import 'package:live_football_stats/features/auth/domain/usecases/get_otp_verify_uc.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/is_login_uc.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/sign_in_with_facebook_uc.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/sign_in_with_google_uc.dart';
@@ -19,6 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   SignInWithPhoneUseCase signInWithPhoneUseCase;
   SignInWithFacebookeUseCase signInWithFacebookeUseCase;
   IsLoginUseCase isLoginUseCase;
+  GetOTPVerifyUseCase verifyUseCase;
   // StreamController<UserEntity?> streamController =
   //     StreamController<UserEntity?>.broadcast();
   AuthBloc(
@@ -28,7 +30,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       required this.signInWithPhoneUseCase,
       required this.signOutUseCase,
       required this.updateUserUseCase,
-      required this.isLoginUseCase})
+      required this.isLoginUseCase,
+      required this.verifyUseCase})
       : super(AuthInitial()) {
     on<SignInWithGoogle>(onSignInWithGoogleEvent);
     on<SignInWithPhone>(onSignInWithPhoneEvent);
@@ -36,6 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignOut>(onSignOutEvent);
     on<UpdateUser>(onUpdateUserEvent);
     on<IsLoginEvent>(onIsLoginEvent);
+    on<OtpVerify>(onOtpVerifyEvent);
     //  on<GetCurrentUserEvent>(onGetCurrentUserEvent);
   }
   Future<void> onIsLoginEvent(
@@ -113,8 +117,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(LoadingState());
       final result = await signInWithPhoneUseCase.call(event.phone);
       if (result != null) {
-        result.fold(
-            (l) => emit(ErrorAuthState()), (r) => emit(AuthorizedState()));
+        result.fold((l) => emit(ErrorAuthState()), (r) {
+          if (r == null) {
+            emit(AuthorizedState());
+          } else {
+            emit(IsOTPVerified(verificationId: r));
+          }
+        });
       } else {
         emit(ErrorAuthState());
       }
@@ -129,8 +138,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(LoadingState());
       final result = await signInWithFacebookeUseCase.call();
       if (result != null) {
-        result.fold(
-            (l) => emit(ErrorAuthState()), (r) => emit(AuthorizedState()));
+        result.fold((l) {
+          emit(ErrorAuthState());
+        }, (r) {
+          emit(AuthorizedState());
+        });
       } else {
         emit(ErrorAuthState());
       }
@@ -149,6 +161,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }, (r) {
           emit(UnauthorizedState());
         });
+      } else {
+        emit(ErrorAuthState());
+      }
+    } catch (e) {
+      emit(ErrorAuthState(message: e.toString()));
+    }
+  }
+
+  Future<void> onOtpVerifyEvent(
+      OtpVerify event, Emitter<AuthState> emit) async {
+    try {
+      emit(LoadingState());
+      final result =
+          await verifyUseCase.call(event.verificationId, event.userOtp);
+      if (result != null) {
+        result.fold(
+            (l) => emit(ErrorAuthState()), (r) => emit(AuthorizedState()));
       } else {
         emit(ErrorAuthState());
       }

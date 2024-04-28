@@ -17,4 +17,6 @@ class AppRoutesName {
 
   // auth section
   static const String loginPage = 'login_page';
+  static const String loginPhonePage = 'login_phone_page';
+  static const String otpPage = 'otp_page';
 }

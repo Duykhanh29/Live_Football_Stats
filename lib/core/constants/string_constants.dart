@@ -10,4 +10,8 @@ class StringConstants {
   // theme
   static const themesBoxKey = 'themes';
   static const themesKey = 'currentThemes';
+
+  // guest
+  static const guestBoxKey = 'guestRole';
+  static const guestKey = 'guestKey';
 }
