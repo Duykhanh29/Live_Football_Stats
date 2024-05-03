@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:live_football_stats/core/enums/enum_values.dart';
+import 'package:live_football_stats/core/services/analystic_service/analystic_service.dart';
 import 'package:live_football_stats/features/auth/data/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,12 +27,17 @@ abstract class AuthRemoteDataSource {
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   FirebaseAuth auth;
   FirebaseFirestore firestore;
+  AnalysticService analysticService;
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  AuthRemoteDataSourceImpl({required this.auth, required this.firestore});
+  AuthRemoteDataSourceImpl(
+      {required this.auth,
+      required this.firestore,
+      required this.analysticService});
   // User? user;
   @override
   Future<bool> signOut() async {
     try {
+      await analysticService.analysticLogout(auth.currentUser!.uid);
       await googleSignIn.signOut();
       await auth.signOut();
       return true;
@@ -92,9 +98,13 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         User? user;
         user = userCredential.user;
         if (user != null) {
-          if (!await isUserExists(user!.uid)) {
-            UserModel userModel = getUserModel(user!, AuthOption.Google);
+          if (!await isUserExists(user.uid)) {
+            UserModel userModel = getUserModel(user, AuthOption.Google);
             await createUser(userModel);
+            await analysticService.logLogin(
+                authOption: AuthOption.Google, uid: userModel.userID!);
+            await analysticService.analyticsLogin(userModel.userID!);
+            await analysticService.setUserID(userModel.userID!);
           }
           return true;
         }
@@ -135,6 +145,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         if (!await isUserExists(user.uid)) {
           UserModel userModel = getUserModel(user, AuthOption.Facebook);
           await createUser(userModel);
+          await analysticService.logLogin(
+              authOption: AuthOption.Facebook, uid: userModel.userID!);
+          await analysticService.analyticsLogin(userModel.userID!);
+          await analysticService.setUserID(userModel.userID!);
         }
         return true;
       }
@@ -163,6 +177,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
             if (!await isUserExists(user.uid)) {
               UserModel userModel = getUserModel(user, AuthOption.PhoneNumber);
               await createUser(userModel);
+              await analysticService.logLogin(
+                  authOption: AuthOption.PhoneNumber, uid: userModel.userID!);
+              await analysticService.analyticsLogin(userModel.userID!);
+              await analysticService.setUserID(userModel.userID!);
             }
           }
         },
@@ -247,6 +265,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         if (!await isUserExists(user.uid)) {
           UserModel userModel = getUserModel(user, AuthOption.PhoneNumber);
           await createUser(userModel);
+          await analysticService.logLogin(
+              authOption: AuthOption.PhoneNumber, uid: userModel.userID!);
+          await analysticService.analyticsLogin(userModel.userID!);
+          await analysticService.setUserID(userModel.userID!);
         }
       }
     } catch (e) {

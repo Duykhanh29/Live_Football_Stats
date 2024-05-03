@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -5,12 +6,11 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:live_football_stats/core/constants/app_routes.dart';
 import 'package:live_football_stats/core/constants/app_themes.dart';
 import 'package:live_football_stats/core/injection/injection_container.dart';
+import 'package:live_football_stats/core/services/analystic_service/analystic_service.dart';
 import 'package:live_football_stats/core/utils/format_date.dart';
 import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_event.dart';
-import 'package:live_football_stats/features/main_feature/data/data_sources/remote/league_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/favourite/favourite_league_entity.dart';
-import 'package:live_football_stats/features/main_feature/domain/entities/upcoming_match.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/themes/get_themes_usecase.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/favourite/favourite_league/favourite_league_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_bloc.dart';
@@ -43,14 +43,41 @@ import 'features/main_feature/presentation/blocs/favourite/favourite_team/favour
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  //FirebaseCrashlytics.instance.crash();
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-
+  MobileAds.instance.initialize();
+  // const fatalError = true;
+  // Non-async exceptions
+  // FlutterError.onError = (errorDetails) {
+  //   if (fatalError) {
+  //     // If you want to record a "fatal" exception
+  //     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  //     // ignore: dead_code
+  //   } else {
+  //     // If you want to record a "non-fatal" exception
+  //     FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+  //   }
+  // };
+  // Async exceptions
+  // PlatformDispatcher.instance.onError = (error, stack) {
+  //   if (fatalError) {
+  //     // If you want to record a "fatal" exception
+  //     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+  //     // ignore: dead_code
+  //   } else {
+  //     // If you want to record a "non-fatal" exception
+  //     FirebaseCrashlytics.instance.recordError(error, stack);
+  //   }
+  //   return true;
+  // };
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Future.delayed(const Duration(seconds: 5));
   FlutterNativeSplash.remove();
@@ -145,8 +172,9 @@ class MyApp extends StatelessWidget {
             create: (context) => sl.get<PlayerBloc>(),
           ),
         ],
-            child: BlocBuilder<ThemesCubit, bool>(
-              builder: (context, state) => MaterialApp.router(
+            child: BlocBuilder<ThemesCubit, bool>(builder: (context, state) {
+              sl.get<AnalysticService>().logAppOpen(DateTime.now());
+              return MaterialApp.router(
                 routerDelegate: goRouter.routerDelegate,
                 routeInformationParser: goRouter.routeInformationParser,
                 routeInformationProvider: goRouter.routeInformationProvider,
@@ -159,8 +187,8 @@ class MyApp extends StatelessWidget {
                         .darkTheme, // applies this theme if the device theme is light mode
                 darkTheme: AppTheme.darkTheme,
                 builder: EasyLoading.init(),
-              ),
-            ));
+              );
+            }));
   }
 }
 

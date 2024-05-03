@@ -54,5 +54,7 @@
 		<key>UIStatusBarHidden</key>
 		<false/>
 		<key>NSAppTransportSecurity</key>
+		<key>GADApplicationIdentifier</key>
+		<string>ca-app-pub-6982769098111840~6596371275</string>
 	</dict>
 </plist>

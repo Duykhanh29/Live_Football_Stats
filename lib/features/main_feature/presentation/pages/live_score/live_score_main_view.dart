@@ -14,9 +14,56 @@ import 'package:live_football_stats/features/main_feature/presentation/widgets/l
 
 import '../../widgets/live_score/live_score_widget.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class LiveScoreMainView extends StatelessWidget {
-  const LiveScoreMainView({super.key});
+class LiveScoreMainView extends StatefulWidget {
+  LiveScoreMainView({super.key});
+
+  @override
+  State<LiveScoreMainView> createState() => _LiveScoreMainViewState();
+}
+
+class _LiveScoreMainViewState extends State<LiveScoreMainView> {
+  BannerAd? bannerAd;
+
+  bool _isBannerLoaded = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _initialBanner();
+  }
+
+  _initialBanner() async {
+    bannerAd = BannerAd(
+        size: AdSize.banner,
+        adUnitId: "ca-app-pub-3940256099942544/9214589741",
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            setState(() {
+              _isBannerLoaded = true;
+              bannerAd = ad as BannerAd;
+            });
+          },
+          onAdFailedToLoad: (ad, error) {
+            ad.dispose();
+            print(error);
+          },
+          onAdClosed: (ad) {
+            setState(() {
+              _isBannerLoaded = false;
+            });
+          },
+        ),
+        request: AdRequest());
+    await bannerAd!.load();
+  }
+
+  @override
+  void dispose() {
+    bannerAd?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +154,13 @@ class LiveScoreMainView extends StatelessWidget {
           }
         },
       ),
+      bottomNavigationBar: _isBannerLoaded && bannerAd != null
+          ? SizedBox(
+              height: bannerAd!.size.height.toDouble(),
+              width: bannerAd!.size.width.toDouble(),
+              child: AdWidget(ad: bannerAd!),
+            )
+          : const SizedBox(),
     );
   }
 }

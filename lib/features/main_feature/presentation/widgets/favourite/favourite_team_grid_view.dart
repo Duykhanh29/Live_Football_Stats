@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:live_football_stats/core/constants/image_data.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/favourite/favourite_team_card.dart';
 
@@ -12,8 +15,88 @@ import '../../../domain/entities/favourite/favourite_team_entity.dart';
 import '../../blocs/favourite/favourite_team/favourite_team_bloc.dart';
 import '../../blocs/favourite/favourite_team/favourite_team_state.dart';
 
-class FavouriteTeamGridView extends StatelessWidget {
+class FavouriteTeamGridView extends StatefulWidget {
   const FavouriteTeamGridView({super.key});
+
+  @override
+  State<FavouriteTeamGridView> createState() => _FavouriteTeamGridViewState();
+}
+
+class _FavouriteTeamGridViewState extends State<FavouriteTeamGridView> {
+  RewardedInterstitialAd? _rewardedInterstitialAd;
+  int _numRewardedInterstitialLoadAttempts = 0;
+  int maxFailedLoadAttempts = 3;
+  void _createRewardedInterstitialAd() {
+    RewardedInterstitialAd.load(
+        adUnitId: Platform.isAndroid
+            ? 'ca-app-pub-3940256099942544/5354046379'
+            : 'ca-app-pub-3940256099942544/6978759866',
+        request: AdRequest(),
+        rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
+          onAdLoaded: (RewardedInterstitialAd ad) {
+            setState(() {
+              print('$ad loaded.');
+              _rewardedInterstitialAd = ad;
+              _numRewardedInterstitialLoadAttempts = 0;
+            });
+          },
+          onAdFailedToLoad: (LoadAdError error) {
+            setState(() {
+              print('RewardedInterstitialAd failed to load: $error');
+              _rewardedInterstitialAd = null;
+              _numRewardedInterstitialLoadAttempts += 1;
+              if (_numRewardedInterstitialLoadAttempts <
+                  maxFailedLoadAttempts) {
+                _createRewardedInterstitialAd();
+              }
+            });
+          },
+        ));
+  }
+
+  void _showRewardedInterstitialAd() {
+    if (_rewardedInterstitialAd == null) {
+      print('Warning: attempt to show rewarded interstitial before loaded.');
+      return;
+    }
+    _rewardedInterstitialAd!.fullScreenContentCallback =
+        FullScreenContentCallback(
+      onAdShowedFullScreenContent: (RewardedInterstitialAd ad) =>
+          print('$ad onAdShowedFullScreenContent.'),
+      onAdDismissedFullScreenContent: (RewardedInterstitialAd ad) {
+        print('$ad onAdDismissedFullScreenContent.');
+        ad.dispose();
+        _createRewardedInterstitialAd();
+      },
+      onAdFailedToShowFullScreenContent:
+          (RewardedInterstitialAd ad, AdError error) {
+        print('$ad onAdFailedToShowFullScreenContent: $error');
+        ad.dispose();
+        _createRewardedInterstitialAd();
+      },
+    );
+
+    _rewardedInterstitialAd!.setImmersiveMode(true);
+    _rewardedInterstitialAd!.show(
+        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+      print('$ad with reward $RewardItem(${reward.amount}, ${reward.type})');
+    });
+    _rewardedInterstitialAd = null;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _createRewardedInterstitialAd();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _rewardedInterstitialAd?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +126,7 @@ class FavouriteTeamGridView extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
+                            _showRewardedInterstitialAd();
                             context
                                 .pushNamed(AppRoutesName.listFavouriteTeamPage);
                           },

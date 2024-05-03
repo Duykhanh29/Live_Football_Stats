@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:live_football_stats/core/platform/network_info.dart';
+import 'package:live_football_stats/core/services/analystic_service/analystic_service.dart';
 import 'package:live_football_stats/core/utils/dio_client.dart';
 import 'package:live_football_stats/features/auth/data/data_source/remote/auth_remote_data_source.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/get_current_user_uc.dart';
@@ -97,6 +98,10 @@ Future<void> initDependencies() async {
   // sl.registerFactory<SharedPreferences>(() => sharedPreferences);
   // _initAuth();
 
+  // analystic service
+  sl.registerLazySingleton(
+    () => AnalysticService(),
+  );
   // network info
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
   sl.registerLazySingleton<DioClient>(() => DioClient());
@@ -111,8 +116,8 @@ Future<void> initDependencies() async {
     () => FirebaseAuth.instance,
   );
   sl.registerFactory<FirebaseFirestore>(() => FirebaseFirestore.instance);
-  sl.registerLazySingleton<AuthRemoteDataSource>(
-      () => AuthRemoteDataSourceImpl(auth: sl(), firestore: sl()));
+  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(
+      auth: sl(), firestore: sl(), analysticService: sl()));
 
   //repo
   sl.registerLazySingleton<AuthRepositories>(
