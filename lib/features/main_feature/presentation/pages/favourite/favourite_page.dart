@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -7,6 +6,7 @@ import 'package:live_football_stats/core/constants/app_routes_name.dart';
 import 'package:live_football_stats/core/constants/app_text_style.dart';
 import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_state.dart';
+import 'package:live_football_stats/features/main_feature/presentation/widgets/favourite/main_favourite_view.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../blocs/nav_bar/nav_bar_cubit.dart';
@@ -31,10 +31,10 @@ class FavouritePage extends StatelessWidget {
             return BlocConsumer<AuthBloc, AuthState>(
               builder: (context, state) {
                 if (state is AuthorizedState) {
-                  return const Center(
-                    child: Text("Data"),
+                  return MainFavouriteView(
+                    uid: state.user!.userID!,
                   );
-                } else {
+                } else if (state is UnauthorizedState) {
                   return Center(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,8 +76,15 @@ class FavouritePage extends StatelessWidget {
                     ),
                   );
                 }
+                return const SizedBox();
               },
-              listener: (context, state) {},
+              listener: (context, state) {
+                if (state is LoadingState) {
+                  EasyLoading.show();
+                } else {
+                  EasyLoading.dismiss();
+                }
+              },
             );
           } else {
             return const SizedBox();

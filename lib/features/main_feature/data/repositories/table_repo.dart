@@ -23,7 +23,11 @@ class TableRepoIplm implements TableRepositories {
         }
         return null;
       } catch (e) {
-        return Left(ServerFailure(message: e.toString()));
+        if (e is TooManyRequestsFailure) {
+          return Left(TooManyRequestsFailure(message: e.message));
+        } else {
+          return Left(ServerFailure(message: e.toString()));
+        }
       }
     } else {
       return Left(NetworkFailure());

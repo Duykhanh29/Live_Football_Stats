@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:live_football_stats/config/const/api_endpoints.dart';
 import 'package:live_football_stats/config/const/app_config.dart';
 import 'package:live_football_stats/core/error/failures.dart';
@@ -48,6 +47,10 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -81,6 +84,10 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -106,6 +113,10 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -150,6 +161,10 @@ class LiveScoreRemoteDataSourceImpl implements LiveScoreRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }

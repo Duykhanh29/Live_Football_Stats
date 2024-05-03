@@ -4,9 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:live_football_stats/core/constants/app_colors.dart';
 import 'package:live_football_stats/core/constants/app_text_style.dart';
 import 'package:live_football_stats/core/helper/error_helper.dart';
+import 'package:live_football_stats/core/helper/snack_bar_helper.dart';
 import 'package:live_football_stats/core/injection/injection_container.dart';
+import 'package:live_football_stats/features/main_feature/data/models/favourite/favourite_team_model.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/team.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/favourite/favourite_team/favourite_team_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/a_team/team_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/a_team/team_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/a_team/team_state.dart';
@@ -15,6 +18,12 @@ import 'package:live_football_stats/features/main_feature/presentation/pages/tea
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/error/failures.dart';
+import '../../../../../core/utils/common_method.dart';
+import '../../../../auth/presentation/blocs/auth/auth_bloc.dart';
+import '../../../../auth/presentation/blocs/auth/auth_state.dart';
+import '../../blocs/favourite/favourite_league/favourite_league_event.dart';
+import '../../blocs/favourite/favourite_team/favourite_team_bloc.dart';
+import '../../blocs/favourite/favourite_team/favourite_team_state.dart';
 
 class TeamMainView extends StatefulWidget {
   TeamMainView({super.key, required this.teamID});
@@ -35,12 +44,12 @@ class _TeamMainViewState extends State<TeamMainView>
     context.read<TeamBloc>().add(TeamFetched(teamID: widget.teamID));
   }
 
-  Team team = Team(
-      country: Country(id: 8, name: "england"),
-      id: 4137,
-      isNation: false,
-      name: "Manchester United",
-      stadium: StadiumResponse(id: 12, name: "name", city: "city"));
+  // Team team = Team(
+  //     country: Country(id: 8, name: "england"),
+  //     id: 4137,
+  //     isNation: false,
+  //     name: "Manchester United",
+  //     stadium: StadiumResponse(id: 12, name: "name", city: "city"));
 
   @override
   Widget build(BuildContext context) {
@@ -166,11 +175,80 @@ class _TeamMainViewState extends State<TeamMainView>
           },
         ),
         actions: [
-          InkWell(
-            onTap: () {},
-            child: const Icon(
-              Icons.star_border_rounded,
-              size: 30,
+          BlocBuilder<TeamBloc, TeamState>(
+            builder: (context, teamState) => BlocBuilder<AuthBloc, AuthState>(
+              builder: (context, authState) {
+                if (authState is AuthorizedState) {
+                  BlocProvider.of<FavouriteTeamBloc>(context)
+                      .add(FecthFavouriteTeams(uid: authState.user!.userID!));
+                  return BlocConsumer<FavouriteTeamBloc, FavouriteTeamState>(
+                    builder: (context, state) {
+                      if (state is FavouriteTeamFetchedSucess) {
+                        final data = state.favouriteTeam;
+                        final isExisted = CommonMethods.isFavouriteTeamExisted(
+                            widget.teamID.toString(), data);
+                        if (isExisted) {
+                          return InkWell(
+                            onTap: () {
+                              BlocProvider.of<FavouriteTeamBloc>(context).add(
+                                  DeleteFavouriteTeam(
+                                      teamID: widget.teamID.toString(),
+                                      uid: authState.user!.userID!));
+                            },
+                            child: const Icon(
+                              Icons.star,
+                              color: Colors.orangeAccent,
+                            ),
+                          );
+                        } else {
+                          return InkWell(
+                            onTap: () {
+                              if (teamState is TeamFetchSuccess) {
+                                TeamDataModel teamDataModel = TeamDataModel(
+                                    teamID: widget.teamID.toString(),
+                                    teamName: teamState.team.name);
+                                BlocProvider.of<FavouriteTeamBloc>(context).add(
+                                    AddFavouriteTeam(
+                                        teamData: teamDataModel,
+                                        uid: authState.user!.userID!));
+                              }
+                            },
+                            child: const Icon(Icons.star),
+                          );
+                        }
+                      }
+                      return InkWell(
+                        onTap: () {
+                          if (teamState is TeamFetchSuccess) {
+                            TeamDataModel teamDataModel = TeamDataModel(
+                                teamID: widget.teamID.toString(),
+                                teamName: teamState.team.name);
+                            BlocProvider.of<FavouriteTeamBloc>(context).add(
+                                AddFavouriteTeam(
+                                    teamData: teamDataModel,
+                                    uid: authState.user!.userID!));
+                          }
+                        },
+                        child: const Icon(Icons.star),
+                      );
+                    },
+                    listener: (context, state) {
+                      if (state is FavouriteTeamFailWithNoInternet) {
+                        SnackbarHelper.showSnackBar(
+                            context, state.message ?? "");
+                      }
+                    },
+                  );
+                } else {
+                  return InkWell(
+                    onTap: () {
+                      SnackbarHelper.showSnackBar(
+                          context, "You need login to access this feature");
+                    },
+                    child: const Icon(Icons.star),
+                  );
+                }
+              },
             ),
           ),
           const SizedBox(

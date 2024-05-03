@@ -49,6 +49,10 @@ class MatchRemoteDataSourceImpl implements MatchRemoteDataSource {
       }
     } catch (e) {
       print("What wrong: $e");
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -72,6 +76,10 @@ class MatchRemoteDataSourceImpl implements MatchRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -95,6 +103,10 @@ class MatchRemoteDataSourceImpl implements MatchRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -118,6 +130,10 @@ class MatchRemoteDataSourceImpl implements MatchRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -141,6 +157,10 @@ class MatchRemoteDataSourceImpl implements MatchRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -167,6 +187,10 @@ class MatchRemoteDataSourceImpl implements MatchRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -191,6 +215,10 @@ class MatchRemoteDataSourceImpl implements MatchRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }

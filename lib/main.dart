@@ -9,8 +9,10 @@ import 'package:live_football_stats/core/utils/format_date.dart';
 import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_event.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/league_remote_data_source.dart';
+import 'package:live_football_stats/features/main_feature/domain/entities/favourite/favourite_league_entity.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/upcoming_match.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/themes/get_themes_usecase.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/favourite/favourite_league/favourite_league_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/country_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/country_event.dart';
@@ -34,10 +36,10 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/tea
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/player/player_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/team/transfers/transfers_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/themes/themes_cubit.dart';
-import 'package:live_football_stats/features/main_feature/presentation/pages/main_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'features/main_feature/domain/entities/favourite/favourite_team_entity.dart';
+import 'features/main_feature/presentation/blocs/favourite/favourite_team/favourite_team_bloc.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -55,7 +57,11 @@ void main() async {
   await dotenv.load(fileName: ".env");
   await initDependencies();
   await Hive.initFlutter();
-  runApp(MyApp());
+  Hive.registerAdapter(FavouriteLeagueEntityAdapter());
+  Hive.registerAdapter(FavouriteTeamEntityAdapter());
+  Hive.registerAdapter(LeagueDataEntityAdapter());
+  Hive.registerAdapter(TeamDataEntityAdapter());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -103,6 +109,12 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => sl.get<LeaguesBloc>()..add(AllLeagueFetched()),
+          ),
+          BlocProvider(
+            create: (context) => sl.get<FavouriteLeagueBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl.get<FavouriteTeamBloc>(),
           ),
           BlocProvider(
             create: (context) => NavLeagueCubit(),

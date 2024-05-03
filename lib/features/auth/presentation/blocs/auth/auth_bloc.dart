@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/get_current_user_uc.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/get_otp_verify_uc.dart';
+import 'package:live_football_stats/features/auth/domain/usecases/get_user_uc.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/is_login_uc.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/sign_in_with_facebook_uc.dart';
 import 'package:live_football_stats/features/auth/domain/usecases/sign_in_with_google_uc.dart';
@@ -21,6 +22,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   SignInWithFacebookeUseCase signInWithFacebookeUseCase;
   IsLoginUseCase isLoginUseCase;
   GetOTPVerifyUseCase verifyUseCase;
+  GetUserUseCase getUserUseCase;
   // StreamController<UserEntity?> streamController =
   //     StreamController<UserEntity?>.broadcast();
   AuthBloc(
@@ -31,7 +33,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       required this.signOutUseCase,
       required this.updateUserUseCase,
       required this.isLoginUseCase,
-      required this.verifyUseCase})
+      required this.verifyUseCase,
+      required this.getUserUseCase})
       : super(AuthInitial()) {
     on<SignInWithGoogle>(onSignInWithGoogleEvent);
     on<SignInWithPhone>(onSignInWithPhoneEvent);
@@ -46,12 +49,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       IsLoginEvent event, Emitter<AuthState> emit) async {
     try {
       final result = await isLoginUseCase.call();
+      UserEntity? user = await getUserUseCase.call();
       if (result != null) {
         result.fold((l) {
           emit(ErrorAuthState());
-        }, (r) {
+        }, (r) async {
           if (r) {
-            emit(AuthorizedState());
+            if (user != null) {
+              emit(AuthorizedState(user: user)); // Emit nếu chưa kết thúc
+            } else {
+              emit(UnauthorizedState());
+            }
+            //  emit(AuthorizedState(user: user));
           } else {
             emit(UnauthorizedState());
           }
@@ -100,9 +109,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emit(LoadingState());
       final result = await signInWithGoogleUseCase.call();
+      UserEntity? user = await getUserUseCase.call();
       if (result != null) {
-        result.fold(
-            (l) => emit(ErrorAuthState()), (r) => emit(AuthorizedState()));
+        result.fold((l) => emit(ErrorAuthState()), (r) async {
+          if (r) {
+            if (user != null) {
+              emit(AuthorizedState(user: user));
+            } else {
+              emit(UnauthorizedState());
+            }
+          } else {
+            emit(UnauthorizedState());
+          }
+        });
       } else {
         emit(ErrorAuthState());
       }
@@ -116,10 +135,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emit(LoadingState());
       final result = await signInWithPhoneUseCase.call(event.phone);
+      UserEntity? user = await getUserUseCase.call();
       if (result != null) {
-        result.fold((l) => emit(ErrorAuthState()), (r) {
+        result.fold((l) => emit(ErrorAuthState()), (r) async {
           if (r == null) {
-            emit(AuthorizedState());
+            if (user != null) {
+              emit(AuthorizedState(user: user));
+            } else {
+              emit(ErrorAuthState());
+            }
           } else {
             emit(IsOTPVerified(verificationId: r));
           }
@@ -137,11 +161,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emit(LoadingState());
       final result = await signInWithFacebookeUseCase.call();
+      UserEntity? user = await getUserUseCase.call();
       if (result != null) {
         result.fold((l) {
           emit(ErrorAuthState());
-        }, (r) {
-          emit(AuthorizedState());
+        }, (r) async {
+          if (r) {
+            if (user != null) {
+              emit(AuthorizedState(user: user));
+            } else {
+              emit(ErrorAuthState());
+            }
+          } else {
+            emit(UnauthorizedState());
+          }
         });
       } else {
         emit(ErrorAuthState());
@@ -175,9 +208,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(LoadingState());
       final result =
           await verifyUseCase.call(event.verificationId, event.userOtp);
+      UserEntity? user = await getUserUseCase.call();
       if (result != null) {
-        result.fold(
-            (l) => emit(ErrorAuthState()), (r) => emit(AuthorizedState()));
+        result.fold((l) => emit(ErrorAuthState()), (r) async {
+          if (user != null) {
+            emit(AuthorizedState(user: user));
+          } else {
+            emit(ErrorAuthState());
+          }
+        });
       } else {
         emit(ErrorAuthState());
       }

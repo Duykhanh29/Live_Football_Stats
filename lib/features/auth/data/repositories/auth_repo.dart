@@ -115,4 +115,10 @@ class AuthRepoImpl extends AuthRepositories {
       return Left(ServerFailure(message: e.toString()));
     }
   }
+
+  @override
+  Future<UserEntity?> getUser() async {
+    final result = await authRemoteDataSource.getUser;
+    return result;
+  }
 }

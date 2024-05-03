@@ -15,4 +15,5 @@ class ImageData {
   static const String googleLogo = '$imagePath/google_logo.png';
   static const String phoneImage = '$imagePath/phone.png';
   static const String circleAvatar = '$imagePath/circel_avatar.png';
+  static const String emptyImage = '$imagePath/empty.png';
 }

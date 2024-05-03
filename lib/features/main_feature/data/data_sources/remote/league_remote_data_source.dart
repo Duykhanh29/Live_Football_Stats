@@ -2,7 +2,6 @@ import 'package:live_football_stats/config/const/api_endpoints.dart';
 import 'package:live_football_stats/config/const/api_params.dart';
 import 'package:live_football_stats/config/const/app_config.dart';
 import 'package:live_football_stats/core/error/failures.dart';
-import 'package:live_football_stats/core/injection/injection_container.dart';
 import 'package:live_football_stats/core/utils/dio_client.dart';
 import 'package:live_football_stats/features/main_feature/data/models/country.dart';
 import 'package:live_football_stats/features/main_feature/data/models/league.dart';
@@ -42,6 +41,10 @@ class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -65,6 +68,10 @@ class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -87,6 +94,10 @@ class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -112,6 +123,10 @@ class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }
@@ -136,6 +151,10 @@ class LeagueRemoteDataSourceImpl implements LeagueRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }

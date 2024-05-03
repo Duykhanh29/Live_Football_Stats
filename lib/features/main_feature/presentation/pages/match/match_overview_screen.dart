@@ -37,15 +37,15 @@ class OverviewMatchWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                if (matchStatus != MatchStatus.FINISHED)
+                if (matchStatus != null && matchStatus != MatchStatus.FINISHED)
                   MatchWinnerWidget(
                     matchWinner: matchWinner,
                   ),
-                if (matchStatus != MatchStatus.FINISHED)
+                if (matchStatus != null && matchStatus != MatchStatus.FINISHED)
                   OverUnderWidget(
                     overUnder: overUnder,
                   ),
-                if (matchStatus != MatchStatus.FINISHED)
+                if (matchStatus != null && matchStatus != MatchStatus.FINISHED)
                   HandicapWidget(
                     handicap: handicap,
                   ),

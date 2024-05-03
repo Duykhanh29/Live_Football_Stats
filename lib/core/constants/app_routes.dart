@@ -11,6 +11,7 @@ import 'package:live_football_stats/features/intro/domain/usecase/check_first_ti
 import 'package:live_football_stats/features/intro/presentation/page/intro_page.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/country.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/favourite/favourite_page.dart';
+import 'package:live_football_stats/features/main_feature/presentation/pages/favourite/list_favourite_league_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/league/all_league_of_country_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/league/all_league_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/league/league_main_view.dart';
@@ -23,6 +24,7 @@ import 'package:live_football_stats/features/main_feature/presentation/pages/pro
 import 'package:live_football_stats/features/main_feature/presentation/pages/profile/profile_page.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/team/team_main_view.dart';
 
+import '../../features/main_feature/presentation/pages/favourite/list_favourite_team_page.dart';
 import '../app/root_page.dart';
 
 final GlobalKey<NavigatorState> mainNavigatorKey = GlobalKey<NavigatorState>();
@@ -125,10 +127,21 @@ GoRouter goRouter = GoRouter(
           ],
         ),
         GoRoute(
-          path: 'favourite_page',
-          name: AppRoutesName.favouritePage,
-          builder: (context, state) => const FavouritePage(),
-        ),
+            path: 'favourite_page',
+            name: AppRoutesName.favouritePage,
+            builder: (context, state) => const FavouritePage(),
+            routes: [
+              GoRoute(
+                name: AppRoutesName.listFavouriteLeaguePage,
+                path: 'list_favourite_league_page',
+                builder: (context, state) => const ListFavouriteLeaguePage(),
+              ),
+              GoRoute(
+                name: AppRoutesName.listFavouriteTeamPage,
+                path: 'list_favourite_team_page',
+                builder: (context, state) => const ListFavouriteTeamPage(),
+              ),
+            ]),
         GoRoute(
           path: 'account_page',
           name: AppRoutesName.accountPage,

@@ -277,12 +277,36 @@ class _MatchPageState extends State<MatchPage> with TickerProviderStateMixin {
                   ),
                 ),
                 actions: [
-                  InkWell(
-                    onTap: () {},
-                    child: Icon(Icons.star_rounded),
-                  ),
-                  const SizedBox(
-                    width: 10,
+                  // InkWell(
+                  //   onTap: () {},
+                  //   child: Icon(
+                  //     Icons.star_rounded,
+                  //     color: Colors.orangeAccent,
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   width: 10,
+                  // )
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                    // decoration: BoxDecoration(
+                    //     color: Colors.orange,
+                    //     border: Border.all(color: Colors.lightGreen)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                          onTap: () {},
+                          child: const Icon(
+                            Icons.star_rounded,
+                            color: Colors.orangeAccent,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        )
+                      ],
+                    ),
                   )
                 ],
                 // onStretchTrigger: () {

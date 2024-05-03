@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:live_football_stats/features/auth/domain/entities/user_entity.dart';
 
 class AuthState extends Equatable {
   @override
@@ -26,7 +27,12 @@ class ErrorAuthState extends AuthState {
 class ChangeUserInfoState extends AuthState {}
 // class LoggedOutState extends AuthState {}
 
-class AuthorizedState extends AuthState {}
+class AuthorizedState extends AuthState {
+  UserEntity? user;
+  AuthorizedState({this.user});
+  @override
+  List<Object> get props => [user!];
+}
 
 class UnauthorizedState extends AuthState {}
 

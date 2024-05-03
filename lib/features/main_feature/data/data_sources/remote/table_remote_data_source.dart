@@ -35,6 +35,10 @@ class TableRemoteDataSourceImpl implements TableRemoteDataSource {
         }
       }
     } catch (e) {
+      if (e is TooManyRequestsFailure || e is ServerFailure) {
+        // ignore: use_rethrow_when_possible
+        throw e; // Re-throw specific failure
+      }
       throw ServerFailure(message: e.toString());
     }
   }

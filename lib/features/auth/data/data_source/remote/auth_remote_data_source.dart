@@ -10,6 +10,7 @@ import 'package:live_football_stats/features/auth/domain/entities/user_entity.da
 
 abstract class AuthRemoteDataSource {
   Stream<UserModel?> get currentUser;
+  Future<UserModel?> get getUser;
   Future<bool?> get isLogin;
   Future<bool> signOut();
   Future<bool> signInWithGoogle();
@@ -156,6 +157,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           // Sign the user in (or link) with the auto-generated credential
           final UserCredential userCredential =
               await auth.signInWithCredential(phoneAuthCredential);
+          User? user;
+          user = userCredential.user;
+          if (user != null) {
+            if (!await isUserExists(user.uid)) {
+              UserModel userModel = getUserModel(user, AuthOption.PhoneNumber);
+              await createUser(userModel);
+            }
+          }
         },
         verificationFailed: (error) {
           if (error.code == 'invalid-phone-number') {
@@ -230,7 +239,35 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: userOtp);
       // Sign the user in (or link) with the credential
-      await auth.signInWithCredential(credential);
+      final UserCredential userCredential =
+          await auth.signInWithCredential(credential);
+      User? user;
+      user = userCredential.user;
+      if (user != null) {
+        if (!await isUserExists(user.uid)) {
+          UserModel userModel = getUserModel(user, AuthOption.PhoneNumber);
+          await createUser(userModel);
+        }
+      }
+    } catch (e) {
+      print("Error: $e");
+      throw Exception(e.toString());
+    }
+  }
+
+  @override
+  // TODO: implement getUser
+  Future<UserModel?> get getUser async {
+    try {
+      final user = auth.currentUser;
+      final snapshot = await firestore.collection('users').doc(user!.uid).get();
+      if (snapshot.exists) {
+        final userData = snapshot.data();
+        UserModel userModel = UserModel.fromJson(userData!);
+        return userModel;
+      } else {
+        return null;
+      }
     } catch (e) {
       print("Error: $e");
       throw Exception(e.toString());

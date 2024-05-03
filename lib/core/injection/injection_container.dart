@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:live_football_stats/core/platform/network_info.dart';
 import 'package:live_football_stats/core/utils/dio_client.dart';
 import 'package:live_football_stats/features/auth/data/data_source/remote/auth_remote_data_source.dart';
@@ -15,21 +16,28 @@ import 'package:live_football_stats/features/auth/domain/usecases/sign_in_with_p
 import 'package:live_football_stats/features/auth/domain/usecases/sign_out_uc.dart';
 import 'package:live_football_stats/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:live_football_stats/features/intro/domain/usecase/check_first_time_open.dart';
+import 'package:live_football_stats/features/main_feature/data/data_sources/local/favourite_league_local_data_source.dart';
+import 'package:live_football_stats/features/main_feature/data/data_sources/local/favourite_team_local_data_source.dart';
+import 'package:live_football_stats/features/main_feature/data/data_sources/remote/favourite/favourite_firestore.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/league_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/live_score_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/matches_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/table_remote_data_source.dart';
 import 'package:live_football_stats/features/main_feature/data/data_sources/remote/team_remote_data_source.dart';
+import 'package:live_football_stats/features/main_feature/data/repositories/favourite/favourite_repo.dart';
 import 'package:live_football_stats/features/main_feature/data/repositories/league_repo.dart';
 import 'package:live_football_stats/features/main_feature/data/repositories/live_score_repo.dart';
 import 'package:live_football_stats/features/main_feature/data/repositories/match_repo.dart';
 import 'package:live_football_stats/features/main_feature/data/repositories/table_repo.dart';
 import 'package:live_football_stats/features/main_feature/data/repositories/team_repo.dart';
+import 'package:live_football_stats/features/main_feature/domain/repositories/favourite/favourite_repositories.dart';
 import 'package:live_football_stats/features/main_feature/domain/repositories/league_repositories.dart';
 import 'package:live_football_stats/features/main_feature/domain/repositories/live_score_repositories.dart';
 import 'package:live_football_stats/features/main_feature/domain/repositories/match_repositories.dart';
 import 'package:live_football_stats/features/main_feature/domain/repositories/table_repositories.dart';
 import 'package:live_football_stats/features/main_feature/domain/repositories/team_repositories.dart';
+import 'package:live_football_stats/features/main_feature/domain/usecases/favourite/delete_favourite_league_uc.dart';
+import 'package:live_football_stats/features/main_feature/domain/usecases/favourite/get_list_favourite_team_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/leagues/get_all_country_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/leagues/get_all_leagues_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/leagues/get_country_uc.dart';
@@ -52,6 +60,7 @@ import 'package:live_football_stats/features/main_feature/domain/usecases/team/g
 import 'package:live_football_stats/features/main_feature/domain/usecases/team/get_team_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/team/get_transfer_uc.dart';
 import 'package:live_football_stats/features/main_feature/domain/usecases/themes/get_themes_usecase.dart';
+import 'package:live_football_stats/features/main_feature/presentation/blocs/favourite/favourite_league/favourite_league_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/a_league/league_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/country/country_bloc.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/league/leagues/leagues_bloc.dart';
@@ -69,6 +78,12 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/tea
 
 import '../../features/auth/data/repositories/auth_repo.dart';
 import '../../features/auth/domain/repositories/auth_repositories.dart';
+import '../../features/auth/domain/usecases/get_user_uc.dart';
+import '../../features/main_feature/domain/usecases/favourite/add_favourite_league_uc.dart';
+import '../../features/main_feature/domain/usecases/favourite/add_favourite_team_uc.dart';
+import '../../features/main_feature/domain/usecases/favourite/delete_favourite_team_uc.dart';
+import '../../features/main_feature/domain/usecases/favourite/get_list_favourote_league_uc.dart';
+import '../../features/main_feature/presentation/blocs/favourite/favourite_team/favourite_team_bloc.dart';
 import '../services/websocket_services/websocket_client_service.dart';
 
 final sl = GetIt.instance;
@@ -76,7 +91,6 @@ final sl = GetIt.instance;
 Future<void> initDependencies() async {
   //intro
   sl.registerLazySingleton<CheckFirstTimeOpen>(() => CheckFirstTimeOpenImpl());
-
   // themes
   sl.registerLazySingleton<GetThemeUsecase>(() => GetThemeUseCaseImpl());
   // final sharedPreferences = await SharedPreferences.getInstance();
@@ -119,6 +133,7 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton<IsLoginUseCase>(() => IsLoginUseCase(sl()));
   sl.registerLazySingleton<GetOTPVerifyUseCase>(
       () => GetOTPVerifyUseCase(sl()));
+  sl.registerLazySingleton<GetUserUseCase>(() => GetUserUseCase(sl()));
   // blocs
   sl.registerLazySingleton<AuthBloc>(
     () => AuthBloc(
@@ -130,9 +145,51 @@ Future<void> initDependencies() async {
       updateUserUseCase: sl(),
       isLoginUseCase: sl(),
       verifyUseCase: sl(),
+      getUserUseCase: sl(),
     ),
   );
 
+  // favourite
+  //data source
+  sl.registerFactory<FavouriteFirestore>(
+    () => FavouriteFirestoreImpl(firestore: sl()),
+  );
+  sl.registerFactory<FavouriteLeagueLocalDataSource>(
+    () => FavouriteLeagueLocalDataSourceImpl(),
+  );
+  sl.registerFactory<FavouriteTeamLocalDataSource>(
+    () => FavouriteTeamLocalDataSourceImpl(),
+  );
+  // repo
+  sl.registerLazySingleton<FavouriteRepositories>(
+    () => FavouriteRepoImpl(
+        favouriteFirestore: sl(),
+        favouriteLeagueLocalDataSource: sl(),
+        favouriteTeamLocalDataSource: sl(),
+        networkInfo: sl()),
+  );
+  //usecases
+  sl.registerLazySingleton<AddFavouriteLeagueUseCase>(
+      () => AddFavouriteLeagueUseCase(sl()));
+  sl.registerLazySingleton<AddFavouriteTeamUseCase>(
+      () => AddFavouriteTeamUseCase(sl()));
+  sl.registerLazySingleton<DeleteFavouriteLeagueUseCase>(
+      () => DeleteFavouriteLeagueUseCase(sl()));
+  sl.registerLazySingleton<DeleteFavouriteTeamUseCase>(
+      () => DeleteFavouriteTeamUseCase(sl()));
+  sl.registerLazySingleton<GetListFavouriteTeamUseCase>(
+      () => GetListFavouriteTeamUseCase(sl()));
+  sl.registerLazySingleton<GetListFavouriteLeagueUseCase>(
+      () => GetListFavouriteLeagueUseCase(sl()));
+  // bloc
+  sl.registerFactory<FavouriteLeagueBloc>(() => FavouriteLeagueBloc(
+      addFavouriteLeagueUseCase: sl(),
+      deleteFavouriteLeagueUseCase: sl(),
+      getListFavouriteLeagueUseCase: sl()));
+  sl.registerFactory<FavouriteTeamBloc>(() => FavouriteTeamBloc(
+      addFavouriteTeamUseCase: sl(),
+      deleteFavouriteTeamUseCase: sl(),
+      getListFavouriteTeamUseCase: sl()));
   // MAIN FEATURE
 
   // data sources

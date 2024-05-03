@@ -13,7 +13,6 @@ import 'package:live_football_stats/features/main_feature/domain/entities/match.
 import 'package:live_football_stats/features/main_feature/domain/entities/match_preview.dart'
     as preview;
 import 'package:live_football_stats/features/main_feature/domain/repositories/match_repositories.dart';
-import 'package:live_football_stats/features/main_feature/data/models/match_model.dart';
 import 'package:live_football_stats/features/main_feature/data/models/preview_match.dart';
 import 'package:live_football_stats/features/main_feature/data/models/upcoming_matches_of_a_league.dart';
 
@@ -35,7 +34,11 @@ class MatchRepoImpl implements MatchRepositories {
         }
         return null;
       } catch (e) {
-        return Left(ServerFailure(message: e.toString()));
+        if (e is TooManyRequestsFailure) {
+          return Left(TooManyRequestsFailure(message: e.message));
+        } else {
+          return Left(ServerFailure(message: e.toString()));
+        }
       }
     } else {
       return Left(NetworkFailure());
@@ -55,7 +58,11 @@ class MatchRepoImpl implements MatchRepositories {
         }
         return null;
       } catch (e) {
-        return Left(ServerFailure(message: e.toString()));
+        if (e is TooManyRequestsFailure) {
+          return Left(TooManyRequestsFailure(message: e.message));
+        } else {
+          return Left(ServerFailure(message: e.toString()));
+        }
       }
     } else {
       return Left(NetworkFailure());
@@ -74,7 +81,11 @@ class MatchRepoImpl implements MatchRepositories {
         }
         return null;
       } catch (e) {
-        return Left(ServerFailure(message: e.toString()));
+        if (e is TooManyRequestsFailure) {
+          return Left(TooManyRequestsFailure(message: e.message));
+        } else {
+          return Left(ServerFailure(message: e.toString()));
+        }
       }
     } else {
       return Left(NetworkFailure());
@@ -95,7 +106,11 @@ class MatchRepoImpl implements MatchRepositories {
         }
         return null;
       } catch (e) {
-        return Left(ServerFailure(message: e.toString()));
+        if (e is TooManyRequestsFailure) {
+          return Left(TooManyRequestsFailure(message: e.message));
+        } else {
+          return Left(ServerFailure(message: e.toString()));
+        }
       }
     } else {
       return Left(NetworkFailure());
@@ -115,7 +130,11 @@ class MatchRepoImpl implements MatchRepositories {
         }
         return null;
       } catch (e) {
-        return Left(ServerFailure(message: e.toString()));
+        if (e is TooManyRequestsFailure) {
+          return Left(TooManyRequestsFailure(message: e.message));
+        } else {
+          return Left(ServerFailure(message: e.toString()));
+        }
       }
     } else {
       return Left(NetworkFailure());
@@ -136,7 +155,11 @@ class MatchRepoImpl implements MatchRepositories {
         }
         return null;
       } catch (e) {
-        return Left(ServerFailure(message: e.toString()));
+        if (e is TooManyRequestsFailure) {
+          return Left(TooManyRequestsFailure(message: e.message));
+        } else {
+          return Left(ServerFailure(message: e.toString()));
+        }
       }
     } else {
       return Left(NetworkFailure());
@@ -160,7 +183,11 @@ class MatchRepoImpl implements MatchRepositories {
         }
         return null;
       } catch (e) {
-        return Left(ServerFailure(message: e.toString()));
+        if (e is TooManyRequestsFailure) {
+          return Left(TooManyRequestsFailure(message: e.message));
+        } else {
+          return Left(ServerFailure(message: e.toString()));
+        }
       }
     } else {
       return Left(NetworkFailure());

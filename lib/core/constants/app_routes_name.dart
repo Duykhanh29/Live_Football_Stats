@@ -19,4 +19,8 @@ class AppRoutesName {
   static const String loginPage = 'login_page';
   static const String loginPhonePage = 'login_phone_page';
   static const String otpPage = 'otp_page';
+
+  // favourite
+  static const listFavouriteLeaguePage = '/list_favourite_league_page';
+  static const listFavouriteTeamPage = '/list_favourite_team_page';
 }

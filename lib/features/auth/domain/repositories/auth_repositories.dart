@@ -13,4 +13,5 @@ abstract class AuthRepositories {
   Future<Either<Failure, bool>?> isLogin();
   Future<Either<Failure, void>?> verifyOTP(
       String verificationId, String userOtp);
+  Future<UserEntity?> getUser();
 }
