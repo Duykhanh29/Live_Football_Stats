@@ -8,6 +8,7 @@ import 'package:live_football_stats/features/main_feature/presentation/blocs/tab
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_event.dart';
 import 'package:live_football_stats/features/main_feature/presentation/blocs/table/table_state.dart';
 import 'package:live_football_stats/features/main_feature/presentation/pages/team/team_main_view.dart';
+import 'package:live_football_stats/features/main_feature/presentation/widgets/table/group_table_view.dart';
 import 'package:live_football_stats/features/main_feature/presentation/widgets/table/table_widget.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -34,12 +35,21 @@ class TableOfLeagueScreen extends StatelessWidget {
                   builder: (context, state) {
                     if (state is TableFetchSuccess) {
                       return SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
+                        scrollDirection: Axis.vertical,
                         child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: TableWidget(
-                              standings:
-                                  state.standingEntities.stage[0].standings),
+                          scrollDirection: Axis.horizontal,
+                          child: state.standingEntities.stage[0].hasGroups
+                              ? GroupTableView(
+                                  stage: state.standingEntities.stage[0])
+                              :
+                              //  TableWidget(
+                              //     standings:
+                              //         state.standingEntities.stage[0].standings)
+                              DataTableWidget(
+                                  standings: state
+                                      .standingEntities.stage[0].standings
+                                      .map((e) => e as Standing)
+                                      .toList()),
                         ),
                       );
                     } else if (state is TableFetchFail) {

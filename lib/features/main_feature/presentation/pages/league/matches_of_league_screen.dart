@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:live_football_stats/core/constants/app_colors.dart';
+import 'package:live_football_stats/core/constants/app_text_style.dart';
+import 'package:live_football_stats/core/helper/divider_helper.dart';
 import 'package:live_football_stats/core/utils/common_method.dart';
 import 'package:live_football_stats/core/utils/format_date.dart';
 import 'package:live_football_stats/features/main_feature/domain/entities/league_matches.dart';
@@ -58,69 +61,168 @@ class _MatchedOfLeagueScreenState extends State<MatchedOfLeagueScreen> {
         return BlocConsumer<MatchesBloc, MatchesState>(
           builder: (context, state) {
             if (state is MatchesFetchSuccess) {
-              int currentIndex = CommonMethods.findCurrentIndexMatch(
-                  state.leagueMatches.stage![0].matches!, DateTime.now());
-              currentMatchIndex =
-                  state.leagueMatches.stage![0].matches!.length - currentIndex;
-              print(
-                  "Match: ${state.leagueMatches.stage![0].matches![currentMatchIndex].teams!.home!.name} and ${state.leagueMatches.stage![0].matches![currentMatchIndex].teams!.away!.name} and time: ${state.leagueMatches.stage![0].matches![currentMatchIndex].time}");
-              print("Total: ${state.leagueMatches.stage![0].matches!.length}");
-              // // WidgetsBinding.instance.addPostFrameCallback((_) {
-              // //   _scrollToCurrentMatch(
-              // //       state.leagueMatches.stage![0].matches!.length);
-              // // });
-              // itemScrollController.scrollTo(
-              //     index: currentMatchIndex, duration: Duration(seconds: 2));
-              // itemScrollController.jumpTo(index: currentMatchIndex);
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                _scrollToIndex(currentMatchIndex);
-              });
+              if (state.leagueMatches.isCup == true) {
+                List<Stage> listStage =
+                    CommonMethods.sortStages(state.leagueMatches.stage!);
+                listStage = listStage.reversed.toList();
+                return Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                  child: ListView.separated(
+                      reverse: true,
+                      shrinkWrap: true,
+                      itemCount: listStage.length,
+                      separatorBuilder: (context, index) {
+                        return DividerHelper.sizedboxDivider(height: 20);
+                      },
+                      itemBuilder: (context, index) {
+                        String isActive = listStage[index].isActive != null &&
+                                listStage[index].isActive == true
+                            ? "Active"
+                            : "Inactive";
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: AppColors.backgroundColor),
+                              padding: const EdgeInsets.all(2),
+                              child: Text(
+                                listStage[index].name != null
+                                    ? "${listStage[index].name!} ($isActive)"
+                                    : "",
+                                style: AppTextStyles.headingTextStyle(),
+                              ),
+                            ),
+                            GroupedListView<LeagueMatch, DateTime>(
+                              elements:
+                                  listStage[index].matches!.reversed.toList(),
+                              groupBy: (leagueMatch) {
+                                return DateTime(
+                                    FormatDate.dateTimeStringToDate(
+                                            leagueMatch.date!)
+                                        .year,
+                                    FormatDate.dateTimeStringToDate(
+                                            leagueMatch.date!)
+                                        .month,
+                                    FormatDate.dateTimeStringToDate(
+                                            leagueMatch.date!)
+                                        .day);
+                              },
+                              groupHeaderBuilder: (elementMatch) {
+                                return Container(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
+                                  // height: 35,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                            color: Color.fromARGB(
+                                                255, 209, 246, 251)),
+                                        child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: Text(elementMatch.date!)),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              itemComparator: (leagueMatch1, leagueMatch2) =>
+                                  FormatDate.dateTimeStringToDate(
+                                          leagueMatch1.date!)
+                                      .compareTo(
+                                          FormatDate.dateTimeStringToDate(
+                                              leagueMatch2.date!)),
+                              reverse: true,
+                              physics: const BouncingScrollPhysics(),
+                              // floatingHeader: true,
+                              shrinkWrap: true,
+                              order: GroupedListOrder.DESC,
+                              itemBuilder: (context, elementMatch) {
+                                return MatchCard(
+                                  match: elementMatch,
+                                  heightSize: heightSize,
+                                );
+                              },
+                            ),
+                          ],
+                        );
+                      }),
+                );
+              } else {
+                int currentIndex = CommonMethods.findCurrentIndexMatch(
+                    state.leagueMatches.stage![0].matches!, DateTime.now());
+                currentMatchIndex =
+                    state.leagueMatches.stage![0].matches!.length -
+                        currentIndex;
+                print(
+                    "Match: ${state.leagueMatches.stage![0].matches![currentMatchIndex].teams!.home!.name} and ${state.leagueMatches.stage![0].matches![currentMatchIndex].teams!.away!.name} and time: ${state.leagueMatches.stage![0].matches![currentMatchIndex].time}");
+                print(
+                    "Total: ${state.leagueMatches.stage![0].matches!.length}");
+                // // WidgetsBinding.instance.addPostFrameCallback((_) {
+                // //   _scrollToCurrentMatch(
+                // //       state.leagueMatches.stage![0].matches!.length);
+                // // });
+                // itemScrollController.scrollTo(
+                //     index: currentMatchIndex, duration: Duration(seconds: 2));
+                // itemScrollController.jumpTo(index: currentMatchIndex);
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  _scrollToIndex(currentMatchIndex);
+                });
 
-              return StickyGroupedListView<LeagueMatch, DateTime>(
-                initialScrollIndex: currentMatchIndex,
-                itemScrollController: itemScrollController,
-                elements: state.leagueMatches.stage![0].matches!,
-                groupBy: (leagueMatch) {
-                  return DateTime(
-                      FormatDate.dateTimeStringToDate(leagueMatch.date!).year,
-                      FormatDate.dateTimeStringToDate(leagueMatch.date!).month,
-                      FormatDate.dateTimeStringToDate(leagueMatch.date!).day);
-                },
-                groupSeparatorBuilder: (element) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    padding: const EdgeInsets.only(top: 20),
-                    // height: 35,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 209, 246, 251)),
-                          child: Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: Text(element.date!)),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                itemComparator: (leagueMatch1, leagueMatch2) => FormatDate
-                        .dateTimeStringToDate(leagueMatch1.date!)
-                    .compareTo(
-                        FormatDate.dateTimeStringToDate(leagueMatch2.date!)),
-                reverse: true,
-                physics: const BouncingScrollPhysics(),
-                // floatingHeader: true,
-                order: StickyGroupedListOrder.DESC,
-                itemBuilder: (context, element) {
-                  return MatchCard(
-                    match: element,
-                    heightSize: heightSize,
-                  );
-                },
-              );
+                return StickyGroupedListView<LeagueMatch, DateTime>(
+                  initialScrollIndex: currentMatchIndex,
+                  itemScrollController: itemScrollController,
+                  elements: state.leagueMatches.stage![0].matches!,
+                  groupBy: (leagueMatch) {
+                    return DateTime(
+                        FormatDate.dateTimeStringToDate(leagueMatch.date!).year,
+                        FormatDate.dateTimeStringToDate(leagueMatch.date!)
+                            .month,
+                        FormatDate.dateTimeStringToDate(leagueMatch.date!).day);
+                  },
+                  groupSeparatorBuilder: (element) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      padding: const EdgeInsets.only(top: 20),
+                      // height: 35,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 209, 246, 251)),
+                            child: Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Text(element.date!)),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  itemComparator: (leagueMatch1, leagueMatch2) => FormatDate
+                          .dateTimeStringToDate(leagueMatch1.date!)
+                      .compareTo(
+                          FormatDate.dateTimeStringToDate(leagueMatch2.date!)),
+                  reverse: true,
+                  physics: const BouncingScrollPhysics(),
+                  // floatingHeader: true,
+                  order: StickyGroupedListOrder.DESC,
+                  itemBuilder: (context, element) {
+                    return MatchCard(
+                      match: element,
+                      heightSize: heightSize,
+                    );
+                  },
+                );
+              }
             } else if (state is MatchesLoading) {
               return Container();
             } else if (state is InitialMatches) {

@@ -64,7 +64,9 @@ class _TeamMainViewState extends State<TeamMainView>
               return TabBarView(
                 controller: controller,
                 children: [
-                  TeamOverviewScreen(),
+                  TeamOverviewScreen(
+                    team: state.team,
+                  ),
                   // TeamOverviewScreen(),
                   // TeamOverviewScreen(),
                   // TeamOverviewScreen(),

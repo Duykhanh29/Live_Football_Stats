@@ -21,6 +21,14 @@ class CommonMethods {
     return result;
   }
 
+  static List<LeagueMatch> getAllMatchesOfAllStage(List<Stage> listStage) {
+    List<LeagueMatch> list = [];
+    for (var i = 0; i < listStage.length; i++) {
+      list.addAll(listStage[i].matches ?? []);
+    }
+    return list;
+  }
+
   static List<LeagueMatch> getCurrentListMatches(
       List<LeagueMatch> matches, DateTime time) {
     String currentTime;
@@ -76,5 +84,63 @@ class CommonMethods {
       }
     }
     return false;
+  }
+
+  static List<LeagueMatch> sortLeagueMatchesInAStage(
+      List<LeagueMatch> matches) {
+    matches.sort(
+      (a, b) {
+        DateTime dateTime1 = FormatDate.dateTimeStringToDate(a.date!);
+        DateTime dateTime2 = FormatDate.dateTimeStringToDate(b.date!);
+        if (dateTime1.compareTo(dateTime2) > 0) {
+          return -1;
+        }
+        return 1;
+      },
+    );
+    return matches;
+  }
+
+  static List<Stage> sortStages(List<Stage> stages) {
+    stages.sort(
+      (a, b) {
+        List<LeagueMatch> leagueA = sortLeagueMatchesInAStage(a.matches!);
+        List<LeagueMatch> leagueB = sortLeagueMatchesInAStage(b.matches!);
+        DateTime dateTime1 =
+            FormatDate.dateTimeStringToDate(leagueA.first.date!);
+        DateTime dateTime2 =
+            FormatDate.dateTimeStringToDate(leagueB.last.date!);
+        if (dateTime1.compareTo(dateTime2) > 0) {
+          return 1;
+        }
+        return -1;
+      },
+    );
+    return stages;
+  }
+
+  static List<int> getCurrentMatchOfCupLeague(
+      List<Stage> stages, DateTime time) {
+    List<int> list = [];
+    String currentTime;
+    DateTime dateTime = time;
+    int matchIndex = -1;
+    int stageIndex = -1;
+    do {
+      for (var i = 0; i < stages.length; i++) {
+        currentTime = FormatDate.dateToDateAndTime(dateTime);
+        matchIndex = stages[i]
+            .matches!
+            .indexWhere((match) => match.date! == currentTime);
+        if (matchIndex == -1) {
+          dateTime = dateTime.add(const Duration(days: 1));
+        } else {
+          stageIndex = i;
+        }
+      }
+    } while (matchIndex == -1 || stageIndex == -1);
+    list.add(stageIndex);
+    list.add(matchIndex);
+    return list;
   }
 }

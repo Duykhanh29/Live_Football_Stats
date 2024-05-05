@@ -26,7 +26,7 @@ class Stage extends Equatable {
   String stageName;
   bool hasGroups;
   bool isActive;
-  List<Standing> standings;
+  List<dynamic> standings;
 
   Stage({
     required this.stageId,
@@ -40,6 +40,22 @@ class Stage extends Equatable {
   // TODO: implement props
   List<Object?> get props =>
       [stageId, stageName, isActive, standings, hasGroups];
+}
+
+class GroupStandingEntities extends Equatable {
+  final int groupId;
+  final String groupName;
+  final List<Standing> standings;
+
+  GroupStandingEntities({
+    required this.groupId,
+    required this.groupName,
+    required this.standings,
+  });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [groupId, groupName, standings];
 }
 
 class Standing extends Equatable {

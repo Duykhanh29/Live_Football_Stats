@@ -27,7 +27,7 @@ class _LeaguePageState extends State<LeaguePage> with TickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
     context.read<LeagueBloc>().add(LeagueFetchedEvent(widget.leagueId));
-    controller = TabController(length: 3, vsync: this);
+    controller = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -109,9 +109,9 @@ class _LeaguePageState extends State<LeaguePage> with TickerProviderStateMixin {
                   Tab(
                     text: "Table",
                   ),
-                  Tab(
-                    text: "Current",
-                  )
+                  // Tab(
+                  //   text: "Current",
+                  // )
                 ],
                 labelStyle: AppTextStyles.tabBarTextStyle(),
                 indicatorColor: AppColors.lightTabarColor,
@@ -139,9 +139,9 @@ class _LeaguePageState extends State<LeaguePage> with TickerProviderStateMixin {
                     TableOfLeagueScreen(
                       leagueId: widget.leagueId,
                     ),
-                    MatchedOfLeagueScreen(
-                      leagueID: widget.leagueId,
-                    )
+                    // MatchedOfLeagueScreen(
+                    //   leagueID: widget.leagueId,
+                    // )
                   ],
                 ),
               );
@@ -153,9 +153,9 @@ class _LeaguePageState extends State<LeaguePage> with TickerProviderStateMixin {
                 Center(
                   child: Container(),
                 ),
-                Center(
-                  child: Container(),
-                ),
+                // Center(
+                //   child: Container(),
+                // ),
               ]);
             }
           },

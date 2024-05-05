@@ -55,7 +55,7 @@ class Stage {
   String stageName;
   bool hasGroups;
   bool isActive;
-  List<Standing> standings;
+  List<dynamic> standings;
 
   Stage({
     required this.stageId,
@@ -65,14 +65,25 @@ class Stage {
     required this.standings,
   });
 
-  factory Stage.fromJson(Map<String, dynamic> json) => Stage(
-        stageId: json["stage_id"],
-        stageName: json["stage_name"],
-        hasGroups: json["has_groups"],
-        isActive: json["is_active"],
-        standings: List<Standing>.from(
-            json["standings"].map((x) => Standing.fromJson(x))),
-      );
+  factory Stage.fromJson(Map<String, dynamic> json) {
+    var standingsList = json['standings'] as List;
+    var standings = standingsList.map((i) {
+      if (i['group_id'] != null && i['group_name'] != null) {
+        // Trường hợp có groupId và groupName, đây là một GroupStanding
+        return GroupStanding.fromJson(i);
+      } else {
+        // Trường hợp không có groupId và groupName, đây là một Standing
+        return Standing.fromJson(i);
+      }
+    }).toList();
+    return Stage(
+      stageId: json["stage_id"],
+      stageName: json["stage_name"],
+      hasGroups: json["has_groups"],
+      isActive: json["is_active"],
+      standings: standings,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "stage_id": stageId,
@@ -88,6 +99,43 @@ class Stage {
         hasGroups: hasGroups,
         isActive: isActive,
         standings: standings.map((e) => e.toEntity()).toList());
+  }
+}
+
+class GroupStanding {
+  final int groupId;
+  final String groupName;
+  final List<Standing> standings;
+
+  GroupStanding({
+    required this.groupId,
+    required this.groupName,
+    required this.standings,
+  });
+
+  factory GroupStanding.fromJson(Map<String, dynamic> json) {
+    return GroupStanding(
+      groupId: json['group_id'],
+      groupName: json['group_name'],
+      standings: List<Standing>.from(
+          json['standings'].map((x) => Standing.fromJson(x))),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'group_id': groupId,
+      'group_name': groupName,
+      'standings': standings.map((x) => x.toJson()).toList(),
+    };
+  }
+
+  standingEntity.GroupStandingEntities toEntity() {
+    return standingEntity.GroupStandingEntities(
+      groupId: groupId,
+      groupName: groupName,
+      standings: standings.map((e) => e.toEntity()).toList(),
+    );
   }
 }
 
