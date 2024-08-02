@@ -30,6 +30,13 @@ jobs:
           channel: 'stable'
 
           
+       # Set up environment variables from GitHub Secrets
+      - name: Set up environment
+        run: |
+          echo "AUTH_TOKEN=${{ secrets.AUTHTOKEN }}" >> $GITHUB_ENV
+          echo "BASE_URL=${{ secrets.BASEURL }}" >> $GITHUB_ENV
+
+          
       - name: build APK
         run: |
           flutter pub get
